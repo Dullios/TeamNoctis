@@ -12,6 +12,6 @@ EditorBuildSettings:
     path: Assets/Scenes/UI/LoadingScene.unity
     guid: 278247a64f9c12b44a497fe10967b8c2
   - enabled: 1
-    path: Assets/Scenes/Junho_Scene.unity
+    path: Assets/Scenes/UI/HUDScene.unity
     guid: fa831a1ca8b62fb488f3bed91fdd7597
   m_configObjects: {}
