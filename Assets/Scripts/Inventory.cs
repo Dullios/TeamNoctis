@@ -91,7 +91,50 @@ public class Inventory : Singleton<Inventory>
 
                 //Adjust item image size
                 inventory[row, col].AdjustItemImageAndCountSize();
+                inventory[row, col].SetItemCount(0);
             }
         }
+    }
+
+    public bool AddItem(Item newItem, int newItemCount)
+    {
+        int emptyRow = -1; //save empty row
+        int emptyCol = -1; //save empty Col
+
+        for (int row = 0; row < numOfSlotRow; ++row)
+        {
+            for (int col = 0; col < numOfSlotCol; ++col)
+            {
+                //If slot's item is empty
+                if(inventory[row, col].item == null)
+                {
+                    //Save empty slot's row and col
+                    if (emptyRow == -1 && emptyCol == -1)
+                    {
+                        emptyRow = row;
+                        emptyCol = col;
+                    }
+                }
+                else
+                {
+                    //If it's the same item,
+                    if(inventory[row, col].item.itemID == newItem.itemID)
+                    {
+                        //Stack up item
+                        inventory[row, col].SetItemCount(inventory[row, col].itemCount + newItemCount);
+                        return true;
+                    }
+                }
+            }
+        }
+
+        //If we wasn't able to find the same item in the inventory and has empty slot, add new item
+        if(emptyRow != -1 && emptyCol != -1)
+        {
+            inventory[emptyRow, emptyCol].SetItem(newItem, newItemCount);
+            return true;
+        }
+
+        return false;
     }
 }

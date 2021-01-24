@@ -165,6 +165,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38324110826e08043bb5132490914cbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemImage: {fileID: 4645588192660581353}
+  item: {fileID: 0}
+  itemCount: 0
   itemImageRectTransform: {fileID: 6754175900357420625}
   itemImageWidthPercent: 0.8
   itemImageHeightPercent: 0.8

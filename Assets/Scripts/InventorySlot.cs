@@ -7,6 +7,11 @@ using TMPro;
 public class InventorySlot : MonoBehaviour
 {
     RectTransform rectTransform; //slot's rectTransform
+    public Image itemImage; //item image
+    TextMeshProUGUI itemCountText; //itemCountText
+
+    public Item item = null; //item in slot
+    public int itemCount = 0;
 
     [Header("ItemImage settings")]
     public RectTransform itemImageRectTransform; //Item image from children
@@ -25,7 +30,9 @@ public class InventorySlot : MonoBehaviour
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
-        
+        //itemImage = GetComponentInChildren<Image>();
+        itemCountText = GetComponentInChildren<TextMeshProUGUI>();
+
     }
 
     // Start is called before the first frame update
@@ -56,5 +63,28 @@ public class InventorySlot : MonoBehaviour
         float itemCountHeight = slotHeight * itemCountHeightPercent;
         itemCountRectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, itemCountWidth);
         itemCountRectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, itemCountHeight);
+    }
+
+    public void SetItemCount(int newItemCount)
+    {
+        itemCount = newItemCount;
+        itemCountText.text = "x" + itemCount.ToString();
+
+        if(itemCount == 0)
+        {
+            itemCountText.enabled = false;
+        }
+        else
+        {
+            itemCountText.enabled = true;
+        }
+    }
+
+    public void SetItem(Item newItem, int newItemCount)
+    {
+        item = newItem;
+
+        itemImage.sprite = item.itemImage;
+        SetItemCount(newItemCount);
     }
 }
