@@ -88,6 +88,9 @@ public class Inventory : Singleton<Inventory>
                 //Set size of slot
                 inventory[row, col].GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, slotHeight);
                 inventory[row, col].GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, slotWidth);
+
+                //Adjust item image size
+                inventory[row, col].AdjustItemImageAndCountSize();
             }
         }
     }
