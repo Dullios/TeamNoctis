@@ -3,27 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+
 /// <summary>
-/// Name: Junho Kim
-/// Student#: 101136986
+/// Group Name: Team Noctis
 /// The Source file name: Loading.cs
-/// Date last Modified: 2020-11-13
+/// Date last Modified: 2021-01-24
 /// Program description
 ///  - after 3 secs, move to play game scene
 ///  - add a slider to let users know the progress of loading
 ///  
 /// Revision History
-/// 2020-11-13: Loading Scene 
+/// 2021-01-24: Loading Scene 
 /// </summary>
-/// 
+
 public class Loading : MonoBehaviour
 {
-    #region Variables
     // Loading Bar made with Unity Slider
     [SerializeField]
     Slider slider = null;
 
-    public string sceneName;
+    public string sceneName = string.Empty;
 
     // Loading status - at first loading is not done yet.
     bool IsDone = false;
@@ -34,9 +33,6 @@ public class Loading : MonoBehaviour
     // make code not compile at the same time.
     AsyncOperation async_operation;
 
-    #endregion
-
-    #region Unity_Method
     void Start()
     {
         // GameScene is waiting for the showing
@@ -62,9 +58,6 @@ public class Loading : MonoBehaviour
         }
     }
 
-    #endregion
-
-    #region Custom_Method
     // Before Start Scene, Load Loading Scene
     public IEnumerator StartLoad(string strSceneName)
     {
@@ -86,6 +79,5 @@ public class Loading : MonoBehaviour
             }
         }
     }
-    #endregion
 }
 
