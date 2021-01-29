@@ -23,10 +23,16 @@ public class TitleButton : MonoBehaviour
 
     // credit panel
     public GameObject credit = null;
+    public GameObject option = null;
+
+    // boolean
+    bool isCreadt = false;
+    bool isOption = false;
 
     private void Start()
     {
         credit.gameObject.SetActive(false);
+        option.gameObject.SetActive(false);
     }
 
     // load scene
@@ -40,11 +46,27 @@ public class TitleButton : MonoBehaviour
     ///////////////////////// buttons
     public void GoCredits()
     {
+        isCreadt = true;
         credit.gameObject.SetActive(true);
+    }
+
+    public void GoOption()
+    {
+        isOption = true;
+        option.gameObject.SetActive(true);
     }
 
     public void BackMenu()
     {
-        credit.gameObject.SetActive(false);
+        if (isCreadt && !isOption)
+        {
+            credit.gameObject.SetActive(false);
+            isCreadt = false;
+        }
+        if (isOption && !isCreadt)
+        {
+            option.gameObject.SetActive(false);
+            isOption = false;
+        }
     }
 }
