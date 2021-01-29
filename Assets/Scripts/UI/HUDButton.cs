@@ -23,6 +23,7 @@ public class HUDButton : MonoBehaviour
     // Pause Panel
     public GameObject pause = null;
     public GameObject gameover = null;
+    public GameObject option = null;
 
     // to load scene
     public string menuScene = string.Empty;
@@ -35,6 +36,7 @@ public class HUDButton : MonoBehaviour
     {
         pause.gameObject.SetActive(false);
         gameover.gameObject.SetActive(false);
+        option.gameObject.SetActive(false);
     }
 
     // temporaily load game over scene with "G" key only
@@ -72,6 +74,16 @@ public class HUDButton : MonoBehaviour
             pause.gameObject.SetActive(false);
 
         }
+    }
+
+    public void GoOption()
+    {
+        option.gameObject.SetActive(true);
+    }
+
+    public void GoBack()
+    {
+        option.gameObject.SetActive(false);
     }
 
     // load scene
