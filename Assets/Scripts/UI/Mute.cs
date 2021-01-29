@@ -43,21 +43,37 @@ public class Mute : MonoBehaviour
 
     #endregion
 
+    private void Update()
+    {
+        MuteIconChange();
+    }
+
     public void GoToggleMute()
     {
         if(PlayerPrefs.GetInt("Mute",0) ==0)
         {
             isMute = true;
             PlayerPrefs.SetInt("Mute", 1);
-            AudioListener.volume = 1.0f;
-            toggleButton.GetComponent<Image>().sprite = muteOn; 
+            AudioListener.volume = 0.0f;
         }
         else
         {
             isMute = false;
             PlayerPrefs.SetInt("Mute", 0);
-            AudioListener.volume = 0.0f;
+            AudioListener.volume = 1.0f;
+        }
+    }
+
+    public void MuteIconChange()
+    {
+        if (isMute)
+        {
+            toggleButton.GetComponent<Image>().sprite = muteOn;
+        }
+        else
+        {
             toggleButton.GetComponent<Image>().sprite = muteOff;
+
         }
     }
 }
