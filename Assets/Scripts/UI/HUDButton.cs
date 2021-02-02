@@ -30,7 +30,7 @@ public class HUDButton : MonoBehaviour
     public string reStart = string.Empty;
 
     // boolean for pausing 
-    private bool isPause = false;
+    [SerializeField] bool isPause = false;
 
     private void Start()
     {
