@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     public float maxSpeed = 10.0f;
     public float gravity = -30.0f;
     public float jumpHeight = 10.0f;
+    public Vector3 velocity;
 
     public Joystick joystickMove;
     public Joystick joystickLook;
@@ -16,6 +17,8 @@ public class PlayerController : MonoBehaviour
     public LayerMask groundMask;
 
     private CharacterController character;
+    private bool isGrounded;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,10 +30,31 @@ public class PlayerController : MonoBehaviour
     {
         //float x = joystick.Horizontal;
         //float z = joystick.Vertical;
-        Vector3 x = transform.forward * Input.GetAxisRaw("Vertical") * maxSpeed * Time.deltaTime;
-        Vector3 z = transform.right * Input.GetAxisRaw("Horizontal") * maxSpeed * Time.deltaTime;
-        Vector3 move = x + z;
+        isGrounded = Physics.CheckSphere(groundCheck.position, groundRadius, groundMask);
 
-        character.Move(move);
+        if (isGrounded && velocity.y < 0)
+        {
+            velocity.y = -2.0f;
+        }
+
+        float x = Input.GetAxis("Horizontal");
+        float z = Input.GetAxis("Vertical");
+
+        Vector3 move = transform.right * x + transform.forward * z;
+
+        character.Move(move * maxSpeed * Time.deltaTime);
+
+        // jump
+        if (Input.GetButtonDown("Jump") && isGrounded)
+        {
+            Debug.Log("Jump");
+            velocity.y = Mathf.Sqrt(jumpHeight * -2.0f * gravity);
+        }
+
+        // gravity
+
+        velocity.y += gravity * Time.deltaTime;
+
+        character.Move(velocity * Time.deltaTime);
     }
 }
