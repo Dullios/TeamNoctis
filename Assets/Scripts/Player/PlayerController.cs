@@ -57,4 +57,10 @@ public class PlayerController : MonoBehaviour
 
         character.Move(velocity * Time.deltaTime);
     }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.white;
+        Gizmos.DrawWireSphere(groundCheck.position, groundRadius);
+    }
 }
