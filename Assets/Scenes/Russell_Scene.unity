@@ -219,7 +219,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   width: 256
   height: 256
-  scale: 15
+  scale: 8
   randomizeOffset: 0
   perlinOffset: {x: 0, y: 0}
   surfaceCube: {fileID: 1994553454022704, guid: 34a031333f407ff46aa2be10d4990402, type: 3}
