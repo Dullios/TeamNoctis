@@ -8,4 +8,5 @@ public class Item : ScriptableObject
     public int itemID = 0;
     public string itemName = "Item";
     public Sprite itemImage = null;
+    public Material collectableObjectMaterial;
 }

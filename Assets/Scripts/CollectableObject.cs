@@ -10,7 +10,11 @@ public class CollectableObject : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        //Set collectable object's mateirlas to item's material
+        if(item.collectableObjectMaterial != null)
+        {
+            GetComponent<Renderer>().sharedMaterial = item.collectableObjectMaterial;
+        }
     }
 
     // Update is called once per frame

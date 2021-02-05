@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Steel
   m_EditorClassIdentifier: 
   itemID: 1
-  itemName: Steel
+  itemName: Iron
   itemImage: {fileID: 21300000, guid: a8b857f41e659394bb68d1b703f6f406, type: 3}
+  collectableObjectMaterial: {fileID: 2100000, guid: 7d9fb7b470d0c50439925e29998e08e1, type: 2}

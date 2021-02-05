@@ -15,3 +15,4 @@ MonoBehaviour:
   itemID: 0
   itemName: Wood
   itemImage: {fileID: 21300000, guid: 122cfbba814153b41af5d570cbfd1c74, type: 3}
+  collectableObjectMaterial: {fileID: 2100000, guid: a8a59f0ec5d9482419ab8d76f35cce33, type: 2}
