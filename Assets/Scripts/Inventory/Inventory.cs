@@ -6,6 +6,7 @@ public class Inventory : Singleton<Inventory>
 {
     //Comp
     RectTransform rectTransform;
+    Canvas inventoryCanvas;
 
     InventorySlot[,] inventory; //2d grid for inventory
 
@@ -27,6 +28,7 @@ public class Inventory : Singleton<Inventory>
         base.Awake();
 
         rectTransform = GetComponent<RectTransform>(); //rect transform of inventory background
+        inventoryCanvas = GetComponentInParent<Canvas>();
 
         GenerateInventory();
     }
@@ -40,7 +42,17 @@ public class Inventory : Singleton<Inventory>
     // Update is called once per frame
     void Update()
     {
-        
+        if(Input.GetKeyDown(KeyCode.I))
+        {
+            if (inventoryCanvas.enabled == false)
+            {
+                inventoryCanvas.enabled = true;
+            }
+            else
+            {
+                inventoryCanvas.enabled = false;
+            }
+        }
     }
 
     void GenerateInventory()

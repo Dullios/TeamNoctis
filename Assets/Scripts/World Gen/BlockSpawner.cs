@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.AI;
 
 /*
  * Video References:
@@ -50,6 +50,9 @@ public class BlockSpawner : MonoBehaviour
         m_renderer.material.mainTexture = perlinTexture;
 
         GenerateTerrain();
+
+        //Bake navmesh
+        GetComponent<NavMeshSurface>().BuildNavMesh();
     }
 
     // Update is called once per frame

@@ -190,8 +190,8 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.51
-  m_Center: {x: 0, y: 0.49, z: 0}
+  m_Radius: 0.27
+  m_Center: {x: 0, y: 0.26, z: 0}
 --- !u!54 &7508143028339969173
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -216,7 +216,7 @@ NavMeshAgent:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3379608486664973738}
   m_Enabled: 1
-  m_AgentTypeID: 0
+  m_AgentTypeID: -1372625422
   m_Radius: 0.5
   m_Speed: 3.5
   m_Acceleration: 8
@@ -243,7 +243,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  attackRadius: 1.19
+  attackRadius: 0.59
   sphereDrawPositionYOffset: 0.42
   moveSpeed: 3.5
   attackSpeed: 0.5
@@ -272,7 +272,7 @@ Transform:
   m_GameObject: {fileID: 3379608486835147742}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 65, y: 65, z: 65}
+  m_LocalScale: {x: 30, y: 30, z: 30}
   m_Children:
   - {fileID: 3380919638189637716}
   m_Father: {fileID: 3380919638274989196}
