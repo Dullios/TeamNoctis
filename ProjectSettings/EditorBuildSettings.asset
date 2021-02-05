@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/UI/HUDScene.unity
     guid: fa831a1ca8b62fb488f3bed91fdd7597
+  - enabled: 1
+    path: Assets/Scenes/Dev_Scene.unity
+    guid: 8675a17338ea028428ba4ef8a534bcbb
   m_configObjects: {}

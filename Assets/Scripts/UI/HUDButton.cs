@@ -24,6 +24,8 @@ public class HUDButton : MonoBehaviour
     public GameObject pause = null;
     public GameObject gameover = null;
     public GameObject option = null;
+    public GameObject gameCanvas = null;
+    public GameObject overCanvas = null;
 
     // to load scene
     public string menuScene = string.Empty;
@@ -48,8 +50,21 @@ public class HUDButton : MonoBehaviour
             {
                 isPause = true;
                 Time.timeScale = 0;
+                SwitchToMenu(true);
                 gameover.gameObject.SetActive(true);
             }
+            else
+            {
+                isPause = false;
+                Time.timeScale = 1;
+                SwitchToMenu(false);
+                gameover.gameObject.SetActive(false);
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            SwitchToMenu(true);
+            GoPause();
         }
     }
 
@@ -59,9 +74,17 @@ public class HUDButton : MonoBehaviour
     {
         if (!isPause)
         {
+            SwitchToMenu(true);
             isPause = true;
             Time.timeScale = 0;
             pause.gameObject.SetActive(true);
+        }
+        else
+        {
+            isPause = false;
+            Time.timeScale = 1;
+            SwitchToMenu(false);
+            pause.gameObject.SetActive(false);
         }
     }
 
@@ -69,6 +92,7 @@ public class HUDButton : MonoBehaviour
     {
         if (isPause)
         {
+            SwitchToMenu(false);
             isPause = false;
             Time.timeScale = 1;
             pause.gameObject.SetActive(false);
@@ -78,11 +102,13 @@ public class HUDButton : MonoBehaviour
 
     public void GoOption()
     {
+        SwitchToMenu(true);
         option.gameObject.SetActive(true);
     }
 
     public void GoBack()
     {
+        SwitchToMenu(false);
         option.gameObject.SetActive(false);
     }
 
@@ -106,5 +132,12 @@ public class HUDButton : MonoBehaviour
                 SceneManager.LoadScene(reStart);
                 gameover.gameObject.SetActive(false);
             }
+    }
+
+    public void SwitchToMenu(bool menues)
+    {
+        Cursor.lockState = menues ? CursorLockMode.None: CursorLockMode.Locked;
+        gameCanvas.SetActive(!menues);
+        overCanvas.SetActive(menues);
     }
 }
