@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -19,10 +20,22 @@ public class PlayerController : MonoBehaviour
     private CharacterController character;
     private bool isGrounded;
 
+    [Header("HP & Stamina")]
+    public float currentHP = 0f;
+    public float maxHP = 100f;
+    public float currentStamina = 0f;
+    public float maxStamina = 100f;
+    public Image hpImg = null;
+    public Image staminaImg = null;
+    public Text hpText = null;
+    public Text staminaText = null;
+
     // Start is called before the first frame update
     void Start()
     {
         character = GetComponent<CharacterController>();
+        currentHP = maxHP;
+        currentStamina = maxStamina;
     }
 
     // Update is called once per frame
@@ -45,10 +58,12 @@ public class PlayerController : MonoBehaviour
         character.Move(move * maxSpeed * Time.deltaTime);
 
         // jump
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        if (Input.GetButtonDown("Jump") && isGrounded && currentStamina > 20f)
         {
             Debug.Log("Jump");
             velocity.y = Mathf.Sqrt(jumpHeight * -2.0f * gravity);
+            currentStamina -= 20f;
+            
         }
 
         // gravity
@@ -56,11 +71,33 @@ public class PlayerController : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
 
         character.Move(velocity * Time.deltaTime);
+
+
+        // stamina recovery
+        if(currentStamina < maxStamina)
+        {
+            currentStamina += 0.25f ;
+        }
+
+        // set hp, stamina gauges
+        ManageHP();
+        ManageStamina();
     }
 
     void OnDrawGizmos()
     {
         Gizmos.color = Color.white;
         Gizmos.DrawWireSphere(groundCheck.position, groundRadius);
+    }
+
+    public void ManageHP()
+    {
+        hpImg.fillAmount = currentHP / maxHP;
+        hpText.text = string.Format("{0}", Mathf.Floor(currentHP));
+    }
+    public void ManageStamina()
+    {
+        staminaImg.fillAmount = currentStamina / maxStamina;
+        staminaText.text = string.Format("{0}", Mathf.Floor(currentStamina));
     }
 }
