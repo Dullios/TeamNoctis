@@ -103,12 +103,18 @@ public class PlayerController : MonoBehaviour
 
     public void ManageHP()
     {
-        hpImg.fillAmount = currentHP / maxHP;
-        hpText.text = string.Format("{0}", Mathf.Floor(currentHP));
+        if (hpImg != null)
+        {
+            hpImg.fillAmount = currentHP / maxHP;
+            hpText.text = string.Format("{0}", Mathf.Floor(currentHP));
+        }
     }
     public void ManageStamina()
     {
-        staminaImg.fillAmount = currentStamina / maxStamina;
-        staminaText.text = string.Format("{0}", Mathf.Floor(currentStamina));
+        if (staminaImg != null)
+        {
+            staminaImg.fillAmount = currentStamina / maxStamina;
+            staminaText.text = string.Format("{0}", Mathf.Floor(currentStamina));
+        }
     }
 }
