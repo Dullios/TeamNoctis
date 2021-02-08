@@ -44,30 +44,47 @@ public class HUDButton : MonoBehaviour
     // temporaily load game over scene with "G" key only
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            if (!isPause)
-            {
-                isPause = true;
-                Time.timeScale = 0;
-                SwitchToMenu(true);
-                gameover.gameObject.SetActive(true);
-            }
-            else
-            {
-                isPause = false;
-                Time.timeScale = 1;
-                SwitchToMenu(false);
-                gameover.gameObject.SetActive(false);
-            }
-        }
+        //if (Input.GetKeyDown(KeyCode.G))
+        //{
+        //    if (!isPause)
+        //    {
+        //        isPause = true;
+        //        Time.timeScale = 0;
+        //        SwitchToMenu(true);
+        //        gameover.gameObject.SetActive(true);
+        //    }
+        //    else
+        //    {
+        //        isPause = false;
+        //        Time.timeScale = 1;
+        //        SwitchToMenu(false);
+        //        gameover.gameObject.SetActive(false);
+        //    }
+        //}
         if (Input.GetKeyDown(KeyCode.P))
         {
             SwitchToMenu(true);
             GoPause();
         }
     }
-
+    
+    public void GoGameOver()
+    {
+        if (!isPause)
+        {
+            isPause = true;
+            Time.timeScale = 0;
+            SwitchToMenu(true);
+            gameover.gameObject.SetActive(true);
+        }
+        else
+        {
+            isPause = false;
+            Time.timeScale = 1;
+            SwitchToMenu(false);
+            gameover.gameObject.SetActive(false);
+        }
+    }
 
     // buttons
     public void GoPause()

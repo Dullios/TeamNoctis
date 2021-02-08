@@ -29,10 +29,12 @@ public class PlayerController : MonoBehaviour
     public Image staminaImg = null;
     public Text hpText = null;
     public Text staminaText = null;
+    public HUDButton HUD = null;
 
     // Start is called before the first frame update
     void Start()
     {
+        HUD = FindObjectOfType<HUDButton>();
         character = GetComponent<CharacterController>();
         currentHP = maxHP;
         currentStamina = maxStamina;
@@ -64,6 +66,15 @@ public class PlayerController : MonoBehaviour
             velocity.y = Mathf.Sqrt(jumpHeight * -2.0f * gravity);
             currentStamina -= 20f;
             
+        }
+
+        //temp code about losing hp and call game over
+        if (Input.GetKey(KeyCode.Q) && currentHP > 0)
+        {
+            currentHP -= 1f;
+
+            if(currentHP <= 0)
+                HUD.GoGameOver();
         }
 
         // gravity
