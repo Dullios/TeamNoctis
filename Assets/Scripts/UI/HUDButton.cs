@@ -125,7 +125,6 @@ public class HUDButton : MonoBehaviour
 
     public void GoBack()
     {
-        SwitchToMenu(false);
         option.gameObject.SetActive(false);
     }
 

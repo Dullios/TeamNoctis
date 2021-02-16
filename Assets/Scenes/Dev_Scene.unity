@@ -889,6 +889,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2948969472345877069, guid: 69c2b33ce80ebda42b33c86595a89a2b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3798286121045958742, guid: 69c2b33ce80ebda42b33c86595a89a2b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: GoBack
+      objectReference: {fileID: 0}
     - target: {fileID: 4348393780251003206, guid: 69c2b33ce80ebda42b33c86595a89a2b, type: 3}
       propertyPath: inventorySlot
       value: 
@@ -905,6 +913,10 @@ PrefabInstance:
       propertyPath: resourceTextC
       value: 
       objectReference: {fileID: 1881657166}
+    - target: {fileID: 4782341754123422656, guid: 69c2b33ce80ebda42b33c86595a89a2b, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4790951441129384781, guid: 69c2b33ce80ebda42b33c86595a89a2b, type: 3}
       propertyPath: m_Type
       value: 3
@@ -915,6 +927,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4790951441129384781, guid: 69c2b33ce80ebda42b33c86595a89a2b, type: 3}
       propertyPath: m_FillMethod
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4988509338409477204, guid: 69c2b33ce80ebda42b33c86595a89a2b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4988509338409477204, guid: 69c2b33ce80ebda42b33c86595a89a2b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SaveBtn
+      objectReference: {fileID: 0}
+    - target: {fileID: 4988509338409477204, guid: 69c2b33ce80ebda42b33c86595a89a2b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Saver, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5294012765001437969, guid: 69c2b33ce80ebda42b33c86595a89a2b, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6477063283588306691, guid: 69c2b33ce80ebda42b33c86595a89a2b, type: 3}
@@ -1016,6 +1044,18 @@ PrefabInstance:
     - target: {fileID: 7539893347287468390, guid: 69c2b33ce80ebda42b33c86595a89a2b, type: 3}
       propertyPath: m_Name
       value: Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 7753534487767553375, guid: 69c2b33ce80ebda42b33c86595a89a2b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7753534487767553375, guid: 69c2b33ce80ebda42b33c86595a89a2b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadBtn
+      objectReference: {fileID: 0}
+    - target: {fileID: 7753534487767553375, guid: 69c2b33ce80ebda42b33c86595a89a2b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Saver, Assembly-CSharp
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 69c2b33ce80ebda42b33c86595a89a2b, type: 3}
