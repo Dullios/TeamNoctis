@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1280410500665318734}
   - component: {fileID: 1280410500665318731}
   - component: {fileID: 6509029597705211507}
+  - component: {fileID: 8367580216597658765}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -114,8 +115,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8855b699e2efd7c489ae7d5e32bd5571, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offsetRadius: 1
+  offsetRadius: 0.72
   sphereDrawPositionYOffset: 0
+--- !u!114 &8367580216597658765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1280410500665318730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b102c1b8653e1041b6acfcce0e7984e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 100
+  maxHp: 100
+  damage: 10
+  moveSpeed: 3.5
+  attackRadius: 1
+  attackSpeed: 0.5
+  debugSphereYOffset: 0
 --- !u!1 &1280410500900937853
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,20 +5,15 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
-    const float locomotionAnimationSmoothTime = 0.1f; //interpolation time between two value
+    protected const float locomotionAnimationSmoothTime = 0.1f; //interpolation time between two value
 
     //Comp
     protected Animator animator;
     protected NavMeshAgent navMeshAgent;
     protected Rigidbody rb;
+    protected Stats stats;
 
     [SerializeField] protected Transform target;
-    [SerializeField] protected float attackRadius = 1;
-
-    [SerializeField] float sphereDrawPositionYOffset = 0f; //Gizmo spherer drawing y offset
-
-    [SerializeField] protected float moveSpeed = 3.5f;
-    [SerializeField] float attackSpeed = 0.5f; //attack per second
 
     bool hasAttacked = false;
 
@@ -29,6 +24,7 @@ public class Enemy : MonoBehaviour
         animator = GetComponent<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         rb = GetComponent<Rigidbody>();
+        stats = GetComponent<Stats>();
 
         //Find player with tag
         target = GameObject.FindGameObjectWithTag("Player").transform;
@@ -40,7 +36,7 @@ public class Enemy : MonoBehaviour
         //Set speed
         if (navMeshAgent != null)
         {
-            navMeshAgent.speed = moveSpeed;
+            navMeshAgent.speed = stats.moveSpeed;
         }
     }
 
@@ -51,7 +47,11 @@ public class Enemy : MonoBehaviour
         if (target != null)
         {
             //Distacne from to target
-            float distance = Vector3.Distance(transform.position, target.position);
+            Vector3 targetPosition = new Vector3(target.position.x, 0.0f, target.position.z);
+            Vector3 myPosition = new Vector3(transform.position.x, 0.0f, transform.position.z);
+            float distance = Vector3.Distance(myPosition, targetPosition);
+            
+
             //Take account of position volume offset radius into distacne, see description of PositionVolumeOffset class
             PositionVolumeOffset pvoComp = target.gameObject.GetComponent<PositionVolumeOffset>();
             if (pvoComp != null)
@@ -60,8 +60,9 @@ public class Enemy : MonoBehaviour
             }
 
             //If target is closer than attack radius...
-            if(distance <= attackRadius)
+            if (distance <= stats.attackRadius)
             {
+
                 //Stop moving
                 navMeshAgent.velocity = Vector3.zero;
 
@@ -79,19 +80,6 @@ public class Enemy : MonoBehaviour
         }
 
         SetAnimationSpeedPercent();
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        //Gizmos.color = Color.white;
-
-        Vector3 temp = transform.position;
-        temp.y += sphereDrawPositionYOffset;
-
-        //Gizmos.DrawWireSphere(temp, inSightRadius);
-
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(temp, attackRadius);
     }
 
     protected void FaceTarget()
@@ -120,8 +108,15 @@ public class Enemy : MonoBehaviour
 
             animator.SetTrigger("attackTrigger");
 
+            //Get stats and damage
+            Stats targetStats = target.GetComponent<Stats>();
+            if(targetStats != null)
+            {
+                targetStats.HpModify(-stats.damage);
+            }
+
             //Reset attack cool down
-            Invoke(nameof(ResetHasAttacked), 1f / attackSpeed);
+            Invoke(nameof(ResetHasAttacked), 1f / stats.attackSpeed);
         }
     }
 

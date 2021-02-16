@@ -28,6 +28,7 @@ public class Rabbit : Enemy
             FaceTarget();
         }
 
+
     }
 
     private void FixedUpdate()
@@ -39,6 +40,8 @@ public class Rabbit : Enemy
             Jump();
         }
 
+        float speedPercent = rb.velocity.magnitude / stats.moveSpeed;
+        animator.SetFloat("speedPercent", speedPercent, locomotionAnimationSmoothTime, Time.deltaTime);
     }
 
     void Move()
@@ -53,7 +56,7 @@ public class Rabbit : Enemy
         }
 
         //If target is closer than attack radius... attack
-        if (distanceToTarget <= attackRadius)
+        if (distanceToTarget <= stats.attackRadius)
         {
             //Stop
             rb.velocity = new Vector3(0.0f, 0.0f, 0.0f);
@@ -66,7 +69,7 @@ public class Rabbit : Enemy
             Vector3 rbVel = rb.velocity;
             Vector3 moveDir = (target.position - transform.position).normalized;
 
-            rb.velocity = new Vector3(moveDir.x * moveSpeed, rbVel.y, moveDir.z * moveSpeed);
+            rb.velocity = new Vector3(moveDir.x * stats.moveSpeed, rbVel.y, moveDir.z * stats.moveSpeed);
         }
         
     }
@@ -74,7 +77,7 @@ public class Rabbit : Enemy
     void Jump()
     {
         //If distance if far than attack radius
-        if (distanceToTarget > attackRadius)
+        if (distanceToTarget > stats.attackRadius)
         {
             if (jumpTime <= 0.0f)
             {
