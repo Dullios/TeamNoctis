@@ -8,25 +8,27 @@ public class Enemy : MonoBehaviour
     const float locomotionAnimationSmoothTime = 0.1f; //interpolation time between two value
 
     //Comp
-    Animator animator;
-    NavMeshAgent navMeshAgent;
+    protected Animator animator;
+    protected NavMeshAgent navMeshAgent;
+    protected Rigidbody rb;
 
-    [SerializeField] Transform target;
-    [SerializeField] float attackRadius = 10;
+    [SerializeField] protected Transform target;
+    [SerializeField] protected float attackRadius = 1;
 
-    [SerializeField] float sphereDrawPositionYOffset = 2f; //Gizmo spherer drawing y offset
+    [SerializeField] float sphereDrawPositionYOffset = 0f; //Gizmo spherer drawing y offset
 
-    [SerializeField] float moveSpeed = 3.5f;
+    [SerializeField] protected float moveSpeed = 3.5f;
     [SerializeField] float attackSpeed = 0.5f; //attack per second
 
     bool hasAttacked = false;
 
 
     // Start is called before the first frame update
-    void Start()
+    protected void Start()
     {
         animator = GetComponent<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
+        rb = GetComponent<Rigidbody>();
 
         //Find player with tag
         target = GameObject.FindGameObjectWithTag("Player").transform;
@@ -36,11 +38,14 @@ public class Enemy : MonoBehaviour
         }
 
         //Set speed
-        navMeshAgent.speed = moveSpeed;
+        if (navMeshAgent != null)
+        {
+            navMeshAgent.speed = moveSpeed;
+        }
     }
 
     // Update is called once per frame
-    void Update()
+    protected void Update()
     {
         //If we have target
         if (target != null)
@@ -89,7 +94,7 @@ public class Enemy : MonoBehaviour
         Gizmos.DrawWireSphere(temp, attackRadius);
     }
 
-    void FaceTarget()
+    protected void FaceTarget()
     {
         //DIrection from enemy to player
         Vector3 direction = (target.position - transform.position).normalized;
