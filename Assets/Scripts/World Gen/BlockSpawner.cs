@@ -87,15 +87,10 @@ public class BlockSpawner : MonoBehaviour
         //float sampledFloat = ChunkManager.Instance.perlinTexture.GetPixel((Mathf.FloorToInt((x * gridStepSizeX) + offset.x)),
         //    (Mathf.FloorToInt((y * gridStepSizeY) + offset.y))).grayscale;
 
-        if (chunkPos.x == 1 && chunkPos.y == 1)
-            Debug.Log("Break point");
-        else if (chunkPos.x == 2 && chunkPos.y == 1)
-            Debug.Log("Break point");
-
         //float sampledFloat = ChunkManager.Instance.perlinTexture.GetPixel((int)((x * gridStepSizeX) + perlinOffset.x),
         //    (int)((y * gridStepSizeY) + perlinOffset.y)).grayscale;
-        float sampledFloat = ChunkManager.Instance.perlinTexture.GetPixel((int)((x) + perlinOffset.x),
-            (int)((y) + perlinOffset.y)).grayscale;
+        float sampledFloat = ChunkManager.Instance.perlinTexture.GetPixel((int)(x + perlinOffset.x),
+            (int)(y + perlinOffset.y)).grayscale;
 
         return sampledFloat;
     }
