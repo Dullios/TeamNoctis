@@ -15,82 +15,46 @@ using UnityEngine.AI;
 
 public class BlockSpawner : MonoBehaviour
 {
-    private Renderer m_renderer;
-    private Texture2D perlinTexture;
+    // Values from Chunk Manager
+    private int width;
+    private int height;
 
-    [Header("Perlin Texture")]
-    public int width = 256;
-    public int height = 256;
-
-    public float scale = 20.0f;
-
-    public bool randomizeOffset = false;
     public Vector2 perlinOffset;
+
+    private int perlinStepSizeX;
+    private int perlinStepSizeY;
 
     [Header("Terrain")]
     public GameObject surfaceCube;
     public GameObject fillerCube;
 
-    public int perlinStepSizeX;
-    public int perlinStepSizeY;
-
     public int terrainHeightMultiplier;
+
+    [Header("Chunk Values")]
+    public Vector2 chunkPos;
 
     // Start is called before the first frame update
     void Start()
     {
-        m_renderer = GetComponent<Renderer>();
+        // Grab values from ChunkManager Instance
+        width = ChunkManager.Instance.width;
+        height = ChunkManager.Instance.height;
+        perlinStepSizeX = ChunkManager.Instance.perlinStepSizeX;
+        perlinStepSizeY = ChunkManager.Instance.perlinStepSizeY;
 
-        if(randomizeOffset)
-        {
-            perlinOffset = new Vector2(Random.Range(0.0f, 99999.0f), Random.Range(0.0f, 99999.0f));
-        }
-
-        perlinTexture = GenerateTexture();
-        m_renderer.material.mainTexture = perlinTexture;
+        //tempSpawner.perlinOffset = new Vector2(perlinOffset.x + (x * perlinStepSizeX), perlinOffset.y + (y * perlinStepSizeY));
+        Vector2 offset = ChunkManager.Instance.perlinOffset;
+        perlinOffset = new Vector2(offset.x + (chunkPos.x * perlinStepSizeX), offset.y + (chunkPos.y * perlinStepSizeY));
 
         GenerateTerrain();
 
         //Bake navmesh
+        //GetComponent<NavMeshSurface>().BuildNavMesh();
         NavMeshSurface[] navMeshSurfaces = GetComponents<NavMeshSurface>();
         for(int i = 0; i < navMeshSurfaces.Length; ++i)
         {
             navMeshSurfaces[i].BuildNavMesh();
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    private Texture2D GenerateTexture()
-    {
-        Texture2D texture = new Texture2D(width, height);
-
-        for(int x = 0; x < width; x++)
-        {
-            for(int y = 0; y < height; y++)
-            {
-                Color color = CalculateColor(x, y);
-                texture.SetPixel(x, y, color);
-            }
-        }
-
-        texture.Apply();
-
-        return texture;
-    }
-
-    private Color CalculateColor(int x, int y)
-    {
-        // convert pixel to perlin coords
-        float xCoord = (float)x / width * scale + perlinOffset.x;
-        float yCoord = (float)y / height * scale + perlinOffset.y;
-
-        float sample = Mathf.PerlinNoise(xCoord, yCoord);
-        return new Color(sample, sample, sample);
     }
 
     private void GenerateTerrain()
@@ -120,7 +84,18 @@ public class BlockSpawner : MonoBehaviour
         int gridStepSizeX = width / perlinStepSizeX;
         int gridStepSizeY = height / perlinStepSizeY;
 
-        float sampledFloat = perlinTexture.GetPixel((Mathf.FloorToInt(x * gridStepSizeX)), (Mathf.FloorToInt(y * gridStepSizeY))).grayscale;
+        //float sampledFloat = ChunkManager.Instance.perlinTexture.GetPixel((Mathf.FloorToInt((x * gridStepSizeX) + offset.x)),
+        //    (Mathf.FloorToInt((y * gridStepSizeY) + offset.y))).grayscale;
+
+        if (chunkPos.x == 1 && chunkPos.y == 1)
+            Debug.Log("Break point");
+        else if (chunkPos.x == 2 && chunkPos.y == 1)
+            Debug.Log("Break point");
+
+        //float sampledFloat = ChunkManager.Instance.perlinTexture.GetPixel((int)((x * gridStepSizeX) + perlinOffset.x),
+        //    (int)((y * gridStepSizeY) + perlinOffset.y)).grayscale;
+        float sampledFloat = ChunkManager.Instance.perlinTexture.GetPixel((int)((x) + perlinOffset.x),
+            (int)((y) + perlinOffset.y)).grayscale;
 
         return sampledFloat;
     }
