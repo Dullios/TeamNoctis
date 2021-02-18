@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class DayCycleManager : Singleton<DayCycleManager>
 {
@@ -19,15 +20,21 @@ public class DayCycleManager : Singleton<DayCycleManager>
     [Tooltip("How many hours the days will shorten by each day")]
     public float cycleShortenStep = 0.2f;
 
-    private float cycleCurrent = 400.0f;
+    [SerializeField] float cycleCurrent = 400.0f;
     private float minTotal;
     private float minNight;
     private float minDay;
     private int day = 0;
+
+    [SerializeField] bool isNight = false;
+    [SerializeField] bool isDay = true; 
     public int Day { get { return day; } }
     
     public Light sunlight;
     public Light moonlight;
+
+    public UnityEvent EnteringDay;
+    public UnityEvent EnteringNight;
 
     private void Start()
     {
@@ -113,7 +120,13 @@ public class DayCycleManager : Singleton<DayCycleManager>
             if (sunlight.intensity == 0.0f) { sunlight.intensity = 1.0f; }
         }
         //Is Night
-        else if (sunlight.intensity == 1.0f) { sunlight.intensity = 0.0f; }
+        else if (sunlight.intensity == 1.0f)
+        {
+            isNight = true;
+            isDay = false; 
+            sunlight.intensity = 0.0f;
+            EnteringNight.Invoke();
+        }
     }
 
     /// <summary>
@@ -144,6 +157,12 @@ public class DayCycleManager : Singleton<DayCycleManager>
             if (moonlight.intensity == 0.0f) { moonlight.intensity = 1.0f; }
         }
         //Is Day
-        else if (moonlight.intensity == 1.0f) { moonlight.intensity = 0.0f; }
+        else if (moonlight.intensity == 1.0f)
+        {
+            isNight = false;
+            isDay = true; 
+            moonlight.intensity = 0.0f;
+            EnteringDay.Invoke();
+        }
     }
 }
