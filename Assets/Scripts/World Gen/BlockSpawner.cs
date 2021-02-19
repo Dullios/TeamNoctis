@@ -28,6 +28,12 @@ public class BlockSpawner : MonoBehaviour
     public GameObject surfaceCube;
     public GameObject fillerCube;
 
+    [Header("Resources")]
+    public GameObject resourceBlock1;
+    public Item wood;
+    public GameObject resourceBlock2;
+    public Item steel;
+
     public int terrainHeightMultiplier;
 
     [Header("Chunk Values")]
@@ -58,16 +64,37 @@ public class BlockSpawner : MonoBehaviour
         {
             for(int y = 0; y < perlinStepSizeY; y++)
             {
-                GameObject cubeTemp = Instantiate(surfaceCube, new Vector3(x, SampleStepped(x, y) * terrainHeightMultiplier, y) + transform.position, Quaternion.identity, transform);
+                GameObject cubeTemp;
+                int rand = Random.Range(0, 100);
+                if (rand < 2)
+                {
+                    if (rand < 1)
+                    {
+                        cubeTemp = Instantiate(resourceBlock1, new Vector3(x, SampleStepped(x, y) * terrainHeightMultiplier + 1, y) + transform.position, Quaternion.identity, transform);
+                        cubeTemp.GetComponent<CollectableObject>().item = wood;
+                    }
+                    else
+                    {
+                        cubeTemp = Instantiate(resourceBlock2, new Vector3(x, SampleStepped(x, y) * terrainHeightMultiplier + 1, y) + transform.position, Quaternion.identity, transform);
+                        cubeTemp.GetComponent<CollectableObject>().item = steel;
+                    }
+                }
+                else
+                {
+                    cubeTemp = Instantiate(surfaceCube, new Vector3(x, SampleStepped(x, y) * terrainHeightMultiplier, y) + transform.position, Quaternion.identity, transform);
+                }
 
                 cubeTemp.transform.position = new Vector3(cubeTemp.transform.position.x, Mathf.CeilToInt(cubeTemp.transform.position.y), cubeTemp.transform.position.z);
                 Vector3 cubePos = cubeTemp.transform.position;
 
                 if (cubePos.y > 0)
                 {
-                    for(int i = (int)cubePos.y - 1; i >= 0; i--)
+                    for(int i = (int)cubePos.y - 1; i >= 1; i--)
                     {
-                        Instantiate(fillerCube, new Vector3(cubePos.x, i, cubePos.z), Quaternion.identity, cubeTemp.transform);
+                        GameObject filler = Instantiate(fillerCube, new Vector3(cubePos.x, i, cubePos.z), Quaternion.identity, transform);
+
+                        if (i == 1) // Reduce number of collider checks
+                            Destroy(filler.GetComponent<BoxCollider>());
                     }
                 }
             }

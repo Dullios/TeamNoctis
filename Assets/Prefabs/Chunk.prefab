@@ -46,5 +46,9 @@ MonoBehaviour:
   perlinOffset: {x: 0, y: 0}
   surfaceCube: {fileID: 1994553454022704, guid: 34a031333f407ff46aa2be10d4990402, type: 3}
   fillerCube: {fileID: 1927891046657760, guid: 8be7be74c36f36b479880ac595913875, type: 3}
+  resourceBlock1: {fileID: 8462819400734979609, guid: f0a1b14cd25979b4b8d607e5b9989bb9, type: 3}
+  wood: {fileID: 11400000, guid: 79a1bd1bf40502e49aca87daf029ab22, type: 2}
+  resourceBlock2: {fileID: 8462819400734979609, guid: f0a1b14cd25979b4b8d607e5b9989bb9, type: 3}
+  steel: {fileID: 11400000, guid: 6efb6da23fac8ec469a1a34b5d0bc738, type: 2}
   terrainHeightMultiplier: 5
   chunkPos: {x: 0, y: 0}
