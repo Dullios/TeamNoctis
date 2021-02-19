@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Interact : MonoBehaviour
 {
+    public Transform rayStart;
     public float raycastDistance = 100.0f;
 
     // Start is called before the first frame update
@@ -17,11 +18,11 @@ public class Interact : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.DrawLine(transform.position, transform.position + (transform.forward * raycastDistance), Color.green, 1.0f);
+            Debug.DrawLine(rayStart.position, rayStart.position + (rayStart.forward * raycastDistance), Color.green, 1.0f);
 
             //Simple raycast
             RaycastHit result;
-            if (Physics.Raycast(transform.position, transform.forward, out result, raycastDistance))
+            if (Physics.Raycast(rayStart.position, rayStart.forward, out result, raycastDistance))
             {
                 Debug.Log(result.collider.gameObject.name);
 
