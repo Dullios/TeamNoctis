@@ -48,13 +48,8 @@ public class BlockSpawner : MonoBehaviour
 
         GenerateTerrain();
 
-        //Bake navmesh
-        //GetComponent<NavMeshSurface>().BuildNavMesh();
-        NavMeshSurface[] navMeshSurfaces = GetComponents<NavMeshSurface>();
-        for(int i = 0; i < navMeshSurfaces.Length; ++i)
-        {
-            navMeshSurfaces[i].BuildNavMesh();
-        }
+        //Let chunk manager know that finished spawning block
+        ChunkManager.Instance.NotifyFinishedBlockSpanwer();
     }
 
     private void GenerateTerrain()

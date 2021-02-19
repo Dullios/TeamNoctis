@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class ChunkManager : MonoBehaviour
 {
@@ -26,6 +27,10 @@ public class ChunkManager : MonoBehaviour
     public int loadDistance = 2;
 
     public static ChunkManager Instance;
+
+    int numberOfBlockSpawner = 0; //total number of block spawner
+    int generatedBlockSpawner = 0; //number of block spawner which finished generating blocks
+
     private void Awake()
     {
         if (Instance == null)
@@ -42,9 +47,6 @@ public class ChunkManager : MonoBehaviour
 
         perlinTexture = GenerateTexture();
         m_renderer.material.mainTexture = perlinTexture;
-
-        //Bake navmesh
-        //GetComponent<NavMeshSurface>().BuildNavMesh();
     }
 
     private Texture2D GenerateTexture()
@@ -82,7 +84,9 @@ public class ChunkManager : MonoBehaviour
 
         chunkGrid = new GameObject[range, range];
 
-        for(int x = 0; x < range; x++)
+        numberOfBlockSpawner = range * range; //save total number of block spawner
+
+        for (int x = 0; x < range; x++)
         {
             int xPos = x * perlinStepSizeX;
 
@@ -96,6 +100,24 @@ public class ChunkManager : MonoBehaviour
                 //tempSpawner.perlinOffset = new Vector2(perlinOffset.x + (x * perlinStepSizeX), perlinOffset.y + (y * perlinStepSizeY));
 
                 chunkGrid[x, y] = tempChunk;
+            }
+        }
+    }
+
+    //Will be called by block spawner that finished generating block
+    public void NotifyFinishedBlockSpanwer()
+    {
+        ++generatedBlockSpawner; //increase count of finished block spawner
+
+        //If all block spawner finished, generate nav mesh
+        if(generatedBlockSpawner == numberOfBlockSpawner)
+        {
+            //Bake navmesh
+            NavMeshSurface[] navMeshSurfaces = GetComponents<NavMeshSurface>();
+            for (int i = 0; i < navMeshSurfaces.Length; ++i)
+            {
+                Debug.Log("Build Navmesh");
+                navMeshSurfaces[i].BuildNavMesh();
             }
         }
     }
