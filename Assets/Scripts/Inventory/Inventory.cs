@@ -42,17 +42,17 @@ public class Inventory : Singleton<Inventory>
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.I))
-        {
-            if (inventoryCanvas.enabled == false)
-            {
-                inventoryCanvas.enabled = true;
-            }
-            else
-            {
-                inventoryCanvas.enabled = false;
-            }
-        }
+        //if(Input.GetKeyDown(KeyCode.I))
+        //{
+        //    if (inventoryCanvas.enabled == false)
+        //    {
+        //        inventoryCanvas.enabled = true;
+        //    }
+        //    else
+        //    {
+        //        inventoryCanvas.enabled = false;
+        //    }
+        //}
     }
 
     void GenerateInventory()
