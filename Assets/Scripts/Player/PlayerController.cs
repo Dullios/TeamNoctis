@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    public float maxSpeed = 10.0f;
+    [Header("Movement")]
     public float gravity = -30.0f;
     public float jumpHeight = 10.0f;
-    public Vector3 velocity;
+    private Vector3 velocity;
 
     public Joystick joystickMove;
     public Joystick joystickLook;
@@ -17,12 +17,12 @@ public class PlayerController : MonoBehaviour
     public float groundRadius = 0.5f;
     public LayerMask groundMask;
 
-    private CharacterController character;
     private bool isGrounded;
+    private CharacterController character;
+    private BuildingComponent builder;
+    private Stats stats;
 
     [Header("HP & Stamina")]
-    public float currentHP = 0f;
-    public float maxHP = 100f;
     public float currentStamina = 0f;
     public float maxStamina = 100f;
     public Image hpImg = null;
@@ -36,7 +36,11 @@ public class PlayerController : MonoBehaviour
     {
         HUD = FindObjectOfType<HUDButton>();
         character = GetComponent<CharacterController>();
-        currentHP = maxHP;
+        //Builder should only be enabled when in use
+        builder = GetComponent<BuildingComponent>();
+        builder.enabled = false;
+        //Set Stats
+        stats = GetComponent<Stats>();
         currentStamina = maxStamina;
     }
 
@@ -56,8 +60,7 @@ public class PlayerController : MonoBehaviour
         float z = Input.GetAxis("Vertical");
 
         Vector3 move = transform.right * x + transform.forward * z;
-
-        character.Move(move * maxSpeed * Time.deltaTime);
+        character.Move(move * stats.moveSpeed * Time.deltaTime);
 
         // jump
         if (Input.GetButtonDown("Jump") && isGrounded && currentStamina > 20f)
@@ -69,20 +72,16 @@ public class PlayerController : MonoBehaviour
         }
 
         //temp code about losing hp and call game over
-        if (Input.GetKey(KeyCode.Q) && currentHP > 0)
+        if (Input.GetKey(KeyCode.Q) && stats.hp > 0)
         {
-            currentHP -= 1f;
-
-            if(currentHP <= 0)
+            stats.HpModify(-1.0f);
+            if(stats.hp <= 0)
                 HUD.GoGameOver();
         }
 
         // gravity
-
         velocity.y += gravity * Time.deltaTime;
-
         character.Move(velocity * Time.deltaTime);
-
 
         // stamina recovery
         if(currentStamina < maxStamina)
@@ -105,8 +104,8 @@ public class PlayerController : MonoBehaviour
     {
         if (hpImg != null)
         {
-            hpImg.fillAmount = currentHP / maxHP;
-            hpText.text = string.Format("{0}", Mathf.Floor(currentHP));
+            hpImg.fillAmount = stats.hp / stats.maxHp;
+            hpText.text = string.Format("{0}", Mathf.Floor(stats.hp));
         }
     }
     public void ManageStamina()
@@ -116,5 +115,12 @@ public class PlayerController : MonoBehaviour
             staminaImg.fillAmount = currentStamina / maxStamina;
             staminaText.text = string.Format("{0}", Mathf.Floor(currentStamina));
         }
+    }
+
+    //Pass in a tower prefab to begin placing it
+    public void StartBuilding(GameObject tower)
+    {
+        builder.towerChoice = tower;
+        builder.enabled = true;
     }
 }

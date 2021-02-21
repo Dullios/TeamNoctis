@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 
+//The component that allows a gameobject to build towers
+//Should be disabled until in use
 public class BuildingComponent : MonoBehaviour
 {
     public GameObject towerChoice;
@@ -102,6 +104,7 @@ public class BuildingComponent : MonoBehaviour
             _Deselected(tower);
             tower.transform.parent = null;
             tower = null;
+            canPlace = false;
             StopBuilding();
         }
     }

@@ -23,23 +23,23 @@ public class TowerList : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ToggleTowerList();
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            ToggleTowerList();
+        }
     }
 
     public void ToggleTowerList()
     {
-        if (Input.GetKeyDown(KeyCode.I))
+        if (towerListBGCanvas.enabled == false)
         {
-            if (towerListBGCanvas.enabled == false)
-            {
-                CursorState(true);
-                towerListBGCanvas.enabled = true;
-            }
-            else
-            {
-                CursorState(false);
-                towerListBGCanvas.enabled = false;
-            }
+            CursorState(true);
+            towerListBGCanvas.enabled = true;
+        }
+        else
+        {
+            CursorState(false);
+            towerListBGCanvas.enabled = false;
         }
     }
 

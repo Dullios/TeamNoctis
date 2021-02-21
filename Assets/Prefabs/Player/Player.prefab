@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 1280410500665318729}
   - component: {fileID: 1280410500665318728}
   - component: {fileID: 1280410500665318734}
+  - component: {fileID: 8367580216597658765}
+  - component: {fileID: 4187609204503941131}
   - component: {fileID: 1280410500665318731}
   - component: {fileID: 6509029597705211507}
-  - component: {fileID: 8367580216597658765}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -70,10 +71,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 856b23b9307ddc44ba10360ba5696170, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 10
   gravity: -30
   jumpHeight: 2
-  velocity: {x: 0, y: 0, z: 0}
   joystickMove: {fileID: 0}
   joystickLook: {fileID: 0}
   groundCheck: {fileID: 3673320208110929718}
@@ -81,8 +80,6 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 1
-  currentHP: 0
-  maxHP: 100
   currentStamina: 0
   maxStamina: 100
   hpImg: {fileID: 0}
@@ -90,6 +87,43 @@ MonoBehaviour:
   hpText: {fileID: 0}
   staminaText: {fileID: 0}
   HUD: {fileID: 0}
+--- !u!114 &8367580216597658765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1280410500665318730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b102c1b8653e1041b6acfcce0e7984e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 100
+  maxHp: 100
+  damage: 1
+  moveSpeed: 5
+  attackRadius: 1
+  attackSpeed: 0.5
+  debugSphereYOffset: 0
+--- !u!114 &4187609204503941131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1280410500665318730}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74436294dc3e0284bac40a68c9700eef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  towerChoice: {fileID: 0}
+  placeDistance: 10
+  placeAngle: 20
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 1
 --- !u!114 &1280410500665318731
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,25 +152,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   offsetRadius: 0.72
   sphereDrawPositionYOffset: 0
---- !u!114 &8367580216597658765
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1280410500665318730}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b102c1b8653e1041b6acfcce0e7984e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hp: 100
-  maxHp: 100
-  damage: 10
-  moveSpeed: 3.5
-  attackRadius: 1
-  attackSpeed: 0.5
-  debugSphereYOffset: 0
 --- !u!1 &1280410500900937853
 GameObject:
   m_ObjectHideFlags: 0
