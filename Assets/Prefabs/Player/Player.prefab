@@ -329,7 +329,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56048af9253c01547831fc58c30768c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensitivity: 700
+  sensitivity: 100
   playerBody: {fileID: 1280410500665318729}
 --- !u!1 &1379286309203006178
 GameObject:
@@ -510,8 +510,8 @@ Camera:
   m_TargetTexture: {fileID: 8400000, guid: 39fbd8383bbc166498f360269b5bdca0, type: 2}
   m_TargetDisplay: 1
   m_TargetEye: 3
-  m_HDR: 1
-  m_AllowMSAA: 1
+  m_HDR: 0
+  m_AllowMSAA: 0
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
