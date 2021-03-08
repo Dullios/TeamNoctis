@@ -6,8 +6,7 @@ public class TowerList : MonoBehaviour
 {
     [SerializeField] Canvas towerListBGCanvas;
 
-    //public CharacterController playerController;
-    //public PlayerController playerController;
+    PlayerController playerController;
 
     // Start is called before the first frame update
     void Start()
@@ -15,17 +14,17 @@ public class TowerList : MonoBehaviour
         towerListBGCanvas = GetComponentInParent<Canvas>();
         towerListBGCanvas.enabled = false;
 
-        // playerController = GameObject.Find("Player").GetComponent<CharacterController>();
-        //playerController = GameObject.Find("Player").GetComponent<PlayerController>();
-
+        playerController = FindObjectOfType<PlayerController>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        // tower list 
         if (Input.GetKeyDown(KeyCode.I))
         {
             ToggleTowerList();
+            Time.timeScale = 0.0f;
         }
     }
 

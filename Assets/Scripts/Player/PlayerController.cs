@@ -120,6 +120,7 @@ public class PlayerController : MonoBehaviour
     //Pass in a tower prefab to begin placing it
     public void StartBuilding(GameObject tower)
     {
+        Time.timeScale = 1.0f;
         builder.towerChoice = tower;
         builder.enabled = true;
     }
