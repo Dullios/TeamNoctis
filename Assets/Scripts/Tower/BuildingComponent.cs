@@ -19,6 +19,7 @@ public class BuildingComponent : MonoBehaviour
     private void OnEnable()
     {
         tower = Instantiate(towerChoice, transform);
+        tower.GetComponent<TowerController>().isActivated = false;
         _Selected(tower);
         tower.SetActive(false);
         Debug.Log("Building Beginning");
@@ -102,6 +103,7 @@ public class BuildingComponent : MonoBehaviour
         {//remove from builder transform and builder
             Assert.IsNotNull(tower, "Oops, no tower available");
             _Deselected(tower);
+            tower.GetComponent<TowerController>().isActivated = true;
             tower.transform.parent = null;
             tower = null;
             canPlace = false;

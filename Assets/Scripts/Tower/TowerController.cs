@@ -8,6 +8,7 @@ public class TowerController : MonoBehaviour
     public float shotRange = 10.0f;
     public GameObject bullet;
     public Transform shotPoint;
+    public bool isActivated = true;
 
     private List<GameObject> enemies;
     private float shotCooldown = 0.0f;
@@ -22,13 +23,16 @@ public class TowerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Check if any enemies are available
-        if (enemies.Count > 0)
-        {//Shoot if not in cooldown
-            if (shotCooldown <= 0.0f)
-                OnFire();
-            else
-                shotCooldown -= shotSpeed * Time.deltaTime;
+        if (isActivated)
+        {
+            //Check if any enemies are available
+            if (enemies.Count > 0)
+            {//Shoot if not in cooldown
+                if (shotCooldown <= 0.0f)
+                    OnFire();
+                else
+                    shotCooldown -= shotSpeed * Time.deltaTime;
+            }
         }
     }
 
