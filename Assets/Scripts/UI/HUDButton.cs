@@ -34,14 +34,20 @@ public class HUDButton : MonoBehaviour
     // boolean for pausing 
     [SerializeField] bool isPause = false;
 
+    // components for saving and loading - not using for now
+    //PlayerController playerController;
+
     private void Start()
     {
         pause.gameObject.SetActive(false);
         gameover.gameObject.SetActive(false);
         option.gameObject.SetActive(false);
+
+        // - not using for now
+        //playerController = FindObjectOfType<PlayerController>();
     }
 
-    // temporaily load game over scene with "G" key only
+    // temporaily load game over scene with "G" key only - Commented
     private void Update()
     {
         //if (Input.GetKeyDown(KeyCode.G))
@@ -61,6 +67,9 @@ public class HUDButton : MonoBehaviour
         //        gameover.gameObject.SetActive(false);
         //    }
         //}
+
+
+        // pause button with P Key
         if (Input.GetKeyDown(KeyCode.P))
         {
             SwitchToMenu(true);
@@ -68,6 +77,7 @@ public class HUDButton : MonoBehaviour
         }
     }
     
+    // Game over event
     public void GoGameOver()
     {
         if (!isPause)
@@ -86,7 +96,7 @@ public class HUDButton : MonoBehaviour
         }
     }
 
-    // buttons
+    //////////////////////////////////////// buttons
     public void GoPause()
     {
         if (!isPause)
@@ -150,10 +160,47 @@ public class HUDButton : MonoBehaviour
             }
     }
 
+    
+
     public void SwitchToMenu(bool menues)
     {
         Cursor.lockState = menues ? CursorLockMode.None: CursorLockMode.Locked;
         gameCanvas.SetActive(!menues);
         overCanvas.SetActive(menues);
     }
+
+    // not using for now - save load
+
+    //public void GoSave()
+    //{
+    //    // save position
+    //    PlayerPrefs.SetFloat("PositionX", playerController.transform.position.x);
+    //    PlayerPrefs.SetFloat("PositionY", playerController.transform.position.y);
+    //    PlayerPrefs.SetFloat("PositionZ", playerController.transform.position.z);
+    //    Debug.Log("Save! position" + playerController.transform.position.x + " " + playerController.transform.position.y + " " + playerController.transform.position.z);
+
+    //    // save rotation
+    //    PlayerPrefs.SetFloat("RotationX", playerController.transform.eulerAngles.x);
+    //    PlayerPrefs.SetFloat("RotationY", playerController.transform.eulerAngles.y);
+    //    PlayerPrefs.SetFloat("RotationZ", playerController.transform.eulerAngles.z);
+    //    Debug.Log("Save! rotaition" + playerController.transform.eulerAngles.x + " " + playerController.transform.eulerAngles.y + " " + playerController.transform.eulerAngles.z);
+
+    //}
+
+    //public void GoLoad()
+    //{
+    //    playerController.transform.position = new Vector3(PlayerPrefs.GetFloat("PositionX"), PlayerPrefs.GetFloat("PositionY"), PlayerPrefs.GetFloat("PositionZ"));
+    //    Debug.Log("Load! position" + playerController.transform.position.x + " " + playerController.transform.position.y + " " + playerController.transform.position.z);
+
+    //    playerController.transform.rotation = Quaternion.Euler(PlayerPrefs.GetFloat("RotationX"), PlayerPrefs.GetFloat("RotationY"), PlayerPrefs.GetFloat("RotationZ"));
+    //    Debug.Log("Load! rotaition" + playerController.transform.eulerAngles.x + " " + playerController.transform.eulerAngles.y + " " + playerController.transform.eulerAngles.z);
+    //}
+
+
+
+
+
+
+
+
 }

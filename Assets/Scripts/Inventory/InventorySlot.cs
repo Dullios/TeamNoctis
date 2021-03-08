@@ -8,7 +8,7 @@ public class InventorySlot : MonoBehaviour
 {
     RectTransform rectTransform; //slot's rectTransform
     public Image itemImage; //item image
-    TextMeshProUGUI itemCountText; //itemCountText
+    public TextMeshProUGUI itemCountText; //itemCountText
 
     public Item item = null; //item in slot
     public int itemCount = 0;

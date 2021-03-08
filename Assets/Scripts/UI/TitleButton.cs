@@ -35,13 +35,18 @@ public class TitleButton : MonoBehaviour
         option.gameObject.SetActive(false);
     }
 
-    // load scene
-
-    public void GoLoadingScene()
+    // new game button
+    public void GoNewGame()
     {
         SceneManager.LoadScene(LoadingScene);
     }
 
+    // load game button
+    public void GoLoadGame()
+    {
+        SceneManager.LoadScene(LoadingScene);
+
+    }
 
     ///////////////////////// buttons
     public void GoCredits()

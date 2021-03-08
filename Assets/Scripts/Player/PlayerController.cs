@@ -31,6 +31,8 @@ public class PlayerController : MonoBehaviour
     public Text staminaText = null;
     public HUDButton HUD = null;
 
+    InventorySlot inventorySlot;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -42,6 +44,11 @@ public class PlayerController : MonoBehaviour
         //Set Stats
         stats = GetComponent<Stats>();
         currentStamina = maxStamina;
+        inventorySlot = FindObjectOfType<InventorySlot>();
+
+        // save & load
+        SaveLoad.OnSave.AddListener(OnSaveBack);
+        SaveLoad.OnLoad.AddListener(OnLoadBack);
     }
 
     // Update is called once per frame
@@ -123,5 +130,48 @@ public class PlayerController : MonoBehaviour
         Time.timeScale = 1.0f;
         builder.towerChoice = tower;
         builder.enabled = true;
+    }
+
+
+
+    //save load 
+    void OnSaveBack()
+    {
+        // playet position and rotation
+        string posData = "";
+        string rotData = "";
+        posData = transform.position.x + "," + transform.position.y + "," + transform.position.z;
+        rotData = transform.eulerAngles.x + "," + transform.eulerAngles.y + "," + transform.eulerAngles.z;
+
+        PlayerPrefs.SetString("PlayerPos", posData);
+        PlayerPrefs.SetString("PlayerRot", rotData);
+
+        // inventory
+    }
+
+    public void OnLoadBack()
+    {
+        char[] delimeters = new char[] { ',' };
+        // playet position and rotation
+        if (PlayerPrefs.HasKey("PlayerPos") && PlayerPrefs.HasKey("PlayerRot"))
+        {
+            string savedPos = PlayerPrefs.GetString("PlayerPos");
+            string savedRot = PlayerPrefs.GetString("PlayerRot");
+
+            string[] splitePos = savedPos.Split(delimeters);
+            string[] spliteRot = savedRot.Split(delimeters);
+
+            float posX = float.Parse(splitePos[0]);
+            float posY = float.Parse(splitePos[1]);
+            float posZ = float.Parse(splitePos[2]);
+
+            float rotX = float.Parse(spliteRot[0]);
+            float rotY = float.Parse(spliteRot[1]);
+            float rotZ = float.Parse(spliteRot[2]);
+
+
+            transform.position = new Vector3(posX, posY, posZ);
+            transform.rotation = Quaternion.Euler(rotX, rotY, rotZ);
+        }
     }
 }
