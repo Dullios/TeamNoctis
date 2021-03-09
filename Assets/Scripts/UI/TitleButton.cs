@@ -19,7 +19,7 @@ using UnityEngine.SceneManagement;
 public class TitleButton : MonoBehaviour
 {
     // to load scene
-    public string LoadingScene = string.Empty;
+    public string NewGameScene = string.Empty;
 
     // credit panel
     public GameObject credit = null;
@@ -29,23 +29,33 @@ public class TitleButton : MonoBehaviour
     bool isCreadt = false;
     bool isOption = false;
 
+    // to start new game and load game
+    public static bool newGame;
+    public static bool loadGame;
+
     private void Start()
     {
         credit.gameObject.SetActive(false);
         option.gameObject.SetActive(false);
+
+        newGame = false;
+        loadGame = false;
     }
 
     // new game button
     public void GoNewGame()
     {
-        SceneManager.LoadScene(LoadingScene);
+        SceneManager.LoadScene(NewGameScene);
+        newGame = true;
+        loadGame = false;
     }
 
     // load game button
     public void GoLoadGame()
     {
-        SceneManager.LoadScene(LoadingScene);
-
+        SceneManager.LoadScene(NewGameScene);
+        newGame = false;
+        loadGame = true;
     }
 
     ///////////////////////// buttons

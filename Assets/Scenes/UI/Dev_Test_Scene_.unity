@@ -828,6 +828,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5ab78f5a13e9a14792a26d7bd0aab41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerController: {fileID: 0}
 --- !u!4 &886424468
 Transform:
   m_ObjectHideFlags: 0
@@ -3245,7 +3246,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 886424467}
         m_TargetAssemblyTypeName: SaveLoad, Assembly-CSharp
-        m_MethodName: SaveBtn
+        m_MethodName: GoSave
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4615,7 +4616,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 886424467}
         m_TargetAssemblyTypeName: SaveLoad, Assembly-CSharp
-        m_MethodName: LoadBtn
+        m_MethodName: GoLoad
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

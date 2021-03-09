@@ -1761,7 +1761,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 445d209d5f43fc64d8035d6ac1d015e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LoadingScene: LoadingScene
+  NewGameScene: LoadingScene
   credit: {fileID: 318032667}
   option: {fileID: 2138576242}
 --- !u!82 &1012115017
