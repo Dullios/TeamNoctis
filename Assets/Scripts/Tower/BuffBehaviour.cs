@@ -39,7 +39,7 @@ public class BuffBehaviour : MonoBehaviour
         {
             case StatType.HP:
                 stats.maxHp += strength;
-                stats.hp += strength;
+                stats.currnetHP += strength;
                 break;
             case StatType.DAMAGE:
                 stats.damage += strength;
@@ -64,8 +64,8 @@ public class BuffBehaviour : MonoBehaviour
         {
             case StatType.HP:
                 stats.maxHp -= strength;
-                if (stats.hp > stats.maxHp)
-                    stats.hp = stats.maxHp;
+                if (stats.currnetHP > stats.maxHp)
+                    stats.currnetHP = stats.maxHp;
                 break;
             case StatType.DAMAGE:
                 stats.damage -= strength;

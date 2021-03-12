@@ -21,15 +21,9 @@ public class PlayerController : MonoBehaviour
     private CharacterController character;
     private BuildingComponent builder;
     private Stats stats;
-
-    [Header("HP & Stamina")]
-    public float currentStamina = 0f;
-    public float maxStamina = 100f;
-    public Image hpImg = null;
-    public Image staminaImg = null;
-    public Text hpText = null;
-    public Text staminaText = null;
     public HUDButton HUD = null;
+
+
 
     InventorySlot inventorySlot;
 
@@ -43,7 +37,6 @@ public class PlayerController : MonoBehaviour
         builder.enabled = false;
         //Set Stats
         stats = GetComponent<Stats>();
-        currentStamina = maxStamina;
         inventorySlot = FindObjectOfType<InventorySlot>();
 
         // save & load
@@ -70,19 +63,19 @@ public class PlayerController : MonoBehaviour
         character.Move(move * stats.moveSpeed * Time.deltaTime);
 
         // jump
-        if (Input.GetButtonDown("Jump") && isGrounded && currentStamina > 20f)
+        if (Input.GetButtonDown("Jump") && isGrounded && stats.currentStamina > 20f)
         {
             Debug.Log("Jump");
             velocity.y = Mathf.Sqrt(jumpHeight * -2.0f * gravity);
-            currentStamina -= 20f;
+            stats.currentStamina -= 20f;
             
         }
 
         //temp code about losing hp and call game over
-        if (Input.GetKey(KeyCode.Q) && stats.hp > 0)
+        if (Input.GetKey(KeyCode.Q) && stats.currnetHP > 0)
         {
             stats.HpModify(-1.0f);
-            if(stats.hp <= 0)
+            if(stats.currnetHP <= 0)
                 HUD.GoGameOver();
         }
 
@@ -91,14 +84,14 @@ public class PlayerController : MonoBehaviour
         character.Move(velocity * Time.deltaTime);
 
         // stamina recovery
-        if(currentStamina < maxStamina)
+        if(stats.currentStamina < stats.maxStamina)
         {
-            currentStamina += 0.25f ;
+            stats.currentStamina += 0.25f ;
         }
 
         // set hp, stamina gauges
-        ManageHP();
-        ManageStamina();
+        stats.ManageHP();
+        stats.ManageStamina();
     }
 
     void OnDrawGizmos()
@@ -107,22 +100,7 @@ public class PlayerController : MonoBehaviour
         Gizmos.DrawWireSphere(groundCheck.position, groundRadius);
     }
 
-    public void ManageHP()
-    {
-        if (hpImg != null)
-        {
-            hpImg.fillAmount = stats.hp / stats.maxHp;
-            hpText.text = string.Format("{0}", Mathf.Floor(stats.hp));
-        }
-    }
-    public void ManageStamina()
-    {
-        if (staminaImg != null)
-        {
-            staminaImg.fillAmount = currentStamina / maxStamina;
-            staminaText.text = string.Format("{0}", Mathf.Floor(currentStamina));
-        }
-    }
+  
 
     //Pass in a tower prefab to begin placing it
     public void StartBuilding(GameObject tower)
