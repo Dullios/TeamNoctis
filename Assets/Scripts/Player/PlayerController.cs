@@ -56,21 +56,52 @@ public class PlayerController : MonoBehaviour
             velocity.y = -2.0f;
         }
 
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical");
+        //float x = Input.GetAxis("Horizontal");
+        //float z = Input.GetAxis("Vertical");
+
+        float x = 0;
+        float z = 0;
+
+        if (GlobalData.HasInstance)
+        {
+            Debug.Log(GlobalData.instance.keys["UP"]);
+            Debug.Log(GlobalData.instance.keys["DOWN"]);
+            Debug.Log(GlobalData.instance.keys["LEFT"]);
+            Debug.Log(GlobalData.instance.keys["RIGHT"]);
+
+            if (Input.GetKey(GlobalData.instance.keys["UP"]))
+            {
+                z = 1;
+            }
+            if (Input.GetKey(GlobalData.instance.keys["DOWN"]))
+            {
+                z = -1;
+            }
+            if (Input.GetKey(GlobalData.instance.keys["LEFT"]))
+            {
+                x = -1;
+            }
+            if (Input.GetKey(GlobalData.instance.keys["RIGHT"]))
+            {
+                x = 1;
+            }
+
+        }
 
         Vector3 move = transform.right * x + transform.forward * z;
         character.Move(move * stats.moveSpeed * Time.deltaTime);
 
         // jump
-        if (Input.GetButtonDown("Jump") && isGrounded && stats.currentStamina > 20f)
+        if (GlobalData.HasInstance)
         {
-            Debug.Log("Jump");
-            velocity.y = Mathf.Sqrt(jumpHeight * -2.0f * gravity);
-            stats.currentStamina -= 20f;
-            
+            if (Input.GetKey(GlobalData.instance.keys["JUMP"]) && isGrounded && stats.currentStamina > 20f)
+            {
+                Debug.Log("Jump");
+                velocity.y = Mathf.Sqrt(jumpHeight * -2.0f * gravity);
+                stats.currentStamina -= 20f;
+            }
         }
-
+       
         //temp code about losing hp and call game over
         if (Input.GetKey(KeyCode.Q) && stats.currnetHP > 0)
         {

@@ -3,25 +3,33 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// title scene
+
 public class KeyBind : MonoBehaviour
 {
-    private Dictionary<string, KeyCode> keys = new Dictionary<string, KeyCode>();
+   
 
-    public Text up, down, left, right;
+    public Text up, down, left, right, jump;
 
     private GameObject currentKey;
+
     // Start is called before the first frame update
     void Start()
     {
-        keys.Add("UP", KeyCode.W);
-        keys.Add("DOWN", KeyCode.S);
-        keys.Add("LEFT", KeyCode.A);
-        keys.Add("RIGHT", KeyCode.D);
+        if (GlobalData.HasInstance)
+        {
+            GlobalData.instance.keys.Add("UP", KeyCode.W);
+            GlobalData.instance.keys.Add("DOWN", KeyCode.S);
+            GlobalData.instance.keys.Add("LEFT", KeyCode.A);
+            GlobalData.instance.keys.Add("RIGHT", KeyCode.D);
+            GlobalData.instance.keys.Add("JUMP", KeyCode.Space);
 
-        up.text = keys["UP"].ToString();
-        down.text = keys["DOWN"].ToString();
-        left.text = keys["LEFT"].ToString();
-        right.text = keys["RIGHT"].ToString();
+            up.text = GlobalData.instance.keys["UP"].ToString();
+            down.text = GlobalData.instance.keys["DOWN"].ToString();
+            left.text = GlobalData.instance.keys["LEFT"].ToString();
+            right.text = GlobalData.instance.keys["RIGHT"].ToString();
+            jump.text = GlobalData.instance.keys["JUMP"].ToString();
+        }
     }
 
     private void OnGUI()
@@ -31,9 +39,14 @@ public class KeyBind : MonoBehaviour
             Event e = Event.current;
             if (e.isKey)
             {
-                keys[currentKey.name] = e.keyCode;
-                currentKey.transform.GetChild(0).GetComponent<Text>().text = e.keyCode.ToString();
-                currentKey = null;
+                if (GlobalData.HasInstance)
+                {
+                    GlobalData.instance.keys[currentKey.name] = e.keyCode;
+                    currentKey.transform.GetChild(0).GetComponent<Text>().text = e.keyCode.ToString();
+                    Debug.Log(GlobalData.instance.keys[currentKey.name]);
+
+                    currentKey = null;
+                }
             }
         }
     }
