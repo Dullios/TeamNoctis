@@ -20,7 +20,7 @@ public class DayCycleManager : Singleton<DayCycleManager>
     [Tooltip("How many hours the days will shorten by each day")]
     public float cycleShortenStep = 0.2f;
 
-    [SerializeField] float cycleCurrent = 400.0f;
+    [SerializeField] public float cycleCurrent = 400.0f;
     private float minTotal;
     private float minNight;
     private float minDay;
