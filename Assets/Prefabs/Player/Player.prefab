@@ -80,12 +80,6 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 1
-  currentStamina: 0
-  maxStamina: 100
-  hpImg: {fileID: 0}
-  staminaImg: {fileID: 0}
-  hpText: {fileID: 0}
-  staminaText: {fileID: 0}
   HUD: {fileID: 0}
 --- !u!114 &8367580216597658765
 MonoBehaviour:
@@ -99,12 +93,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b102c1b8653e1041b6acfcce0e7984e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 100
+  currnetHP: 0
   maxHp: 100
+  currentStamina: 0
+  maxStamina: 100
   damage: 1
   moveSpeed: 5
   attackRadius: 1
   attackSpeed: 0.5
+  hpImg: {fileID: 0}
+  staminaImg: {fileID: 0}
+  hpText: {fileID: 0}
+  staminaText: {fileID: 0}
   debugSphereYOffset: 0
 --- !u!114 &4187609204503941131
 MonoBehaviour:
@@ -331,6 +331,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sensitivity: 100
   playerBody: {fileID: 1280410500665318729}
+  XRotation: -90
 --- !u!1 &1379286309203006178
 GameObject:
   m_ObjectHideFlags: 0
