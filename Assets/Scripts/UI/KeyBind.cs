@@ -7,11 +7,10 @@ using UnityEngine.UI;
 
 public class KeyBind : MonoBehaviour
 {
-   
-
     public Text up, down, left, right, jump;
 
     private GameObject currentKey;
+
 
     // Start is called before the first frame update
     void Start()
@@ -43,8 +42,7 @@ public class KeyBind : MonoBehaviour
                 {
                     GlobalData.instance.keys[currentKey.name] = e.keyCode;
                     currentKey.transform.GetChild(0).GetComponent<Text>().text = e.keyCode.ToString();
-                    Debug.Log(GlobalData.instance.keys[currentKey.name]);
-
+                    currentKey.GetComponent<Image>().color = Color.white;
                     currentKey = null;
                 }
             }
@@ -52,6 +50,11 @@ public class KeyBind : MonoBehaviour
     }
     public void ChangeKey(GameObject go)
     {
+        if(currentKey != null)
+        {
+            currentKey.GetComponent<Image>().color = Color.white;
+        }
         currentKey = go;
+        currentKey.GetComponent<Image>().color = Color.grey;
     }
 }

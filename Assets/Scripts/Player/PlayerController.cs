@@ -64,11 +64,6 @@ public class PlayerController : MonoBehaviour
 
         if (GlobalData.HasInstance)
         {
-            Debug.Log(GlobalData.instance.keys["UP"]);
-            Debug.Log(GlobalData.instance.keys["DOWN"]);
-            Debug.Log(GlobalData.instance.keys["LEFT"]);
-            Debug.Log(GlobalData.instance.keys["RIGHT"]);
-
             if (Input.GetKey(GlobalData.instance.keys["UP"]))
             {
                 z = 1;
