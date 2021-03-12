@@ -19,9 +19,13 @@ public class Inventory : Singleton<Inventory>
     [SerializeField] int leftPadding = 10; //left padding
     [SerializeField] int rightPadding = 10; //right padding
     [SerializeField] int bottomPadding = 10; //bottom padding
+    
 
     [Header("SLot settings")]
     [SerializeField] GameObject slotPrefab; //slot gameobject
+
+    [Header("Item table")]
+    [SerializeField] ItemTable itemTable;
 
     protected override void Awake()
     {
@@ -148,5 +152,64 @@ public class Inventory : Singleton<Inventory>
         }
 
         return false;
+    }
+
+    public void ResetInventory()
+    {
+        int emptyRow = -1; //save empty row
+        int emptyCol = -1; //save empty Col
+
+        for (int row = 0; row < numOfSlotRow; ++row)
+        {
+            for (int col = 0; col < numOfSlotCol; ++col)
+            {
+                inventory[row, col].ClearItem();
+            }
+        }
+    }
+
+    ////////////////////// item save and load
+
+    public void SaveInventory()
+    {
+        string saveString = "";
+        for (int row = 0; row < numOfSlotRow; ++row)
+        {
+            for (int col = 0; col < numOfSlotCol; ++col)
+            {
+                if (inventory[row, col].item != null) // if there is no item in the slot
+                {
+                    // save item ID and Item Count
+                    saveString += inventory[row, col].item.itemID.ToString() + "," + inventory[row, col].itemCount.ToString() +",";
+
+                }
+            }
+        }
+        PlayerPrefs.SetString("Inventory", saveString);
+    }
+
+    public void LoadInventory()
+    {
+        ResetInventory();
+
+        // get saved data
+        string InventoryData = PlayerPrefs.GetString("Inventory");
+
+        // devide datas
+        char[] delimeters = new char[] { ',' };
+        string[] splitData = InventoryData.Split(delimeters);
+
+        int numberOfItem = (int)(splitData.Length * 0.5);
+
+        for(int i = 0; i< numberOfItem; ++i)
+        {
+            int dataIdx = i * 2;
+
+            // get id and item count
+            int ID = int.Parse(splitData[dataIdx]);
+            int itemCount = int.Parse(splitData[dataIdx + 1]);
+
+            AddItem(itemTable.GetItem(ID),itemCount);
+        }
     }
 }

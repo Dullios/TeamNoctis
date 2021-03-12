@@ -13,6 +13,7 @@ public class SaveLoad : MonoBehaviour
     [SerializeField] CameraController cameraController;
     [SerializeField] Stats stats;
     [SerializeField] DayCycleManager dayCycleManager;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +37,12 @@ public class SaveLoad : MonoBehaviour
 
             // Day Night Cycle
             dayCycleManager.cycleCurrent = PlayerPrefs.GetFloat("DayNight");
+
+            // load inventory
+            if (Inventory.HasInstance) // check if there is inventory
+            {
+                Inventory.instance.LoadInventory();
+            }
         }
 
     }
@@ -53,13 +60,18 @@ public class SaveLoad : MonoBehaviour
         // save rotation - camera only x-axis
         PlayerPrefs.SetFloat("RotationX", cameraController.transform.eulerAngles.x);
 
-
         // save player stats - hp & stamina
         PlayerPrefs.SetFloat("HP", stats.currnetHP);
         PlayerPrefs.SetFloat("STAMINA", stats.currentStamina);
 
         // save day night cycle
         PlayerPrefs.SetFloat("DayNight", dayCycleManager.cycleCurrent);
+        
+        // save inventory
+        if(Inventory.HasInstance) // check if there is inventory
+        {
+            Inventory.instance.SaveInventory(); 
+        }
     }
 
     public void GoLoad()
@@ -79,6 +91,12 @@ public class SaveLoad : MonoBehaviour
 
         // load day night cycle
         dayCycleManager.cycleCurrent = PlayerPrefs.GetFloat("DayNight");
+
+        // load inventory
+        if (Inventory.HasInstance) // check if there is inventory
+        {
+            Inventory.instance.LoadInventory();
+        }
     }
 
 

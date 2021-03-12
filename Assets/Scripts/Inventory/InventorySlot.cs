@@ -87,4 +87,11 @@ public class InventorySlot : MonoBehaviour
         itemImage.sprite = item.itemImage;
         SetItemCount(newItemCount);
     }
+
+    public void ClearItem()
+    {
+        item = null;
+        itemImage.sprite = null;
+        SetItemCount(0);
+    }
 }
