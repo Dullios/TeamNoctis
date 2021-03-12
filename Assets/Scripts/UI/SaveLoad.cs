@@ -10,16 +10,19 @@ public class SaveLoad : MonoBehaviour
 
     // components for saving and loading 
     [SerializeField] PlayerController playerController;
-
+    [SerializeField] CameraController cameraController;
     // Start is called before the first frame update
     void Start()
     {
         playerController = FindObjectOfType<PlayerController>();
+        cameraController = FindObjectOfType<CameraController>();
 
+        // if there is game data to load, load game
         if (TitleButton.loadGame == true)
         {
             playerController.transform.position = new Vector3(PlayerPrefs.GetFloat("PositionX"), PlayerPrefs.GetFloat("PositionY"), PlayerPrefs.GetFloat("PositionZ"));
-            playerController.transform.rotation = Quaternion.Euler(PlayerPrefs.GetFloat("RotationX"), PlayerPrefs.GetFloat("RotationY"), PlayerPrefs.GetFloat("RotationZ"));
+            playerController.transform.rotation = Quaternion.Euler(0, PlayerPrefs.GetFloat("RotationY"), 0);
+            cameraController.XRotation = PlayerPrefs.GetFloat("RotationX");
         }
      
 
@@ -66,22 +69,29 @@ public class SaveLoad : MonoBehaviour
         PlayerPrefs.SetFloat("PositionX", playerController.transform.position.x);
         PlayerPrefs.SetFloat("PositionY", playerController.transform.position.y);
         PlayerPrefs.SetFloat("PositionZ", playerController.transform.position.z);
-        Debug.Log("Save! position" + playerController.transform.position.x + " " + playerController.transform.position.y + " " + playerController.transform.position.z);
+            //Debug.Log("Save! position" + playerController.transform.position.x + " " + playerController.transform.position.y + " " + playerController.transform.position.z);
 
-        // save rotation
-        PlayerPrefs.SetFloat("RotationX", playerController.transform.eulerAngles.x);
+        // save rotation - player only y-axis
         PlayerPrefs.SetFloat("RotationY", playerController.transform.eulerAngles.y);
-        PlayerPrefs.SetFloat("RotationZ", playerController.transform.eulerAngles.z);
-        Debug.Log("Save! rotaition" + playerController.transform.eulerAngles.x + " " + playerController.transform.eulerAngles.y + " " + playerController.transform.eulerAngles.z);
+            //Debug.Log("Save! rotaition" + playerController.transform.eulerAngles.x + " " + playerController.transform.eulerAngles.y + " " + playerController.transform.eulerAngles.z);
 
+        // save rotation - camera only x-axis
+        PlayerPrefs.SetFloat("RotationX", cameraController.transform.eulerAngles.x);
+            // Debug.Log(cameraController.transform.eulerAngles.x);
     }
 
     public void GoLoad()
     {
+        // load position
         playerController.transform.position = new Vector3(PlayerPrefs.GetFloat("PositionX"), PlayerPrefs.GetFloat("PositionY"), PlayerPrefs.GetFloat("PositionZ"));
-        Debug.Log("Load! position" + playerController.transform.position.x + " " + playerController.transform.position.y + " " + playerController.transform.position.z);
+             //Debug.Log("Load! position" + playerController.transform.position.x + " " + playerController.transform.position.y + " " + playerController.transform.position.z);
 
-        playerController.transform.rotation = Quaternion.Euler(PlayerPrefs.GetFloat("RotationX"), PlayerPrefs.GetFloat("RotationY"), PlayerPrefs.GetFloat("RotationZ"));
-        Debug.Log("Load! rotaition" + playerController.transform.eulerAngles.x + " " + playerController.transform.eulerAngles.y + " " + playerController.transform.eulerAngles.z);
+        // load rotation - player (0,y,0)
+        playerController.transform.rotation = Quaternion.Euler(0, PlayerPrefs.GetFloat("RotationY"), 0);
+            //Debug.Log("Load! rotaition" + playerController.transform.eulerAngles.x + " " + playerController.transform.eulerAngles.y + " " + playerController.transform.eulerAngles.z);
+
+        // load rotation - player (x,0,0)
+        cameraController.XRotation =PlayerPrefs.GetFloat("RotationX");
+
     }
 }
