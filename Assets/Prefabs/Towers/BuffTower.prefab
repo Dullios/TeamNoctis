@@ -62,6 +62,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6612996547da3d947a3f4203e3cab580, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shotSpeed: 1
+  shotRange: 10
+  bullet: {fileID: 0}
+  shotPoint: {fileID: 0}
+  isActivated: 1
+  buffRange: 10
+  statBuffed: 2
+  buffStrength: 5
+  buffDuration: 3
 --- !u!1 &4201065258848268846
 GameObject:
   m_ObjectHideFlags: 0

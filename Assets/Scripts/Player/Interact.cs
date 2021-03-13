@@ -16,7 +16,7 @@ public class Interact : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButton(0))
         {
             Debug.DrawLine(rayStart.position, rayStart.position + (rayStart.forward * raycastDistance), Color.green, 1.0f);
 
@@ -30,7 +30,8 @@ public class Interact : MonoBehaviour
                 CollectableObject collectableObject = result.collider.gameObject.GetComponent<CollectableObject>();
                 if (collectableObject != null)
                 {
-                    collectableObject.Collected();
+                    //collectableObject.Collected();
+                    collectableObject.collecting = true;
                 }
             }
         }
