@@ -116,4 +116,31 @@ public class BlockSpawner : MonoBehaviour
 
         return sampledFloat;
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag("Player"))
+        {
+            for(int x = (int)chunkPos.x - 2; x <= chunkPos.x + 2; x++)
+            {
+                for(int y = (int)chunkPos.y -2; y <= chunkPos.y + 2; y++)
+                {
+                    Vector2 index = new Vector2(x, y);
+
+                    if (Vector2.Distance(chunkPos, index) >= 2)
+                    {
+                        if (ChunkManager.Instance.chunkDict.ContainsKey(index))
+                            ChunkManager.Instance.chunkDict[index].gameObject.SetActive(false);
+                    }
+                    else
+                    {
+                        if (ChunkManager.Instance.chunkDict.ContainsKey(index))
+                            ChunkManager.Instance.chunkDict[index].gameObject.SetActive(true);
+                        else
+                            ChunkManager.Instance.InstantiateChunk((int)index.x, (int)index.y);
+                    }
+                }
+            }
+        }
+    }
 }
