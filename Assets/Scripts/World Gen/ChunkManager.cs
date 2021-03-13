@@ -23,6 +23,7 @@ public class ChunkManager : MonoBehaviour
 
     [Header("Chunk Loading Properties")]
     public GameObject chunkPrefab;
+    public Dictionary<Vector2, BlockSpawner> chunkDict;
     public int loadDistance = 1;
 
     public static ChunkManager Instance;
@@ -46,6 +47,7 @@ public class ChunkManager : MonoBehaviour
 
         perlinTexture = GenerateTexture();
         m_renderer.material.mainTexture = perlinTexture;
+        chunkDict = new Dictionary<Vector2, BlockSpawner>();
     }
 
     private Texture2D GenerateTexture()
@@ -86,18 +88,22 @@ public class ChunkManager : MonoBehaviour
         int inverse = loadDistance * -1;
         for (int x = inverse; x < range + inverse; x++)
         {
-            int xPos = x * perlinStepSizeX;
-
             for(int y = inverse; y < range + inverse; y++)
             {
-                int yPos = y * perlinStepSizeY;
-
-                GameObject tempChunk = Instantiate(chunkPrefab, new Vector3(xPos, 0, yPos), Quaternion.identity, transform);
-                BlockSpawner tempSpawner = tempChunk.GetComponent<BlockSpawner>();
-                tempSpawner.chunkPos = new Vector2(x, y);
-                //tempSpawner.perlinOffset = new Vector2(perlinOffset.x + (x * perlinStepSizeX), perlinOffset.y + (y * perlinStepSizeY));
+                InstantiateChunk(x, y);
             }
         }
+    }
+
+    public void InstantiateChunk(int x, int y)
+    {
+        int xPos = x * perlinStepSizeX;
+        int yPos = y * perlinStepSizeY;
+
+        GameObject tempChunk = Instantiate(chunkPrefab, new Vector3(xPos, 0, yPos), Quaternion.identity, transform);
+        BlockSpawner tempSpawner = tempChunk.GetComponent<BlockSpawner>();
+        tempSpawner.chunkPos = new Vector2(x, y);
+        chunkDict.Add(tempSpawner.chunkPos, tempSpawner);
     }
 
     //Will be called by block spawner that finished generating block
