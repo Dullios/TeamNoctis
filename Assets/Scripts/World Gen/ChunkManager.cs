@@ -23,8 +23,7 @@ public class ChunkManager : MonoBehaviour
 
     [Header("Chunk Loading Properties")]
     public GameObject chunkPrefab;
-    private GameObject[,] chunkGrid;
-    public int loadDistance = 2;
+    public int loadDistance = 1;
 
     public static ChunkManager Instance;
 
@@ -82,15 +81,14 @@ public class ChunkManager : MonoBehaviour
     {
         int range = loadDistance * 2 + 1;
 
-        chunkGrid = new GameObject[range, range];
-
         numberOfBlockSpawner = range * range; //save total number of block spawner
 
-        for (int x = 0; x < range; x++)
+        int inverse = loadDistance * -1;
+        for (int x = inverse; x < range + inverse; x++)
         {
             int xPos = x * perlinStepSizeX;
 
-            for(int y = 0; y < range; y++)
+            for(int y = inverse; y < range + inverse; y++)
             {
                 int yPos = y * perlinStepSizeY;
 
@@ -98,8 +96,6 @@ public class ChunkManager : MonoBehaviour
                 BlockSpawner tempSpawner = tempChunk.GetComponent<BlockSpawner>();
                 tempSpawner.chunkPos = new Vector2(x, y);
                 //tempSpawner.perlinOffset = new Vector2(perlinOffset.x + (x * perlinStepSizeX), perlinOffset.y + (y * perlinStepSizeY));
-
-                chunkGrid[x, y] = tempChunk;
             }
         }
     }
