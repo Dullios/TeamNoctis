@@ -14,6 +14,9 @@ public class Rabbit : Enemy
     [SerializeField] float jumpForce = 5.0f;
     [SerializeField] float jumpCoolTime = 2.0f;
 
+    [Header("Sounds")]
+    public AudioSource jumpSFX;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -81,6 +84,9 @@ public class Rabbit : Enemy
         {
             if (jumpTime <= 0.0f)
             {
+                //Sound
+                jumpSFX.Play();
+
                 rb.AddForce(new Vector3(0, jumpForce, 0), ForceMode.Impulse);
                 jumpTime = jumpCoolTime;
             }

@@ -24,6 +24,9 @@ public class Stats : MonoBehaviour
     [Header("Debug")]
     [SerializeField] float debugSphereYOffset = 0f; //Gizmo spherer drawing y offset
 
+    [Header("Sounds")]
+    public AudioSource hitSFX;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,6 +43,7 @@ public class Stats : MonoBehaviour
     public void HpModify(float hpModifier)
     {
         currnetHP += hpModifier;
+        hitSFX.Play();
     }
 
     private void OnDrawGizmosSelected()

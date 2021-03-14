@@ -17,6 +17,8 @@ public class Enemy : MonoBehaviour
 
     bool hasAttacked = false;
 
+    [Header("Sounds")]
+    public AudioSource attackSFX;
 
     // Start is called before the first frame update
     protected void Start()
@@ -107,6 +109,7 @@ public class Enemy : MonoBehaviour
             hasAttacked = true;
 
             animator.SetTrigger("attackTrigger");
+            attackSFX.Play();
 
             //Get stats and damage
             Stats targetStats = target.GetComponent<Stats>();
