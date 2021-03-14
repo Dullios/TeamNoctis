@@ -141,6 +141,8 @@ public class BlockSpawner : MonoBehaviour
                     }
                 }
             }
+
+            ChunkManager.Instance.BuildNavMeshes();
         }
     }
 }

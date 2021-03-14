@@ -115,12 +115,17 @@ public class ChunkManager : MonoBehaviour
         if(generatedBlockSpawner == numberOfBlockSpawner)
         {
             //Bake navmesh
-            NavMeshSurface[] navMeshSurfaces = GetComponents<NavMeshSurface>();
-            for (int i = 0; i < navMeshSurfaces.Length; ++i)
-            {
-                Debug.Log("Build Navmesh");
-                navMeshSurfaces[i].BuildNavMesh();
-            }
+            BuildNavMeshes();
+        }
+    }
+
+    public void BuildNavMeshes()
+    {
+        NavMeshSurface[] navMeshSurfaces = GetComponents<NavMeshSurface>();
+        for (int i = 0; i < navMeshSurfaces.Length; ++i)
+        {
+            Debug.Log("Build Navmesh");
+            navMeshSurfaces[i].BuildNavMesh();
         }
     }
 }
