@@ -67,19 +67,23 @@ public abstract class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 
 	protected virtual void Awake()
 	{
-		Init();
-		_instance = this as T;
+		bool result = Init();
+		if (result)
+		{
+			_instance = this as T;
+		}
 
 	}
 
-	protected void Init()
+	protected bool Init()
 	{
 		if (_instance != null && _instance != this)
 		{
 			Destroy(this.gameObject);
-			return;//Avoid doing anything else
+			Debug.Log("Dupplicated");
+			return false;//Avoid doing anything else
 		}
-
+		return true;
 	}
 
 	/// <summary>

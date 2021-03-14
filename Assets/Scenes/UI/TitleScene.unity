@@ -330,7 +330,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 526546193}
+      - m_Target: {fileID: 1770238315}
         m_TargetAssemblyTypeName: KeyBind, Assembly-CSharp
         m_MethodName: ChangeKey
         m_Mode: 2
@@ -853,7 +853,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 526546193}
+      - m_Target: {fileID: 1770238315}
         m_TargetAssemblyTypeName: KeyBind, Assembly-CSharp
         m_MethodName: ChangeKey
         m_Mode: 2
@@ -1236,54 +1236,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!1 &526546192
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 526546194}
-  - component: {fileID: 526546193}
-  m_Layer: 0
-  m_Name: KeyBind
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &526546193
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 526546192}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5219587673d61a34aadff074b42d275b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  up: {fileID: 1674022436}
-  down: {fileID: 2011093524}
-  left: {fileID: 1165277911}
-  right: {fileID: 1046709148}
-  jump: {fileID: 95989490}
---- !u!4 &526546194
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 526546192}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.748005, y: 9.036308, z: 6.5787683}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &533528947
 GameObject:
   m_ObjectHideFlags: 0
@@ -1408,6 +1360,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa1f523b0fead3a4bac3dd29cf3d4137, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  up: 
+  down: 
+  left: 
+  right: 
 --- !u!4 &579542891
 Transform:
   m_ObjectHideFlags: 0
@@ -2093,7 +2049,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 526546193}
+      - m_Target: {fileID: 1770238315}
         m_TargetAssemblyTypeName: KeyBind, Assembly-CSharp
         m_MethodName: ChangeKey
         m_Mode: 2
@@ -2862,7 +2818,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 526546193}
+      - m_Target: {fileID: 1770238315}
         m_TargetAssemblyTypeName: KeyBind, Assembly-CSharp
         m_MethodName: ChangeKey
         m_Mode: 2
@@ -4316,6 +4272,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1770238314}
+  - component: {fileID: 1770238315}
   m_Layer: 5
   m_Name: KeyBinding_Script
   m_TagString: Untagged
@@ -4352,6 +4309,23 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1770238315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1770238313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5219587673d61a34aadff074b42d275b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  up: {fileID: 1674022436}
+  down: {fileID: 2011093524}
+  left: {fileID: 1165277911}
+  right: {fileID: 1046709148}
+  jump: {fileID: 95989490}
 --- !u!1 &1847632878
 GameObject:
   m_ObjectHideFlags: 0
@@ -4435,7 +4409,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 526546193}
+      - m_Target: {fileID: 1770238315}
         m_TargetAssemblyTypeName: KeyBind, Assembly-CSharp
         m_MethodName: ChangeKey
         m_Mode: 2

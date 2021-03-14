@@ -15,14 +15,9 @@ public class KeyBind : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Debug.Log("This is KeyBind Start.");
         if (GlobalData.HasInstance)
         {
-            GlobalData.instance.keys.Add("UP", KeyCode.W);
-            GlobalData.instance.keys.Add("DOWN", KeyCode.S);
-            GlobalData.instance.keys.Add("LEFT", KeyCode.A);
-            GlobalData.instance.keys.Add("RIGHT", KeyCode.D);
-            GlobalData.instance.keys.Add("JUMP", KeyCode.Space);
-
             up.text = GlobalData.instance.keys["UP"].ToString();
             down.text = GlobalData.instance.keys["DOWN"].ToString();
             left.text = GlobalData.instance.keys["LEFT"].ToString();
