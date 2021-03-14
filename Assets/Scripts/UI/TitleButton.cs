@@ -22,8 +22,8 @@ public class TitleButton : MonoBehaviour
     public string NewGameScene = string.Empty;
 
     // credit panel
-    public GameObject credit = null;
-    public GameObject option = null;
+    public Canvas credit = null;
+    public Canvas option = null;
 
     // boolean
     bool isCreadt = false;
@@ -35,8 +35,8 @@ public class TitleButton : MonoBehaviour
 
     private void Start()
     {
-        credit.gameObject.SetActive(false);
-        option.gameObject.SetActive(false);
+        option.enabled = false;
+        credit.enabled = false;
 
         newGame = false;
         loadGame = false;
@@ -62,25 +62,25 @@ public class TitleButton : MonoBehaviour
     public void GoCredits()
     {
         isCreadt = true;
-        credit.gameObject.SetActive(true);
+        credit.enabled = true;
     }
 
     public void GoOption()
     {
         isOption = true;
-        option.gameObject.SetActive(true);
+        option.enabled = true;
     }
 
     public void BackMenu()
     {
         if (isCreadt && !isOption)
         {
-            credit.gameObject.SetActive(false);
+            credit.enabled = false;
             isCreadt = false;
         }
         if (isOption && !isCreadt)
         {
-            option.gameObject.SetActive(false);
+            option.enabled = false;
             isOption = false;
         }
     }
