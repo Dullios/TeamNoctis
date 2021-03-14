@@ -14,12 +14,17 @@ public class EnemySpawner : MonoBehaviour
     public GameObject BatEnemy;
     public GameObject RabbitEnemy;
 
-    public int xPosMaxLimit;
-    public int zPosMaxLimit;
+    public GameObject Player;
+    
+    public int xPosMaxLimit = 0;
+    public int zPosMaxLimit = 0;
     public int xPosMinLimit = 0;
     public int zPosMinLimit = 0;
+    public int spawnRangeFromPlayer = 10; 
     private List<GameObject> _spawnedEnemies;
     private List<GameObject> _enemyTypes;
+
+    private Transform _playerTransform; 
     
     [SerializeField] private float _spawnLimit = 1.0f;
     [Range(0.0f , 1.0f)]
@@ -35,6 +40,7 @@ public class EnemySpawner : MonoBehaviour
         _enemyTypes = new List<GameObject>();
         _enemyTypes.Add(BatEnemy);
         _enemyTypes.Add(RabbitEnemy);
+        _playerTransform = Player.transform;
         //_enemyTypes.Add(SlimeEnemy);
         DayCycleManager.instance.EnteringNight.AddListener(SpawnEnemy);
         DayCycleManager.instance.EnteringDay.AddListener(RemoveEnemies);
@@ -49,7 +55,12 @@ public class EnemySpawner : MonoBehaviour
     {
         int currentDay = DayCycleManager.instance.Day;
 
-        _spawnLimit += (_spawnLimit * spawnLimitIncreaseRate) + (currentDay * dayWeight); 
+        _spawnLimit += (_spawnLimit * spawnLimitIncreaseRate) + (currentDay * dayWeight);
+
+        xPosMaxLimit = (int)_playerTransform.position.x + spawnRangeFromPlayer;
+        zPosMaxLimit = (int)_playerTransform.position.z + spawnRangeFromPlayer;
+        xPosMinLimit = (int)_playerTransform.position.x - spawnRangeFromPlayer;
+        zPosMinLimit = (int)_playerTransform.position.z - spawnRangeFromPlayer;
         
         StartCoroutine(StartSpawner(_spawnLimit));
     }
