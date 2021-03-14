@@ -23,7 +23,9 @@ public class PlayerController : MonoBehaviour
     private Stats stats;
     public HUDButton HUD = null;
 
-
+    [Header("Sounds")]
+    public AudioSource walkingSFX;
+    public AudioSource jumpSFX;
 
     InventorySlot inventorySlot;
 
@@ -39,6 +41,7 @@ public class PlayerController : MonoBehaviour
         stats = GetComponent<Stats>();
         inventorySlot = FindObjectOfType<InventorySlot>();
 
+        StartCoroutine(Walking());
         // save & load
         //SaveLoad.OnSave.AddListener(OnSaveBack);
         //SaveLoad.OnLoad.AddListener(OnLoadBack);
@@ -91,6 +94,8 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetKey(GlobalData.instance.keys["JUMP"]) && isGrounded && stats.currentStamina > 20f)
             {
+                jumpSFX.Play();
+
                 Debug.Log("Jump");
                 velocity.y = Mathf.Sqrt(jumpHeight * -2.0f * gravity);
                 stats.currentStamina -= 20f;
@@ -126,7 +131,12 @@ public class PlayerController : MonoBehaviour
         Gizmos.DrawWireSphere(groundCheck.position, groundRadius);
     }
 
-  
+    IEnumerator Walking()
+    {
+        yield return new WaitForSeconds(.7f);
+        if (isGrounded && character.velocity.magnitude > 0)
+            walkingSFX.Play();
+    }
 
     //Pass in a tower prefab to begin placing it
     public void StartBuilding(GameObject tower)
