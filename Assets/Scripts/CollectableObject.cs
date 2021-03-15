@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(ParticleSystem))]
 public class CollectableObject : MonoBehaviour
 {
+    public GameObject block;
     public Item item = null; //item in collectable object
     public int itemCount = 1; //how much item?
     public float collectSpeed = 1.0f;
@@ -22,10 +23,10 @@ public class CollectableObject : MonoBehaviour
         //Set collectable object's mateirlas to item's material
         if(item.collectableObjectMaterial != null)
         {
-            GetComponent<Renderer>().sharedMaterial = item.collectableObjectMaterial;
+            block.GetComponent<Renderer>().sharedMaterial = item.collectableObjectMaterial;
         }
         //get local scale
-        startScale = transform.localScale;
+        startScale = block.transform.localScale;
         ps = GetComponent<ParticleSystem>();
     }
 
@@ -42,32 +43,32 @@ public class CollectableObject : MonoBehaviour
             if (!miningSFX.isPlaying)
                 miningSFX.Play();
             //collect at 50% size
-            if (transform.localScale.x <= startScale.x / 2.0f)
+            if (block.transform.localScale.x <= startScale.x / 2.0f)
             {
                 Collected();
                 return;
             }
             //Shrink
-            transform.localScale *= 1.0f - (collectSpeed * Time.deltaTime);
+            block.transform.localScale *= 1.0f - (collectSpeed * Time.deltaTime);
             collecting = false;
         }
         //Unshrink while !collecting
-        else if (transform.localScale != startScale)
+        else if (block.transform.localScale != startScale)
         {
             //Sound
             if (miningSFX.isPlaying)
                 miningSFX.Stop();
             //back to regular size
-            if (transform.localScale.x >= startScale.x / 2.0f)
+            if (block.transform.localScale.x >= startScale.x / 2.0f)
             {
-                transform.localScale = startScale;
+                block.transform.localScale = startScale;
                 //Shut off particle system
                 if (ps.isPlaying)
                     ps.Stop();
                 return;
             }
             //Unshrink
-            transform.localScale /= collectSpeed * Time.deltaTime;
+            block.transform.localScale /= collectSpeed * Time.deltaTime;
         }
     }
 
