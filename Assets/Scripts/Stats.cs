@@ -27,11 +27,15 @@ public class Stats : MonoBehaviour
     [Header("Sounds")]
     public AudioSource hitSFX;
 
+    HUDButton hUDButton;
+
     // Start is called before the first frame update
     void Start()
     {
         currentStamina = maxStamina;
         currnetHP = maxHp;
+
+        hUDButton = FindObjectOfType<HUDButton>();
     }
 
     // Update is called once per frame
@@ -44,6 +48,10 @@ public class Stats : MonoBehaviour
     {
         currnetHP += hpModifier;
         hitSFX.Play();
+        if(currnetHP <= 0)
+        {
+            hUDButton.GoGameOver();
+        }
     }
 
     private void OnDrawGizmosSelected()
