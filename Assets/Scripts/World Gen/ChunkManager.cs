@@ -28,9 +28,6 @@ public class ChunkManager : MonoBehaviour
 
     public static ChunkManager Instance;
 
-    int numberOfBlockSpawner = 0; //total number of block spawner
-    int generatedBlockSpawner = 0; //number of block spawner which finished generating blocks
-
     private void Awake()
     {
         if (Instance == null)
@@ -83,8 +80,6 @@ public class ChunkManager : MonoBehaviour
     {
         int range = loadDistance * 2 + 1;
 
-        numberOfBlockSpawner = range * range; //save total number of block spawner
-
         int inverse = loadDistance * -1;
         for (int x = inverse; x < range + inverse; x++)
         {
@@ -104,28 +99,5 @@ public class ChunkManager : MonoBehaviour
         BlockSpawner tempSpawner = tempChunk.GetComponent<BlockSpawner>();
         tempSpawner.chunkPos = new Vector2(x, y);
         chunkDict.Add(tempSpawner.chunkPos, tempSpawner);
-    }
-
-    //Will be called by block spawner that finished generating block
-    public void NotifyFinishedBlockSpanwer()
-    {
-        ++generatedBlockSpawner; //increase count of finished block spawner
-
-        //If all block spawner finished, generate nav mesh
-        if(generatedBlockSpawner == numberOfBlockSpawner)
-        {
-            //Bake navmesh
-            BuildNavMeshes();
-        }
-    }
-
-    public void BuildNavMeshes()
-    {
-        NavMeshSurface[] navMeshSurfaces = GetComponents<NavMeshSurface>();
-        for (int i = 0; i < navMeshSurfaces.Length; ++i)
-        {
-            Debug.Log("Build Navmesh");
-            navMeshSurfaces[i].BuildNavMesh();
-        }
     }
 }

@@ -28,13 +28,14 @@ public class BlockSpawner : MonoBehaviour
     public GameObject surfaceCube;
     public GameObject fillerCube;
 
+    public int terrainHeightMultiplier;
+
     [Header("Resources")]
     public GameObject resourceBlock1;
     public Item wood;
     public GameObject resourceBlock2;
     public Item steel;
 
-    public int terrainHeightMultiplier;
 
     [Header("Chunk Values")]
     public Vector2 chunkPos;
@@ -54,8 +55,7 @@ public class BlockSpawner : MonoBehaviour
 
         GenerateTerrain();
 
-        //Let chunk manager know that finished spawning block
-        ChunkManager.Instance.NotifyFinishedBlockSpanwer();
+        GenerateNavMesh();
     }
 
     private void GenerateTerrain()
@@ -117,6 +117,11 @@ public class BlockSpawner : MonoBehaviour
         return sampledFloat;
     }
 
+    private void GenerateNavMesh()
+    {
+        GetComponent<NavMeshSurface>().BuildNavMesh();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("Player"))
@@ -142,7 +147,7 @@ public class BlockSpawner : MonoBehaviour
                 }
             }
 
-            ChunkManager.Instance.BuildNavMeshes();
+            ChunkManager.Instance.GetComponent<NavMeshSurface>().BuildNavMesh();
         }
     }
 }
