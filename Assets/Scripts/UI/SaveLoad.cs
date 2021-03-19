@@ -17,7 +17,8 @@ public class SaveLoad : MonoBehaviour
 
     // tower lists
     public List<GameObject> towers;
-
+    [SerializeField] GameObject buffTowerPrefab;
+    [SerializeField] GameObject normalTowerPrefab;
     // scene
     public string loadScene;
 
@@ -53,21 +54,41 @@ public class SaveLoad : MonoBehaviour
                 Inventory.instance.LoadInventory();
             }
 
-            // load towers
-            //for (int i = 0; i < towers.Count; ++i)
-            //{
-            //    // position
-            //    towers[i].transform.position = new Vector3(PlayerPrefs.GetFloat("TowerPositionX"), PlayerPrefs.GetFloat("TowerPositionY"), PlayerPrefs.GetFloat("TowerPositionZ"));
+            // load tower lists
+            string TowerListData = PlayerPrefs.GetString("TowerList");
 
-            //    //rotation
-            //    towers[i].transform.rotation = Quaternion.Euler(PlayerPrefs.GetFloat("TowerRotationX"), PlayerPrefs.GetFloat("TowerRotationY"), PlayerPrefs.GetFloat("TowerRotationZ"));
-            //}
+            // devide datas
+            char[] delimeters = new char[] { ',' };
+            string[] splitData = TowerListData.Split(delimeters);
+
+            Vector3 towerNewPos = new Vector3(PlayerPrefs.GetFloat("TowerPositionX"), PlayerPrefs.GetFloat("TowerPositionY"), PlayerPrefs.GetFloat("TowerPositionZ"));
+            Quaternion towerNewRot = Quaternion.Euler(PlayerPrefs.GetFloat("TowerRotationX"), PlayerPrefs.GetFloat("TowerRotationY"), PlayerPrefs.GetFloat("TowerRotationZ"));
+
+            for (int i = 0; i < splitData.Length; ++i)
+            {
+              
+                if (splitData[i] == "1")
+                {
+                    towers.Add(buffTowerPrefab);
+                }
+                else if (splitData[i] == "2")
+                {
+                    towers.Add(normalTowerPrefab);
+                }
+                Instantiate(towers[i], towerNewPos, towerNewRot);
+            }
+
+            Debug.Log("Load done");
+
         }
 
     }
 
     public void GoSave()
     {
+        string saveTowerList = "";
+        string saveTowerPosition = "";
+
         // save position
         PlayerPrefs.SetFloat("PositionX", playerController.transform.position.x);
         PlayerPrefs.SetFloat("PositionY", playerController.transform.position.y);
@@ -95,15 +116,25 @@ public class SaveLoad : MonoBehaviour
         // find towers
         foreach (GameObject go in GameObject.FindGameObjectsWithTag("Tower"))
         {
-            // add to the list
-            towers.Add(go);
             // save tower list
-
-            if(towers != null)
+            if (go.name == "BuffTower(Clone)")
             {
-                for(int i = 0; i < towers.Count; ++i)
+                saveTowerList += "1" + ",";
+                towers.Add(go);
+            }
+            else if(go.name == "Tower(Clone)")
+            {
+                saveTowerList += "2" + ",";
+                towers.Add(go);
+            }
+
+            PlayerPrefs.SetString("TowerList", saveTowerList);
+
+            if (towers != null)
+            {
+                for (int i = 0; i < towers.Count; ++i)
                 {
-                    // position
+                    // position[]
                     PlayerPrefs.SetFloat("TowerPositionX", towers[i].transform.position.x);
                     PlayerPrefs.SetFloat("TowerPositionY", towers[i].transform.position.y);
                     PlayerPrefs.SetFloat("TowerPositionZ", towers[i].transform.position.z);
