@@ -1101,6 +1101,7 @@ MonoBehaviour:
   stats: {fileID: 0}
   dayCycleManager: {fileID: 0}
   towers: []
+  loadScene: Dev_Scene_Junho_Test
 --- !u!4 &2145591150
 Transform:
   m_ObjectHideFlags: 0
