@@ -1100,6 +1100,10 @@ MonoBehaviour:
   cameraController: {fileID: 0}
   stats: {fileID: 0}
   dayCycleManager: {fileID: 0}
+  towers: []
+  buffTowerPrefab: {fileID: 4201065258485026396, guid: 01c441bba3738fe42b58b6195f54360f, type: 3}
+  normalTowerPrefab: {fileID: 4201065258485026396, guid: bf51bfe288c8774468d8ed63da4672fd, type: 3}
+  loadScene: Dev_Scene_Junho_Test
 --- !u!4 &2145591150
 Transform:
   m_ObjectHideFlags: 0

@@ -60,25 +60,30 @@ public class SaveLoad : MonoBehaviour
             // devide datas
             char[] delimeters = new char[] { ',' };
             string[] splitData = TowerListData.Split(delimeters);
+            int towerCount = 0;
 
-            Vector3 towerNewPos = new Vector3(PlayerPrefs.GetFloat("TowerPositionX"), PlayerPrefs.GetFloat("TowerPositionY"), PlayerPrefs.GetFloat("TowerPositionZ"));
-            Quaternion towerNewRot = Quaternion.Euler(PlayerPrefs.GetFloat("TowerRotationX"), PlayerPrefs.GetFloat("TowerRotationY"), PlayerPrefs.GetFloat("TowerRotationZ"));
-
-            for (int i = 0; i < splitData.Length; ++i)
+            for (int i = 0; i < splitData.Length; i+=7)
             {
-              
-                if (splitData[i] == "1")
+                if (splitData[i] == "Buff")
                 {
                     towers.Add(buffTowerPrefab);
                 }
-                else if (splitData[i] == "2")
+                else if (splitData[i] == "Normal")
                 {
                     towers.Add(normalTowerPrefab);
                 }
-                Instantiate(towers[i], towerNewPos, towerNewRot);
-            }
 
-            Debug.Log("Load done");
+                float posX = float.Parse(splitData[i + 1]);
+                float posY = float.Parse(splitData[i + 2]);
+                float posZ = float.Parse(splitData[i + 3]);
+
+                float rotX = float.Parse(splitData[i + 4]);
+                float rotY = float.Parse(splitData[i + 5]);
+                float rotZ = float.Parse(splitData[i + 6]);
+
+                Instantiate(towers[towerCount], new Vector3(posX, posY, posZ), Quaternion.Euler(new Vector3(rotX,rotY,rotZ)));
+                towerCount++;
+            }
 
         }
 
@@ -87,7 +92,6 @@ public class SaveLoad : MonoBehaviour
     public void GoSave()
     {
         string saveTowerList = "";
-        string saveTowerPosition = "";
 
         // save position
         PlayerPrefs.SetFloat("PositionX", playerController.transform.position.x);
@@ -119,36 +123,43 @@ public class SaveLoad : MonoBehaviour
             // save tower list
             if (go.name == "BuffTower(Clone)")
             {
-                saveTowerList += "1" + ",";
+                saveTowerList += 
+                    "Buff" + "," + 
+                    go.transform.position.x + "," + go.transform.position.y + "," + go.transform.position.z + "," + 
+                    go.transform.eulerAngles.x + "," + go.transform.eulerAngles.y + "," + go.transform.eulerAngles.z + ",";
                 towers.Add(go);
             }
             else if(go.name == "Tower(Clone)")
             {
-                saveTowerList += "2" + ",";
+                saveTowerList += 
+                    "Normal" + "," +
+                    go.transform.position.x + "," + go.transform.position.y + "," + go.transform.position.z + "," +
+                    go.transform.eulerAngles.x + "," + go.transform.eulerAngles.y + "," + go.transform.eulerAngles.z + ","; ;
                 towers.Add(go);
             }
 
             PlayerPrefs.SetString("TowerList", saveTowerList);
+            //Debug.Log("Tower list" + saveTowerList);
 
-            if (towers != null)
-            {
-                for (int i = 0; i < towers.Count; ++i)
-                {
-                    // position[]
-                    PlayerPrefs.SetFloat("TowerPositionX", towers[i].transform.position.x);
-                    PlayerPrefs.SetFloat("TowerPositionY", towers[i].transform.position.y);
-                    PlayerPrefs.SetFloat("TowerPositionZ", towers[i].transform.position.z);
+            //if (towers != null)
+            //{
+            //    for (int i = 0; i < towers.Count; ++i)
+            //    {
+            //        // position[]
+            //        PlayerPrefs.SetFloat("TowerPositionX", towers[i].transform.position.x);
+            //        PlayerPrefs.SetFloat("TowerPositionY", towers[i].transform.position.y);
+            //        PlayerPrefs.SetFloat("TowerPositionZ", towers[i].transform.position.z);
 
-                    Debug.Log(towers[i].transform.position.x + "," + towers[i].transform.position.y + "," + towers[i].transform.position.z);
+            //        Debug.Log(towers[i].transform.position.x + "," + towers[i].transform.position.y + "," + towers[i].transform.position.z);
 
-                    // rotation
-                    PlayerPrefs.SetFloat("TowerRotationX", towers[i].transform.eulerAngles.x);
-                    PlayerPrefs.SetFloat("TowerRotationY", towers[i].transform.eulerAngles.y);
-                    PlayerPrefs.SetFloat("TowerRotationZ", towers[i].transform.eulerAngles.z);
+            //        // rotation
+            //        PlayerPrefs.SetFloat("TowerRotationX", towers[i].transform.eulerAngles.x);
+            //        PlayerPrefs.SetFloat("TowerRotationY", towers[i].transform.eulerAngles.y);
+            //        PlayerPrefs.SetFloat("TowerRotationZ", towers[i].transform.eulerAngles.z);
 
-                    Debug.Log(towers[i].transform.eulerAngles.x + "," + towers[i].transform.eulerAngles.y + "," + towers[i].transform.eulerAngles.z);
-                }
-            }
+            //        Debug.Log(towers[i].transform.eulerAngles.x + "," + towers[i].transform.eulerAngles.y + "," + towers[i].transform.eulerAngles.z);
+            //    }
+            //}
         }
 
     }
@@ -158,9 +169,6 @@ public class SaveLoad : MonoBehaviour
         TitleButton.loadGame = true;
         Time.timeScale = 1.0f;
         SceneManager.LoadScene(loadScene);
-
-
-
 
 
         //// load position
