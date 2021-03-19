@@ -1100,6 +1100,7 @@ MonoBehaviour:
   cameraController: {fileID: 0}
   stats: {fileID: 0}
   dayCycleManager: {fileID: 0}
+  towers: []
 --- !u!4 &2145591150
 Transform:
   m_ObjectHideFlags: 0

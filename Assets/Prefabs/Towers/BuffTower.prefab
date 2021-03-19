@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -9097554828587122191}
   m_Layer: 3
   m_Name: BuffTower
-  m_TagString: Untagged
+  m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

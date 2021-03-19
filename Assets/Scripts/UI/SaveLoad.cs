@@ -14,9 +14,14 @@ public class SaveLoad : MonoBehaviour
     [SerializeField] Stats stats;
     [SerializeField] DayCycleManager dayCycleManager;
 
+    // tower lists
+    public List<GameObject> towers;
+
     // Start is called before the first frame update
     void Start()
     {
+        towers = new List<GameObject>();
+
         // find components
         playerController = FindObjectOfType<PlayerController>();
         cameraController = FindObjectOfType<CameraController>();
@@ -72,6 +77,34 @@ public class SaveLoad : MonoBehaviour
         {
             Inventory.instance.SaveInventory(); 
         }
+
+        // find towers
+        foreach (GameObject go in GameObject.FindGameObjectsWithTag("Tower"))
+        {
+            towers.Add(go);
+
+            // save towers
+            if(towers != null)
+            {
+                for(int i = 0; i < towers.Count; ++i)
+                {
+                    // position
+                    PlayerPrefs.SetFloat("TowerPositionX", towers[i].transform.position.x);
+                    PlayerPrefs.SetFloat("TowerPositionY", towers[i].transform.position.y);
+                    PlayerPrefs.SetFloat("TowerPositionZ", towers[i].transform.position.z);
+
+                    Debug.Log(towers[i].transform.position.x + "," + towers[i].transform.position.y + "," + towers[i].transform.position.z);
+
+                    // rotation
+                    PlayerPrefs.SetFloat("TowerRotationX", towers[i].transform.eulerAngles.x);
+                    PlayerPrefs.SetFloat("TowerRotationY", towers[i].transform.eulerAngles.y);
+                    PlayerPrefs.SetFloat("TowerRotationZ", towers[i].transform.eulerAngles.z);
+
+                    Debug.Log(towers[i].transform.eulerAngles.x + "," + towers[i].transform.eulerAngles.y + "," + towers[i].transform.eulerAngles.z);
+                }
+            }
+        }
+
     }
 
     public void GoLoad()
@@ -98,37 +131,5 @@ public class SaveLoad : MonoBehaviour
             Inventory.instance.LoadInventory();
         }
     }
-
-
-
-    //// save button
-    //public void SaveBtn()
-    //{
-    //    if (OnSave != null)
-    //    {
-    //        OnSave.Invoke();
-    //    }
-    //    // to save info
-    //    PlayerPrefs.Save();
-
-    //    // delete all the save info - for testing in case
-    //    //PlayerPrefs.DeleteAll();
-
-    //    Debug.Log("Save");
-    //}
-
-    //// load button and also this function is using for load game from title
-    //public void LoadBtn()
-    //{
-    //    if (OnLoad != null)
-    //    {
-    //        OnLoad.Invoke();
-    //    }
-    //    Debug.Log("Load");
-    //}
-
-
-    //not using for now - save load
-
 
 }
