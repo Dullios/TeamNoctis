@@ -6,13 +6,6 @@ public class Interact : MonoBehaviour
 {
     public Transform rayStart;
     public float raycastDistance = 100.0f;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     // Update is called once per frame
     void Update()
     {
