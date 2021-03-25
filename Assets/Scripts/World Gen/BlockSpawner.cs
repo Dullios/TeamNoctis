@@ -74,25 +74,7 @@ public class BlockSpawner : MonoBehaviour
         {
             for(int y = 0; y < perlinStepSizeY; y++)
             {
-                GameObject cubeTemp;
-                int rand = Random.Range(0, 100);
-                if (rand < 2)
-                {
-                    if (rand < 1)
-                    {
-                        cubeTemp = Instantiate(resourceBlock1, new Vector3(x, SampleStepped(x, y) * terrainHeightMultiplier + 1, y) + transform.position, Quaternion.identity, transform);
-                        cubeTemp.GetComponent<CollectableObject>().item = wood;
-                    }
-                    else
-                    {
-                        cubeTemp = Instantiate(resourceBlock2, new Vector3(x, SampleStepped(x, y) * terrainHeightMultiplier + 1, y) + transform.position, Quaternion.identity, transform);
-                        cubeTemp.GetComponent<CollectableObject>().item = steel;
-                    }
-                }
-                else
-                {
-                    cubeTemp = Instantiate(surfaceCube, new Vector3(x, SampleStepped(x, y) * terrainHeightMultiplier, y) + transform.position, Quaternion.identity, transform);
-                }
+                GameObject cubeTemp = Instantiate(surfaceCube, new Vector3(x, SampleStepped(x, y) * terrainHeightMultiplier, y) + transform.position, Quaternion.identity, transform);
 
                 cubeTemp.transform.position = new Vector3(cubeTemp.transform.position.x, Mathf.CeilToInt(cubeTemp.transform.position.y), cubeTemp.transform.position.z);
                 Vector3 cubePos = cubeTemp.transform.position;
@@ -126,35 +108,6 @@ public class BlockSpawner : MonoBehaviour
 
         return sampledFloat;
     }
-
-    //private void CreateCombinedMesh()
-    //{
-    //    Vector3 oldPos = transform.position;
-    //    transform.position = Vector3.zero;
-
-    //    meshRenderer.materials = blockMat;
-
-    //    MeshFilter[] meshFilters = GetComponentsInChildren<MeshFilter>();
-    //    MeshRenderer[] meshRenderers = GetComponentsInChildren<MeshRenderer>();
-    //    CombineInstance[] combine = new CombineInstance[meshFilters.Length];
-
-    //    for (int i = 0; i < meshFilters.Length; i++)
-    //    {
-    //        if (meshFilters[i] == meshFilter)
-    //            continue;
-
-    //        combine[i].mesh = meshFilters[i].sharedMesh;
-    //        combine[i].transform = meshFilters[i].transform.localToWorldMatrix;
-    //        combine[i].subMeshIndex = 0;
-
-    //        meshFilters[i].GetComponent<MeshRenderer>().enabled = false;
-    //    }
-
-    //    meshFilter.mesh = new Mesh();
-    //    meshFilter.mesh.CombineMeshes(combine, true);
-
-    //    transform.position = oldPos;
-    //}
 
     private void CreateCombinedMesh()
     {
