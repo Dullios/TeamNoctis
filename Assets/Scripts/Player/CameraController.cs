@@ -6,6 +6,7 @@ public class CameraController : MonoBehaviour
 {
     public float sensitivity = 1000.0f;
     public Transform playerBody;
+    public Joystick joystickLook;
 
     public float XRotation = -90.0f;
 
@@ -19,8 +20,17 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float mouseX = Input.GetAxis("Mouse X") * sensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;
+        float mouseX;
+        float mouseY;
+
+#if (UNITY_IOS || UNITY_ANDROID)
+        mouseX = joystickLook.Horizontal * sensitivity * Time.deltaTime;
+        mouseY = joystickLook.Vertical * sensitivity * Time.deltaTime;
+#else
+        mouseX = Input.GetAxis("Mouse X") * sensitivity * Time.deltaTime;
+        mouseY = Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;
+#endif
+
 
         XRotation -= mouseY;
         XRotation = Mathf.Clamp(XRotation, -90.0f, 90.0f);

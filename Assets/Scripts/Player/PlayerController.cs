@@ -11,7 +11,6 @@ public class PlayerController : MonoBehaviour
     private Vector3 velocity;
 
     public Joystick joystickMove;
-    public Joystick joystickLook;
 
     public Transform groundCheck;
     public float groundRadius = 0.5f;
@@ -50,8 +49,6 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //float x = joystick.Horizontal;
-        //float z = joystick.Vertical;
         isGrounded = Physics.CheckSphere(groundCheck.position, groundRadius, groundMask);
 
         if (isGrounded && velocity.y < 0)
@@ -59,48 +56,17 @@ public class PlayerController : MonoBehaviour
             velocity.y = -2.0f;
         }
 
-        //float x = Input.GetAxis("Horizontal");
-        //float z = Input.GetAxis("Vertical");
-
         float x = 0;
         float z = 0;
 
-        if (GlobalData.HasInstance)
-        {
-            if (Input.GetKey(GlobalData.instance.keys["UP"]))
-            {
-                z = 1;
-            }
-            if (Input.GetKey(GlobalData.instance.keys["DOWN"]))
-            {
-                z = -1;
-            }
-            if (Input.GetKey(GlobalData.instance.keys["LEFT"]))
-            {
-                x = -1;
-            }
-            if (Input.GetKey(GlobalData.instance.keys["RIGHT"]))
-            {
-                x = 1;
-            }
-
-        }
-
+#if (UNITY_IOS || UNITY_ANDROID)
+        InputPhone(out x, out z);
+#else
+        InputWindows(out x, out z);
+#endif
         Vector3 move = transform.right * x + transform.forward * z;
         character.Move(move * stats.moveSpeed * Time.deltaTime);
 
-        // jump
-        if (GlobalData.HasInstance)
-        {
-            if (Input.GetKey(GlobalData.instance.keys["JUMP"]) && isGrounded && stats.currentStamina > 20f)
-            {
-                jumpSFX.Play();
-
-                Debug.Log("Jump");
-                velocity.y = Mathf.Sqrt(jumpHeight * -2.0f * gravity);
-                stats.currentStamina -= 20f;
-            }
-        }
        
         //temp code about losing hp and call game over
         if (Input.GetKey(KeyCode.Q) && stats.currnetHP > 0)
@@ -123,6 +89,57 @@ public class PlayerController : MonoBehaviour
         // set hp, stamina gauges
         stats.ManageHP();
         stats.ManageStamina();
+    }
+
+
+    void InputWindows(out float x, out float z)
+    {
+        x = 0;
+        z = 0;
+
+        if (GlobalData.HasInstance)
+        {
+            if (Input.GetKey(GlobalData.instance.keys["UP"]))
+            {
+                z = 1;
+            }
+            if (Input.GetKey(GlobalData.instance.keys["DOWN"]))
+            {
+                z = -1;
+            }
+            if (Input.GetKey(GlobalData.instance.keys["LEFT"]))
+            {
+                x = -1;
+            }
+            if (Input.GetKey(GlobalData.instance.keys["RIGHT"]))
+            {
+                x = 1;
+            }
+        }
+
+        // jump
+        if (GlobalData.HasInstance)
+        {
+            if (Input.GetKey(GlobalData.instance.keys["JUMP"]) && isGrounded && stats.currentStamina > 20f)
+            {
+                Jump();
+            }
+        }
+    }
+
+    void InputPhone(out float x, out float z)
+    {
+        x = joystickMove.Horizontal;
+        z = joystickMove.Vertical;
+    }
+
+    public void Jump()
+    {
+        jumpSFX.Play();
+
+        Debug.Log("Jump");
+        velocity.y = Mathf.Sqrt(jumpHeight * -2.0f * gravity);
+        stats.currentStamina -= 20f;
     }
 
     void OnDrawGizmos()
