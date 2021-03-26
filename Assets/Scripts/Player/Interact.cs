@@ -9,7 +9,8 @@ public class Interact : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButton(0))
+        //Mouse
+        if (Input.GetMouseButton(0) || Input.touchCount > 0)
         {
             Debug.DrawLine(rayStart.position, rayStart.position + (rayStart.forward * raycastDistance), Color.green, 1.0f);
 
