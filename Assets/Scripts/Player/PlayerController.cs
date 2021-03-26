@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     public float groundRadius = 0.5f;
     public LayerMask groundMask;
 
-    private bool isGrounded;
+    public bool isGrounded;
     private CharacterController character;
     private BuildingComponent builder;
     private Stats stats;
@@ -59,11 +59,11 @@ public class PlayerController : MonoBehaviour
         float x = 0;
         float z = 0;
 
-#if (UNITY_IOS || UNITY_ANDROID)
-        InputPhone(out x, out z);
-#else
-        InputWindows(out x, out z);
-#endif
+        if (Application.platform == RuntimePlatform.Android)
+            InputPhone(out x, out z);
+        else
+            InputWindows(out x, out z);
+
         Vector3 move = transform.right * x + transform.forward * z;
         character.Move(move * stats.moveSpeed * Time.deltaTime);
 

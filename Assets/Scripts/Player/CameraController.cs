@@ -23,14 +23,16 @@ public class CameraController : MonoBehaviour
         float mouseX;
         float mouseY;
 
-#if (UNITY_IOS || UNITY_ANDROID)
-        mouseX = joystickLook.Horizontal * sensitivity * Time.deltaTime;
-        mouseY = joystickLook.Vertical * sensitivity * Time.deltaTime;
-#else
-        mouseX = Input.GetAxis("Mouse X") * sensitivity * Time.deltaTime;
-        mouseY = Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;
-#endif
-
+        if (Application.platform == RuntimePlatform.Android)
+        {
+            mouseX = joystickLook.Horizontal * sensitivity * Time.deltaTime;
+            mouseY = joystickLook.Vertical * sensitivity * Time.deltaTime;
+        }
+        else
+        {
+            mouseX = Input.GetAxis("Mouse X") * sensitivity * Time.deltaTime;
+            mouseY = Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;
+        }
 
         XRotation -= mouseY;
         XRotation = Mathf.Clamp(XRotation, -90.0f, 90.0f);
