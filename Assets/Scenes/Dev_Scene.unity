@@ -978,6 +978,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 1280410500665318734, guid: f4c671914c4d42b4c91c936ccbbf4f3a, type: 3}
+      propertyPath: joystickMove
+      value: 
+      objectReference: {fileID: 7539893346862224930}
+    - target: {fileID: 1280410502759049342, guid: f4c671914c4d42b4c91c936ccbbf4f3a, type: 3}
+      propertyPath: XRotation
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280410502759049342, guid: f4c671914c4d42b4c91c936ccbbf4f3a, type: 3}
+      propertyPath: joystickLook
+      value: 
+      objectReference: {fileID: 7539893348160793073}
     - target: {fileID: 8367580216597658765, guid: f4c671914c4d42b4c91c936ccbbf4f3a, type: 3}
       propertyPath: hpImg
       value: 
@@ -4027,10 +4039,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8170153791668043269, guid: 0d230cc8be529a542a08cb878ab14b18, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d230cc8be529a542a08cb878ab14b18, type: 3}
+--- !u!114 &7539893346862224930 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8170153791668043265, guid: 0d230cc8be529a542a08cb878ab14b18, type: 3}
+  m_PrefabInstance: {fileID: 7539893346862224929}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a47f546fc70ec8428172694e78e4288, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7539893347856622684
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4236,10 +4259,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8170153791668043269, guid: 0d230cc8be529a542a08cb878ab14b18, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d230cc8be529a542a08cb878ab14b18, type: 3}
+--- !u!114 &7539893348160793073 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8170153791668043265, guid: 0d230cc8be529a542a08cb878ab14b18, type: 3}
+  m_PrefabInstance: {fileID: 7539893348160793072}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a47f546fc70ec8428172694e78e4288, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!222 &7544034037639983770
 CanvasRenderer:
   m_ObjectHideFlags: 0
