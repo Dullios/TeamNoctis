@@ -64,8 +64,8 @@ public class BlockSpawner : MonoBehaviour
         perlinOffset = new Vector2(offset.x + (chunkPos.x * perlinStepSizeX), offset.y + (chunkPos.y * perlinStepSizeY));
 
         GenerateTerrain();
-        CreateCombinedMesh();
-        GenerateNavMesh();
+        StartCoroutine(CreateCombinedMesh());
+        StartCoroutine(GenerateNavMesh());
     }
 
     private void GenerateTerrain()
@@ -109,7 +109,7 @@ public class BlockSpawner : MonoBehaviour
         return sampledFloat;
     }
 
-    private void CreateCombinedMesh()
+    private IEnumerator CreateCombinedMesh()
     {
         Vector3 oldPos = transform.position;
         transform.position = Vector3.zero;
@@ -178,11 +178,15 @@ public class BlockSpawner : MonoBehaviour
         meshFilter.sharedMesh = finalMesh;
 
         transform.position = oldPos;
+        
+        yield return null;
     }
 
-    private void GenerateNavMesh()
+    private IEnumerator GenerateNavMesh()
     {
         GetComponent<NavMeshSurface>().BuildNavMesh();
+        
+        yield return null;
     }
 
     private void OnTriggerEnter(Collider other)
