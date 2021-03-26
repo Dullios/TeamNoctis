@@ -214,7 +214,15 @@ public class BlockSpawner : MonoBehaviour
                 }
             }
 
-            ChunkManager.Instance.GetComponent<NavMeshSurface>().BuildNavMesh();
+            //ChunkManager.Instance.GetComponent<NavMeshSurface>().BuildNavMesh();
+            StartCoroutine(BuildSkyNavMesh());
         }
+    }
+
+    private IEnumerator BuildSkyNavMesh()
+    {
+        ChunkManager.Instance.GetComponent<NavMeshSurface>().BuildNavMesh();
+
+        yield return null;
     }
 }
