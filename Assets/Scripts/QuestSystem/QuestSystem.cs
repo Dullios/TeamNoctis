@@ -68,6 +68,12 @@ public class QuestSystem : Singleton<QuestSystem>
     {
         if (listOfQuest.Count != 0)
         {
+            //Call end function of current quest
+            if (currentQuest != null)
+            {
+                currentQuest.End();
+            }
+
             //Get next quest
             currentQuest = listOfQuest[0];
             listOfQuest.RemoveAt(0);

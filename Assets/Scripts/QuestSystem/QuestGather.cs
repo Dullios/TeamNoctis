@@ -62,7 +62,8 @@ public class QuestGather : QuestBase
     {
         base.End();
 
-
+        //Remove event
+        Inventory.instance.OnAddItem.RemoveListener(OnItemAddCallback);
     }
 
     void OnItemAddCallback(int _itemID, int _itemCount)
