@@ -651,33 +651,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: QuestCanvas
       objectReference: {fileID: 0}
-    - target: {fileID: 4551102409792656067, guid: 13ec78887fa20044f921026eeb0cdd03, type: 3}
-      propertyPath: m_text
-      value: 'Hold left mouse button collect resources.
-
-        Wood: 0/0.Iron:
-        0/0.'
-      objectReference: {fileID: 0}
-    - target: {fileID: 4551102409792656067, guid: 13ec78887fa20044f921026eeb0cdd03, type: 3}
-      propertyPath: m_lineSpacing
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4551102409792656067, guid: 13ec78887fa20044f921026eeb0cdd03, type: 3}
-      propertyPath: m_overflowMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4551102409792656067, guid: 13ec78887fa20044f921026eeb0cdd03, type: 3}
-      propertyPath: m_verticalMapping
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4551102409792656067, guid: 13ec78887fa20044f921026eeb0cdd03, type: 3}
-      propertyPath: m_paragraphSpacing
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4551102409792656067, guid: 13ec78887fa20044f921026eeb0cdd03, type: 3}
-      propertyPath: m_enableWordWrapping
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4551102409792656068, guid: 13ec78887fa20044f921026eeb0cdd03, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
