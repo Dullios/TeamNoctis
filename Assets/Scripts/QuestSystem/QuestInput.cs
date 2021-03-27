@@ -18,6 +18,8 @@ public class QuestInput : QuestBase
 
     public override void Start()
     {
+        base.Start();
+
         //Initialize detected key
         foreach (KeyCode detectingKey in detectingKeys)
         {
@@ -27,6 +29,8 @@ public class QuestInput : QuestBase
 
     public override void Update()
     {
+        base.Update();
+
         foreach(KeyCode key in detectingKeys)
         {
             if(Input.GetKeyDown(key))

@@ -10,7 +10,10 @@ public class QuestSystem : Singleton<QuestSystem>
 
     QuestBase currentQuest = null;
 
-    [Header("References")]
+    [Header("Item Table")]
+    public ItemTable itemTable;
+
+    [Header("Text References")]
     [SerializeField] TMP_Text questNameText;
     [SerializeField] TMP_Text questDescriptionText;
     [SerializeField] TMP_Text questStatusText;
@@ -33,6 +36,13 @@ public class QuestSystem : Singleton<QuestSystem>
         QuestInput questInput2 = new QuestInput("Jump", "Use Space to jump", detectingKeys2);
         listOfQuest.Add(questInput2);
 
+        //Added gather quest, (item id, item number), check item table scriptable object to know item id
+        Dictionary<int, int> listOfItem = new Dictionary<int, int>();
+        listOfItem.Add(0, 3);
+        listOfItem.Add(1, 3);
+        QuestGather questGather = new QuestGather("Gather resources", "Hold left mouse button to collect resources.", listOfItem);
+        listOfQuest.Add(questGather);
+
         //start first quest
         StartNextQuest();
     }
@@ -46,7 +56,10 @@ public class QuestSystem : Singleton<QuestSystem>
 
             if(currentQuest.questCompleted == true)
             {
-                StartNextQuest();
+                currentQuest = null;
+                questStatusText.text = "Completed";
+
+                Invoke(nameof(StartNextQuest), 2.0f);
             }
         }
     }
@@ -75,5 +88,10 @@ public class QuestSystem : Singleton<QuestSystem>
             questDescriptionText.text = "All quest done";
             questStatusText.text = "Completed";
         }
+    }
+
+    public void SetDescription(string newText)
+    {
+        questDescriptionText.text = newText;
     }
 }

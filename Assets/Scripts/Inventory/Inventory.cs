@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Inventory : Singleton<Inventory>
 {
@@ -26,6 +27,9 @@ public class Inventory : Singleton<Inventory>
 
     [Header("Item table")]
     [SerializeField] ItemTable itemTable;
+
+    [HideInInspector]
+    public UnityEvent<int, int> OnAddItem; //QuestGather will subscribe this
 
     protected override void Awake()
     {
@@ -138,6 +142,13 @@ public class Inventory : Singleton<Inventory>
                     {
                         //Stack up item
                         inventory[row, col].SetItemCount(inventory[row, col].itemCount + newItemCount);
+
+                        //Trigger event
+                        if(OnAddItem != null)
+                        {
+                            OnAddItem.Invoke(newItem.itemID, newItemCount);
+                        }
+
                         return true;
                     }
                 }
@@ -148,6 +159,13 @@ public class Inventory : Singleton<Inventory>
         if(emptyRow != -1 && emptyCol != -1)
         {
             inventory[emptyRow, emptyCol].SetItem(newItem, newItemCount);
+            
+            //Trigger event
+            if (OnAddItem != null)
+            {
+                OnAddItem.Invoke(newItem.itemID, newItemCount);
+            }
+
             return true;
         }
 

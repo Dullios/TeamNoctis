@@ -543,14 +543,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4551102409210285613, guid: 13ec78887fa20044f921026eeb0cdd03, type: 3}
-      propertyPath: m_fontSize
-      value: 35
-      objectReference: {fileID: 0}
-    - target: {fileID: 4551102409210285613, guid: 13ec78887fa20044f921026eeb0cdd03, type: 3}
-      propertyPath: m_fontSizeMax
-      value: 35
-      objectReference: {fileID: 0}
     - target: {fileID: 4551102409210285614, guid: 13ec78887fa20044f921026eeb0cdd03, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -660,11 +652,30 @@ PrefabInstance:
       value: QuestCanvas
       objectReference: {fileID: 0}
     - target: {fileID: 4551102409792656067, guid: 13ec78887fa20044f921026eeb0cdd03, type: 3}
-      propertyPath: m_fontSize
-      value: 28.8
+      propertyPath: m_text
+      value: 'Hold left mouse button collect resources.
+
+        Wood: 0/0.Iron:
+        0/0.'
       objectReference: {fileID: 0}
     - target: {fileID: 4551102409792656067, guid: 13ec78887fa20044f921026eeb0cdd03, type: 3}
-      propertyPath: m_enableAutoSizing
+      propertyPath: m_lineSpacing
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4551102409792656067, guid: 13ec78887fa20044f921026eeb0cdd03, type: 3}
+      propertyPath: m_overflowMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4551102409792656067, guid: 13ec78887fa20044f921026eeb0cdd03, type: 3}
+      propertyPath: m_verticalMapping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4551102409792656067, guid: 13ec78887fa20044f921026eeb0cdd03, type: 3}
+      propertyPath: m_paragraphSpacing
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4551102409792656067, guid: 13ec78887fa20044f921026eeb0cdd03, type: 3}
+      propertyPath: m_enableWordWrapping
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4551102409792656068, guid: 13ec78887fa20044f921026eeb0cdd03, type: 3}
@@ -686,18 +697,6 @@ PrefabInstance:
     - target: {fileID: 4551102409792656068, guid: 13ec78887fa20044f921026eeb0cdd03, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6347299453088496332, guid: 13ec78887fa20044f921026eeb0cdd03, type: 3}
-      propertyPath: m_fontSize
-      value: 35
-      objectReference: {fileID: 0}
-    - target: {fileID: 6347299453088496332, guid: 13ec78887fa20044f921026eeb0cdd03, type: 3}
-      propertyPath: m_fontSizeMax
-      value: 35
-      objectReference: {fileID: 0}
-    - target: {fileID: 6347299453088496332, guid: 13ec78887fa20044f921026eeb0cdd03, type: 3}
-      propertyPath: m_enableAutoSizing
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 13ec78887fa20044f921026eeb0cdd03, type: 3}

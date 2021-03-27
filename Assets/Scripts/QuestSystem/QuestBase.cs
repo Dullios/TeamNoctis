@@ -24,4 +24,9 @@ public class QuestBase
     {
 
     }
+
+    public virtual void End()
+    {
+
+    }
 }
