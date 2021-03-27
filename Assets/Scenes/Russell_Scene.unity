@@ -5220,6 +5220,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3793855572309414628, guid: aeb1666eb23ea024686b7ba472a6266e, type: 3}
+      propertyPath: loadDistance
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3793855572309414629, guid: aeb1666eb23ea024686b7ba472a6266e, type: 3}
       propertyPath: m_Name
       value: Chunk Manager

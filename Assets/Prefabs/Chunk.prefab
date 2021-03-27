@@ -11,10 +11,11 @@ GameObject:
   - component: {fileID: 5158916677482163394}
   - component: {fileID: 3048014727001199035}
   - component: {fileID: 4992948895220037953}
-  - component: {fileID: 5158916677482163393}
   - component: {fileID: 434120120255517255}
   - component: {fileID: 6903219595814421322}
-  m_Layer: 0
+  - component: {fileID: 5158916677482163393}
+  - component: {fileID: 8834393215629994689}
+  m_Layer: 2
   m_Name: Chunk
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -77,30 +78,6 @@ MonoBehaviour:
   m_VoxelSize: 0.11333334
   m_BuildHeightMesh: 0
   m_NavMeshData: {fileID: 0}
---- !u!114 &5158916677482163393
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5158916677482163392}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a2e91d675ada2548a37c82afefb8c2d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  perlinOffset: {x: 0, y: 0}
-  surfaceCube: {fileID: 1994553454022704, guid: 34a031333f407ff46aa2be10d4990402, type: 3}
-  fillerCube: {fileID: 1927891046657760, guid: 8be7be74c36f36b479880ac595913875, type: 3}
-  terrainHeightMultiplier: 5
-  resourceBlock1: {fileID: 8462819400734979609, guid: f0a1b14cd25979b4b8d607e5b9989bb9, type: 3}
-  wood: {fileID: 11400000, guid: 79a1bd1bf40502e49aca87daf029ab22, type: 2}
-  resourceBlock2: {fileID: 8462819400734979609, guid: f0a1b14cd25979b4b8d607e5b9989bb9, type: 3}
-  steel: {fileID: 11400000, guid: 6efb6da23fac8ec469a1a34b5d0bc738, type: 2}
-  chunkPos: {x: 0, y: 0}
-  blockMat:
-  - {fileID: 2100000, guid: 5bc42351477c0344ebf4b99b0f59a39c, type: 2}
-  - {fileID: 2100000, guid: 83db9bd7ff0cb794fa1a068e294e60c5, type: 2}
 --- !u!23 &434120120255517255
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -150,3 +127,43 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5158916677482163392}
   m_Mesh: {fileID: 0}
+--- !u!114 &5158916677482163393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5158916677482163392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a2e91d675ada2548a37c82afefb8c2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  perlinOffset: {x: 0, y: 0}
+  surfaceCube: {fileID: 1994553454022704, guid: 34a031333f407ff46aa2be10d4990402, type: 3}
+  fillerCube: {fileID: 1927891046657760, guid: 8be7be74c36f36b479880ac595913875, type: 3}
+  terrainHeightMultiplier: 5
+  chunkPos: {x: 0, y: 0}
+  maxResources: 5
+  blockMat:
+  - {fileID: 2100000, guid: 5bc42351477c0344ebf4b99b0f59a39c, type: 2}
+  - {fileID: 2100000, guid: 83db9bd7ff0cb794fa1a068e294e60c5, type: 2}
+--- !u!114 &8834393215629994689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5158916677482163392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51ac48a322dd15f44b98f314f070d5d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trees:
+  - {fileID: 7757931308848272959, guid: a205d8631d60c3245bc34e19f99fb82b, type: 3}
+  - {fileID: 787633541208043331, guid: ed495d0013f2cd24eb84fd5a9ca0cfc5, type: 3}
+  ores:
+  - {fileID: 6750315869980362546, guid: d31adf9a5e441a344a0ab10ccdbe7839, type: 3}
+  - {fileID: 7416411285968539643, guid: 6c4cd3882ebb63e4f8c17e86f1e9333d, type: 3}
+  - {fileID: 1043343382839995837, guid: d50044152225ec643bf8fbda88a65b27, type: 3}

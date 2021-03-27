@@ -30,15 +30,13 @@ public class BlockSpawner : MonoBehaviour
 
     public int terrainHeightMultiplier;
 
-    [Header("Resources")]
-    public GameObject resourceBlock1;
-    public Item wood;
-    public GameObject resourceBlock2;
-    public Item steel;
-
+    public GameObject[,] topLayer;
 
     [Header("Chunk Values")]
     public Vector2 chunkPos;
+
+    [Header("Resource Values")]
+    public int maxResources;
 
     [Header("Materials")]
     public Material[] blockMat;
@@ -46,12 +44,14 @@ public class BlockSpawner : MonoBehaviour
     // Components
     private MeshFilter meshFilter;
     private MeshRenderer meshRenderer;
+    private ResourceHandler resourceHandler;
 
     // Start is called before the first frame update
     void Start()
     {
         meshFilter = GetComponent<MeshFilter>();
         meshRenderer = GetComponent<MeshRenderer>();
+        resourceHandler = GetComponent<ResourceHandler>();
 
         // Grab values from ChunkManager Instance
         width = ChunkManager.Instance.width;
@@ -59,12 +59,15 @@ public class BlockSpawner : MonoBehaviour
         perlinStepSizeX = ChunkManager.Instance.perlinStepSizeX;
         perlinStepSizeY = ChunkManager.Instance.perlinStepSizeY;
 
+        topLayer = new GameObject[perlinStepSizeX, perlinStepSizeY];
+
         //tempSpawner.perlinOffset = new Vector2(perlinOffset.x + (x * perlinStepSizeX), perlinOffset.y + (y * perlinStepSizeY));
         Vector2 offset = ChunkManager.Instance.perlinOffset;
         perlinOffset = new Vector2(offset.x + (chunkPos.x * perlinStepSizeX), offset.y + (chunkPos.y * perlinStepSizeY));
 
         GenerateTerrain();
         StartCoroutine(CreateCombinedMesh());
+        SpawnResources();
         StartCoroutine(GenerateNavMesh());
     }
 
@@ -75,6 +78,7 @@ public class BlockSpawner : MonoBehaviour
             for(int y = 0; y < perlinStepSizeY; y++)
             {
                 GameObject cubeTemp = Instantiate(surfaceCube, new Vector3(x, SampleStepped(x, y) * terrainHeightMultiplier, y) + transform.position, Quaternion.identity, transform);
+                topLayer[x, y] = cubeTemp;
 
                 cubeTemp.transform.position = new Vector3(cubeTemp.transform.position.x, Mathf.CeilToInt(cubeTemp.transform.position.y), cubeTemp.transform.position.z);
                 Vector3 cubePos = cubeTemp.transform.position;
@@ -107,6 +111,20 @@ public class BlockSpawner : MonoBehaviour
             (int)(y + perlinOffset.y)).grayscale;
 
         return sampledFloat;
+    }
+
+    private void SpawnResources()
+    {
+        for (int i = 0; i < maxResources; i++)
+        {
+            int randX = Random.Range(0, perlinStepSizeX);
+            int randY = Random.Range(0, perlinStepSizeY);
+
+            Vector3 pos = topLayer[randX, randY].transform.position;
+            pos.y += 1;
+
+            Instantiate(resourceHandler.ReturnResource(), pos, Quaternion.identity, gameObject.transform);
+        }
     }
 
     private IEnumerator CreateCombinedMesh()
@@ -193,13 +211,15 @@ public class BlockSpawner : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
-            for(int x = (int)chunkPos.x - 2; x <= chunkPos.x + 2; x++)
+            int range = ChunkManager.Instance.loadDistance + 1;
+
+            for(int x = (int)chunkPos.x - range; x <= chunkPos.x + range; x++)
             {
-                for(int y = (int)chunkPos.y -2; y <= chunkPos.y + 2; y++)
+                for(int y = (int)chunkPos.y -range; y <= chunkPos.y + range; y++)
                 {
                     Vector2 index = new Vector2(x, y);
 
-                    if (Vector2.Distance(chunkPos, index) >= 2)
+                    if (Vector2.Distance(chunkPos, index) >= range)
                     {
                         if (ChunkManager.Instance.chunkDict.ContainsKey(index))
                             ChunkManager.Instance.chunkDict[index].gameObject.SetActive(false);
