@@ -120,7 +120,7 @@ public class PlayerController : MonoBehaviour
         // jump
         if (GlobalData.HasInstance)
         {
-            if (Input.GetKey(GlobalData.instance.keys["JUMP"]) && isGrounded && stats.currentStamina > 20f)
+            if (Input.GetKey(GlobalData.instance.keys["JUMP"]))
             {
                 Jump();
             }
@@ -135,11 +135,14 @@ public class PlayerController : MonoBehaviour
 
     public void Jump()
     {
-        jumpSFX.Play();
+        if (isGrounded && stats.currentStamina > 20f)
+        {
+            jumpSFX.Play();
 
-        Debug.Log("Jump");
-        velocity.y = Mathf.Sqrt(jumpHeight * -2.0f * gravity);
-        stats.currentStamina -= 20f;
+            Debug.Log("Jump");
+            velocity.y = Mathf.Sqrt(jumpHeight * -2.0f * gravity);
+            stats.currentStamina -= 20f;
+        }
     }
 
     void OnDrawGizmos()

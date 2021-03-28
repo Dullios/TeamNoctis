@@ -10,23 +10,28 @@ public class Interact : MonoBehaviour
     void Update()
     {
         //Mouse
-        if (Input.GetMouseButton(0) || Input.touchCount > 0)
+        if (Input.GetMouseButton(0))
         {
-            Debug.DrawLine(rayStart.position, rayStart.position + (rayStart.forward * raycastDistance), Color.green, 1.0f);
+            Extract();
+        }
+    }
 
-            //Simple raycast
-            RaycastHit result;
-            if (Physics.Raycast(rayStart.position, rayStart.forward, out result, raycastDistance))
+    public void Extract()
+    {
+        Debug.DrawLine(rayStart.position, rayStart.position + (rayStart.forward * raycastDistance), Color.green, 1.0f);
+
+        //Simple raycast
+        RaycastHit result;
+        if (Physics.Raycast(rayStart.position, rayStart.forward, out result, raycastDistance))
+        {
+            Debug.Log(result.collider.gameObject.name);
+
+            //Check if this is collectable object
+            CollectableObject collectableObject = result.collider.gameObject.GetComponent<CollectableObject>();
+            if (collectableObject != null)
             {
-                Debug.Log(result.collider.gameObject.name);
-
-                //Check if this is collectable object
-                CollectableObject collectableObject = result.collider.gameObject.GetComponent<CollectableObject>();
-                if (collectableObject != null)
-                {
-                    //collectableObject.Collected();
-                    collectableObject.collecting = true;
-                }
+                //collectableObject.Collected();
+                collectableObject.collecting = true;
             }
         }
     }
