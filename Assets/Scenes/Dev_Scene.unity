@@ -1084,6 +1084,10 @@ PrefabInstance:
       propertyPath: joystickLook
       value: 
       objectReference: {fileID: 2030504159}
+    - target: {fileID: 3480400844139484070, guid: f4c671914c4d42b4c91c936ccbbf4f3a, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 69
+      objectReference: {fileID: 0}
     - target: {fileID: 8367580216597658765, guid: f4c671914c4d42b4c91c936ccbbf4f3a, type: 3}
       propertyPath: hpImg
       value: 

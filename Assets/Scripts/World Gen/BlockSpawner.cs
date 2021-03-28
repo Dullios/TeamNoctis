@@ -54,15 +54,15 @@ public class BlockSpawner : MonoBehaviour
         resourceHandler = GetComponent<ResourceHandler>();
 
         // Grab values from ChunkManager Instance
-        width = ChunkManager.Instance.width;
-        height = ChunkManager.Instance.height;
-        perlinStepSizeX = ChunkManager.Instance.perlinStepSizeX;
-        perlinStepSizeY = ChunkManager.Instance.perlinStepSizeY;
+        width = ChunkManager.instance.width;
+        height = ChunkManager.instance.height;
+        perlinStepSizeX = ChunkManager.instance.perlinStepSizeX;
+        perlinStepSizeY = ChunkManager.instance.perlinStepSizeY;
 
         topLayer = new GameObject[perlinStepSizeX, perlinStepSizeY];
 
         //tempSpawner.perlinOffset = new Vector2(perlinOffset.x + (x * perlinStepSizeX), perlinOffset.y + (y * perlinStepSizeY));
-        Vector2 offset = ChunkManager.Instance.perlinOffset;
+        Vector2 offset = ChunkManager.instance.perlinOffset;
         perlinOffset = new Vector2(offset.x + (chunkPos.x * perlinStepSizeX), offset.y + (chunkPos.y * perlinStepSizeY));
 
         GenerateTerrain();
@@ -107,7 +107,7 @@ public class BlockSpawner : MonoBehaviour
 
         //float sampledFloat = ChunkManager.Instance.perlinTexture.GetPixel((int)((x * gridStepSizeX) + perlinOffset.x),
         //    (int)((y * gridStepSizeY) + perlinOffset.y)).grayscale;
-        float sampledFloat = ChunkManager.Instance.perlinTexture.GetPixel((int)(x + perlinOffset.x),
+        float sampledFloat = ChunkManager.instance.perlinTexture.GetPixel((int)(x + perlinOffset.x),
             (int)(y + perlinOffset.y)).grayscale;
 
         return sampledFloat;
@@ -211,7 +211,7 @@ public class BlockSpawner : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
-            int range = ChunkManager.Instance.loadDistance + 1;
+            int range = ChunkManager.instance.loadDistance + 1;
 
             for(int x = (int)chunkPos.x - range; x <= chunkPos.x + range; x++)
             {
@@ -221,15 +221,15 @@ public class BlockSpawner : MonoBehaviour
 
                     if (Vector2.Distance(chunkPos, index) >= range)
                     {
-                        if (ChunkManager.Instance.chunkDict.ContainsKey(index))
-                            ChunkManager.Instance.chunkDict[index].gameObject.SetActive(false);
+                        if (ChunkManager.instance.chunkDict.ContainsKey(index))
+                            ChunkManager.instance.chunkDict[index].gameObject.SetActive(false);
                     }
                     else
                     {
-                        if (ChunkManager.Instance.chunkDict.ContainsKey(index))
-                            ChunkManager.Instance.chunkDict[index].gameObject.SetActive(true);
+                        if (ChunkManager.instance.chunkDict.ContainsKey(index))
+                            ChunkManager.instance.chunkDict[index].gameObject.SetActive(true);
                         else
-                            ChunkManager.Instance.InstantiateChunk((int)index.x, (int)index.y);
+                            ChunkManager.instance.InstantiateChunk((int)index.x, (int)index.y);
                     }
                 }
             }
@@ -241,7 +241,7 @@ public class BlockSpawner : MonoBehaviour
 
     private IEnumerator BuildSkyNavMesh()
     {
-        ChunkManager.Instance.GetComponent<NavMeshSurface>().BuildNavMesh();
+        ChunkManager.instance.GetComponent<NavMeshSurface>().BuildNavMesh();
 
         yield return null;
     }

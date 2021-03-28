@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class ChunkManager : MonoBehaviour
+public class ChunkManager : Singleton<ChunkManager>
 {
     private Renderer m_renderer;
     public Texture2D perlinTexture;
@@ -26,15 +26,8 @@ public class ChunkManager : MonoBehaviour
     public Dictionary<Vector2, BlockSpawner> chunkDict;
     public int loadDistance = 1;
 
-    public static ChunkManager Instance;
-
-    private void Awake()
+    private void Start()
     {
-        if (Instance == null)
-            Instance = this;
-        else
-            Destroy(gameObject);
-
         m_renderer = GetComponent<Renderer>();
 
         if (randomizeOffset)
@@ -45,6 +38,18 @@ public class ChunkManager : MonoBehaviour
         perlinTexture = GenerateTexture();
         m_renderer.material.mainTexture = perlinTexture;
         chunkDict = new Dictionary<Vector2, BlockSpawner>();
+        
+        
+        int range = loadDistance * 2 + 1;
+
+        int inverse = loadDistance * -1;
+        for (int x = inverse; x < range + inverse; x++)
+        {
+            for (int y = inverse; y < range + inverse; y++)
+            {
+                InstantiateChunk(x, y);
+            }
+        }
     }
 
     private Texture2D GenerateTexture()
@@ -73,21 +78,6 @@ public class ChunkManager : MonoBehaviour
 
         float sample = Mathf.PerlinNoise(xCoord, yCoord);
         return new Color(sample, sample, sample);
-    }
-
-
-    private void Start()
-    {
-        int range = loadDistance * 2 + 1;
-
-        int inverse = loadDistance * -1;
-        for (int x = inverse; x < range + inverse; x++)
-        {
-            for(int y = inverse; y < range + inverse; y++)
-            {
-                InstantiateChunk(x, y);
-            }
-        }
     }
 
     public void InstantiateChunk(int x, int y)
