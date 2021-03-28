@@ -5,28 +5,33 @@ using UnityEngine;
 public class Interact : MonoBehaviour
 {
     public Transform rayStart;
-    public float raycastDistance = 100.0f;
+    public float raycastDistance = 1.0f;
     // Update is called once per frame
     void Update()
     {
         //Mouse
-        if (Input.GetMouseButton(0) || Input.touchCount > 0)
+        if (Input.GetMouseButton(0) && Application.platform != RuntimePlatform.Android)
         {
-            Debug.DrawLine(rayStart.position, rayStart.position + (rayStart.forward * raycastDistance), Color.green, 1.0f);
+            Extract();
+        }
+    }
 
-            //Simple raycast
-            RaycastHit result;
-            if (Physics.Raycast(rayStart.position, rayStart.forward, out result, raycastDistance))
+    public void Extract()
+    {
+        Debug.DrawLine(rayStart.position, rayStart.position + (rayStart.forward * raycastDistance), Color.green, 1.0f);
+
+        //Simple raycast
+        RaycastHit result;
+        if (Physics.Raycast(rayStart.position, rayStart.forward, out result, raycastDistance))
+        {
+            Debug.Log(result.collider.gameObject.name);
+
+            //Check if this is collectable object
+            CollectableObject collectableObject = result.collider.gameObject.GetComponent<CollectableObject>();
+            if (collectableObject != null)
             {
-                Debug.Log(result.collider.gameObject.name);
-
-                //Check if this is collectable object
-                CollectableObject collectableObject = result.collider.gameObject.GetComponent<CollectableObject>();
-                if (collectableObject != null)
-                {
-                    //collectableObject.Collected();
-                    collectableObject.collecting = true;
-                }
+                //collectableObject.Collected();
+                collectableObject.collecting = true;
             }
         }
     }

@@ -13,6 +13,9 @@ public class CameraController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (Application.platform == RuntimePlatform.Android)
+            return; //Don't lock cursor on phone
+
         Cursor.lockState = CursorLockMode.Locked;
         
     }
