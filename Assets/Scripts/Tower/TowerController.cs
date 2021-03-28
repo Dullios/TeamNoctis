@@ -14,14 +14,14 @@ public class TowerController : MonoBehaviour
     private float shotCooldown = 0.0f;
 
     // Start is called before the first frame update
-    void Start()
+    protected void Start()
     {
         enemies = new List<GameObject>();
         GetComponent<SphereCollider>().radius = shotRange;
     }
 
     // Update is called once per frame
-    void Update()
+    protected void Update()
     {
         if (isActivated)
         {
@@ -37,7 +37,7 @@ public class TowerController : MonoBehaviour
     }
 
     //Behaviour for when tower fires
-    private void OnFire()
+    protected void OnFire()
     {
         //look at first enemy in list
         shotPoint.LookAt(enemies[0].transform);
@@ -48,20 +48,20 @@ public class TowerController : MonoBehaviour
     }
 
     //Add enemies in range to shot list
-    private void OnTriggerEnter(Collider other)
+    protected void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Enemy")
             enemies.Add(other.gameObject);
     }
 
     //Remove dead or out of range enemies
-    private void OnTriggerExit(Collider other)
+    protected void OnTriggerExit(Collider other)
     {
         if (other.tag == "Enemy")
             enemies.Remove(other.gameObject);
     }
 
-    private void OnDestroy()
+    protected void OnDestroy()
     {
         enemies.Clear();
         enemies = null;

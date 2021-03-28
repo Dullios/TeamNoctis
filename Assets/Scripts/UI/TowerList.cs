@@ -46,6 +46,8 @@ public class TowerList : MonoBehaviour
 
     public void CursorState(bool state)
     {
+        if (Application.platform == RuntimePlatform.Android)
+            return; //Ignore Cursor States on phone
         Cursor.lockState = state ? CursorLockMode.None : CursorLockMode.Locked;
     }
 }

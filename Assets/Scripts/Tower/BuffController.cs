@@ -23,26 +23,31 @@ public class BuffController : TowerController
     private float timer = 3.0f;
 
     // Start is called before the first frame update
-    void Start()
+    new private void Start()
     {
+        base.Start();
         GetComponent<SphereCollider>().radius = buffRange;
     }
 
     // Update is called once per frame
-    void Update()
+    new private void Update()
     {
-        if (isActivated && player != null && timer == cooldown)
+        if (isActivated && player != null)
         {
-            _ApplyBuff();
-        }
+            shotPoint.Rotate(0, 30 * Time.deltaTime, 0, Space.World);
 
+            if (timer == cooldown)
+            {
+                _ApplyBuff();
+            }
+        }
         //Slow down buff check
         timer -= Time.deltaTime;
         if (timer < 0)
             timer = cooldown;
     }
 
-    private void OnTriggerEnter(Collider other)
+    new private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
         {
@@ -51,9 +56,9 @@ public class BuffController : TowerController
     }
 
     //Remove dead or out of range enemies
-    private void OnTriggerExit(Collider other)
+    new private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Enemy")
+        if (other.tag == "Player")
         { 
             player = null;
         }
@@ -64,11 +69,16 @@ public class BuffController : TowerController
     {
         BuffBehaviour buff;
         if (player.gameObject.TryGetComponent<BuffBehaviour>(out buff))
-            return; //Buff already found, stop here
-
-        buff = player.gameObject.AddComponent<BuffBehaviour>();
-        buff.strength = buffStrength;
-        buff.duration = buffDuration;
+        {//Buff already found
+            buff.strength = buffStrength;
+            buff.duration = buffDuration;
+        }
+        else
+        {
+            buff = player.gameObject.AddComponent<BuffBehaviour>();
+            buff.strength = buffStrength;
+            buff.duration = buffDuration;
+        }
 
         switch (statBuffed)
         {

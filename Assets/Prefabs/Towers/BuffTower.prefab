@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4201065258485026396}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 2, y: 5, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4201065258848268845}
@@ -66,7 +66,7 @@ MonoBehaviour:
   shotSpeed: 1
   shotRange: 10
   bullet: {fileID: 0}
-  shotPoint: {fileID: 0}
+  shotPoint: {fileID: 2555437996649201250}
   isActivated: 1
   buffRange: 10
   statBuffed: 2
@@ -261,6 +261,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Quartz_block
       objectReference: {fileID: 0}
+    - target: {fileID: 1613656955944324, guid: 47ed1f31a49e1294fa0d176a5a570ac4, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4143112115293388, guid: 47ed1f31a49e1294fa0d176a5a570ac4, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -322,6 +326,14 @@ PrefabInstance:
     - target: {fileID: 1737906714266782, guid: 3f34101a8a1875d449d81cc1047e276b, type: 3}
       propertyPath: m_Name
       value: Emerald_block
+      objectReference: {fileID: 0}
+    - target: {fileID: 1737906714266782, guid: 3f34101a8a1875d449d81cc1047e276b, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1737906714266782, guid: 3f34101a8a1875d449d81cc1047e276b, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4866454852010298, guid: 3f34101a8a1875d449d81cc1047e276b, type: 3}
       propertyPath: m_RootOrder
@@ -397,6 +409,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Quartz_block (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1613656955944324, guid: 47ed1f31a49e1294fa0d176a5a570ac4, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4143112115293388, guid: 47ed1f31a49e1294fa0d176a5a570ac4, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -458,6 +474,10 @@ PrefabInstance:
     - target: {fileID: 1433337670213310, guid: 206fcb8b5a5971d44878d5c45ba51143, type: 3}
       propertyPath: m_Name
       value: Glass
+      objectReference: {fileID: 0}
+    - target: {fileID: 1433337670213310, guid: 206fcb8b5a5971d44878d5c45ba51143, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4923886826881632, guid: 206fcb8b5a5971d44878d5c45ba51143, type: 3}
       propertyPath: m_RootOrder

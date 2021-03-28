@@ -40,7 +40,7 @@ public class BuildingComponent : MonoBehaviour
     void Update()
     {
         _SearchGround();
-        if (Input.GetMouseButtonDown(1) || Input.touchCount > 0)
+        if (Input.GetMouseButtonDown(1))
         {
             PlaceTower();
         }
