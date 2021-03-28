@@ -34,13 +34,13 @@ public class TowerList : MonoBehaviour
         {
             CursorState(true);
             towerListBGCanvas.enabled = true;
-            Time.timeScale = 0.0f;
+            //Time.timeScale = 0.0f;
         }
         else
         {
             CursorState(false);
             towerListBGCanvas.enabled = false;
-            Time.timeScale = 1.0f;
+            //Time.timeScale = 1.0f;
         }
     }
 

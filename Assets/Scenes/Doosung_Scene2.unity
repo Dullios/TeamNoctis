@@ -651,6 +651,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: QuestCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 4551102409779665387, guid: 13ec78887fa20044f921026eeb0cdd03, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4551102409779665387, guid: 13ec78887fa20044f921026eeb0cdd03, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4551102409779665387, guid: 13ec78887fa20044f921026eeb0cdd03, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 569.50806
+      objectReference: {fileID: 0}
+    - target: {fileID: 4551102409779665387, guid: 13ec78887fa20044f921026eeb0cdd03, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 569.50806
+      objectReference: {fileID: 0}
+    - target: {fileID: 4551102409779665387, guid: 13ec78887fa20044f921026eeb0cdd03, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 49.09
+      objectReference: {fileID: 0}
     - target: {fileID: 4551102409792656068, guid: 13ec78887fa20044f921026eeb0cdd03, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
