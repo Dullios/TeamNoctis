@@ -5,12 +5,12 @@ using UnityEngine;
 public class Interact : MonoBehaviour
 {
     public Transform rayStart;
-    public float raycastDistance = 100.0f;
+    public float raycastDistance = 1.0f;
     // Update is called once per frame
     void Update()
     {
         //Mouse
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && Application.platform != RuntimePlatform.Android)
         {
             Extract();
         }
