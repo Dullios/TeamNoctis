@@ -18,6 +18,12 @@ public class QuestSystem : Singleton<QuestSystem>
     [SerializeField] TMP_Text questDescriptionText;
     [SerializeField] TMP_Text questStatusText;
 
+    // components
+    BuildingComponent buildingComponent;
+
+    // Canvas
+    Canvas questCanvas;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -42,6 +48,21 @@ public class QuestSystem : Singleton<QuestSystem>
         listOfItem.Add(1, 3);
         QuestGather questGather = new QuestGather("Gather resources", "Hold left mouse button to collect resources.", listOfItem);
         listOfQuest.Add(questGather);
+
+        // Added open Tower List Quest
+        List<KeyCode> detectingKeys3 = new List<KeyCode>();
+        detectingKeys3.Add(KeyCode.I);
+        QuestInput questInput3 = new QuestInput("Tower List", "Use i to Open", detectingKeys3);
+        listOfQuest.Add(questInput3);
+
+        // Added place tower quest
+        buildingComponent = FindObjectOfType<BuildingComponent>();
+        QuestPlaceTower questPlaceTower = new QuestPlaceTower("Place Tower", "Click any tower on the List and Place to the Ground", buildingComponent);
+        listOfQuest.Add(questPlaceTower);
+
+
+        // Get Canvas Component
+        questCanvas = GetComponent<Canvas>();
 
         //start first quest
         StartNextQuest();
@@ -93,7 +114,16 @@ public class QuestSystem : Singleton<QuestSystem>
             questNameText.text = "All quest done";
             questDescriptionText.text = "All quest done";
             questStatusText.text = "Completed";
+
+            // disable canvas after 2 secs
+            Invoke("DisableCanvas", 2.0f);
         }
+    }
+
+    public void DisableCanvas()
+    {
+        // disable canvas after finishing all quests
+        questCanvas.enabled = false;
     }
 
     public void SetDescription(string newText)

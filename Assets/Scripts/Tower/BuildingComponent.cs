@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.Events;
 
 //The component that allows a gameobject to build towers
 //Should be disabled until in use
@@ -14,6 +15,10 @@ public class BuildingComponent : MonoBehaviour
 
     private bool canPlace;
     private GameObject tower;
+
+    // for quest
+    [HideInInspector]
+    public UnityEvent OnPlaceTower;
 
     //Instantiate the tower choice 
     private void OnEnable()
@@ -107,6 +112,13 @@ public class BuildingComponent : MonoBehaviour
             tower.transform.parent = null;
             tower = null;
             canPlace = false;
+
+            // start event for quest
+            if(OnPlaceTower!= null)
+            {
+                OnPlaceTower.Invoke();
+            }
+
             StopBuilding();
         }
     }
