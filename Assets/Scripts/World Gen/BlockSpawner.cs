@@ -151,6 +151,8 @@ public class BlockSpawner : MonoBehaviour
             }
         }
 
+        yield return new WaitForEndOfFrame();
+
         List<Mesh> submeshes = new List<Mesh>();
         foreach(Material mat in materialList)
         {
@@ -196,8 +198,6 @@ public class BlockSpawner : MonoBehaviour
         meshFilter.sharedMesh = finalMesh;
 
         transform.position = oldPos;
-        
-        yield return null;
     }
 
     private IEnumerator GenerateNavMesh()
