@@ -10,8 +10,8 @@ public class TowerController : MonoBehaviour
     public Transform shotPoint;
     public bool isActivated = true;
 
-    private List<GameObject> enemies;
-    private float shotCooldown = 0.0f;
+    protected List<GameObject> enemies;
+    protected float shotCooldown = 0.0f;
 
     // Start is called before the first frame update
     protected void Start()
