@@ -19,6 +19,10 @@ public class BuildingComponent : MonoBehaviour
     // for quest
     [HideInInspector]
     public UnityEvent OnPlaceTower;
+    bool canBuildTower;
+
+    // for showing pop up message
+    [SerializeField] GameObject popUpPanel = null;
 
     //Instantiate the tower choice 
     private void OnEnable()
@@ -39,6 +43,12 @@ public class BuildingComponent : MonoBehaviour
             tower = null;
         }
         Debug.Log("Building Stopping");
+    }
+
+    private void Start()
+    {
+        popUpPanel.SetActive(false);
+        canBuildTower = true;
     }
 
     // Update is called once per frame
@@ -149,7 +159,7 @@ public class BuildingComponent : MonoBehaviour
             }
             else
             {
-                Debug.Log("Not enough resources");
+                StartCoroutine(PopUpMessageDelay());
             }
         }
     }
@@ -157,5 +167,18 @@ public class BuildingComponent : MonoBehaviour
     public void StopBuilding()
     {
         this.enabled = false;
+    }
+
+    IEnumerator PopUpMessageDelay()
+    {
+        if (canBuildTower)
+        {
+            popUpPanel.gameObject.SetActive(true);
+            canBuildTower = false;
+
+            yield return new WaitForSeconds(2.0f);
+            popUpPanel.gameObject.SetActive(false);
+            canBuildTower = true;
+        }
     }
 }

@@ -1158,7 +1158,7 @@ PrefabInstance:
     - target: {fileID: 4187609204503941131, guid: f4c671914c4d42b4c91c936ccbbf4f3a, type: 3}
       propertyPath: popUpPanel
       value: 
-      objectReference: {fileID: 2119604463}
+      objectReference: {fileID: 2034328309}
     - target: {fileID: 8367580216597658765, guid: f4c671914c4d42b4c91c936ccbbf4f3a, type: 3}
       propertyPath: hpImg
       value: 
@@ -1249,7 +1249,63 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a47f546fc70ec8428172694e78e4288, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &2119604462
+--- !u!1 &2034328309 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3259425117627489929, guid: 0fe92add92d2c204fbd3d4055daf0695, type: 3}
+  m_PrefabInstance: {fileID: 3259425119124946044}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2145591148
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2145591150}
+  - component: {fileID: 2145591149}
+  m_Layer: 0
+  m_Name: SaveLoad
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2145591149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2145591148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5ab78f5a13e9a14792a26d7bd0aab41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerController: {fileID: 0}
+  cameraController: {fileID: 0}
+  stats: {fileID: 0}
+  dayCycleManager: {fileID: 0}
+  towers: []
+  buffTowerPrefab: {fileID: 4201065258485026396, guid: 01c441bba3738fe42b58b6195f54360f, type: 3}
+  normalTowerPrefab: {fileID: 4201065258485026396, guid: bf51bfe288c8774468d8ed63da4672fd, type: 3}
+  loadScene: Dev_Scene
+--- !u!4 &2145591150
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2145591148}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 960, y: 540, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &3259425119124946044
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -1346,62 +1402,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0fe92add92d2c204fbd3d4055daf0695, type: 3}
---- !u!1 &2119604463 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3259425117627489929, guid: 0fe92add92d2c204fbd3d4055daf0695, type: 3}
-  m_PrefabInstance: {fileID: 2119604462}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &2145591148
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2145591150}
-  - component: {fileID: 2145591149}
-  m_Layer: 0
-  m_Name: SaveLoad
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &2145591149
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2145591148}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5ab78f5a13e9a14792a26d7bd0aab41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerController: {fileID: 0}
-  cameraController: {fileID: 0}
-  stats: {fileID: 0}
-  dayCycleManager: {fileID: 0}
-  towers: []
-  buffTowerPrefab: {fileID: 4201065258485026396, guid: 01c441bba3738fe42b58b6195f54360f, type: 3}
-  normalTowerPrefab: {fileID: 4201065258485026396, guid: bf51bfe288c8774468d8ed63da4672fd, type: 3}
-  loadScene: Dev_Scene
---- !u!4 &2145591150
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2145591148}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 960, y: 540, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &3793855571194284327
 PrefabInstance:
   m_ObjectHideFlags: 0
