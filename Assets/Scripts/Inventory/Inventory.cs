@@ -172,6 +172,39 @@ public class Inventory : Singleton<Inventory>
         return false;
     }
 
+    public void RemoveItem(Item item, int itemCount)
+    {
+        for (int row = 0; row < numOfSlotRow; ++row)
+        {
+            for (int col = 0; col < numOfSlotCol; ++col)
+            {
+                //find item
+                if (inventory[row, col].item == item)
+                {
+                    inventory[row, col].ModifyItemCount(-itemCount);
+                }
+            }
+        }
+    }
+
+    public bool CheckItem(Item item, int itemCount)
+    {
+        for (int row = 0; row < numOfSlotRow; ++row)
+        {
+            for (int col = 0; col < numOfSlotCol; ++col)
+            {
+                //find item
+                if (inventory[row, col].item == item &&
+                    inventory[row, col].itemCount >= itemCount)
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
     public void ResetInventory()
     {
         int emptyRow = -1; //save empty row

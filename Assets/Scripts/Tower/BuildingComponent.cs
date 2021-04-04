@@ -105,21 +105,52 @@ public class BuildingComponent : MonoBehaviour
     public void PlaceTower()
     {
         if (canPlace)
-        {//remove from builder transform and builder
+        {
+            //remove from builder transform and builder
             Assert.IsNotNull(tower, "Oops, no tower available");
-            _Deselected(tower);
-            tower.GetComponent<TowerController>().isActivated = true;
-            tower.transform.parent = null;
-            tower = null;
-            canPlace = false;
 
-            // start event for quest
-            if(OnPlaceTower!= null)
+            //CHeck tower cost
+            TowerController towerController = tower.GetComponent<TowerController>();
+
+            int fulfilledItemNum = 0;
+            foreach (KeyValuePair<Item, int> element in towerController.itemRequiredList)
             {
-                OnPlaceTower.Invoke();
+                bool result = Inventory.instance.CheckItem(element.Key, element.Value);
+                if(result == true)
+                {
+                    ++fulfilledItemNum;
+                }
             }
 
-            StopBuilding();
+            //If we have all item in inventory
+            if(fulfilledItemNum == towerController.itemRequiredList.Count)
+            {
+                //Remove item from inventory
+                foreach (KeyValuePair<Item, int> element in towerController.itemRequiredList)
+                {
+                    Inventory.instance.RemoveItem(element.Key, element.Value);
+                }
+
+                _Deselected(tower);
+                tower.GetComponent<TowerController>().isActivated = true;
+                tower.transform.parent = null;
+                tower = null;
+                canPlace = false;
+
+                // start event for quest
+                if (OnPlaceTower != null)
+                {
+                    OnPlaceTower.Invoke();
+                }
+
+                StopBuilding();
+
+                
+            }
+            else
+            {
+                Debug.Log("Not enough resources");
+            }
         }
     }
 

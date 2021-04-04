@@ -55,6 +55,9 @@ MonoBehaviour:
   bullet: {fileID: 7175809693800853086, guid: 19ae6a6e482823346b5d1c04aa6d70e2, type: 3}
   shotPoint: {fileID: 4198090039550698226}
   isActivated: 1
+  itemRequired:
+  - {fileID: 11400000, guid: 79a1bd1bf40502e49aca87daf029ab22, type: 2}
+  itemCount: 01000000
 --- !u!135 &2402726140918720098
 SphereCollider:
   m_ObjectHideFlags: 0

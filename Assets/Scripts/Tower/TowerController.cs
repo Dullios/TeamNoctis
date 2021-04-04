@@ -13,11 +13,27 @@ public class TowerController : MonoBehaviour
     protected List<GameObject> enemies;
     protected float shotCooldown = 0.0f;
 
+    [Header("ItemRequired")]
+    public List<Item> itemRequired;
+    public List<int> itemCount;
+
+    public Dictionary<Item, int> itemRequiredList = new Dictionary<Item, int>();
+
     // Start is called before the first frame update
     protected void Start()
     {
         enemies = new List<GameObject>();
         GetComponent<SphereCollider>().radius = shotRange;
+
+
+        //Make item required list
+        if(itemRequired != null && itemCount != null)
+        {
+            for(int i = 0; i < itemRequired.Count; ++i)
+            {
+                itemRequiredList.Add(itemRequired[i], itemCount[i]);
+            }
+        }
     }
 
     // Update is called once per frame

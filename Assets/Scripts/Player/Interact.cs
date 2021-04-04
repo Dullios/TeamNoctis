@@ -24,7 +24,7 @@ public class Interact : MonoBehaviour
         RaycastHit result;
         if (Physics.Raycast(rayStart.position, rayStart.forward, out result, raycastDistance))
         {
-            Debug.Log(result.collider.gameObject.name);
+            //Debug.Log(result.collider.gameObject.name);
 
             //Check if this is collectable object
             CollectableObject collectableObject = result.collider.gameObject.GetComponent<CollectableObject>();

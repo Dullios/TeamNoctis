@@ -80,6 +80,17 @@ public class InventorySlot : MonoBehaviour
         }
     }
 
+    public void ModifyItemCount(int modifier)
+    {
+        itemCount += modifier;
+        itemCountText.text = "x" + itemCount.ToString();
+
+        if(itemCount <= 0)
+        {
+            ClearItem();
+        }
+    }
+
     public void SetItem(Item newItem, int newItemCount)
     {
         item = newItem;
