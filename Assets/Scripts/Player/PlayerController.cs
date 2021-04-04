@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour
 {
@@ -27,6 +28,10 @@ public class PlayerController : MonoBehaviour
     public AudioSource jumpSFX;
 
     InventorySlot inventorySlot;
+
+    //Event
+    [HideInInspector]
+    public UnityEvent OnJump; //QuestInput will subscribe this
 
     // Start is called before the first frame update
     void Start()
@@ -142,6 +147,12 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Jump");
             velocity.y = Mathf.Sqrt(jumpHeight * -2.0f * gravity);
             stats.currentStamina -= 20f;
+
+            //Call event
+            if(OnJump != null)
+            {
+                OnJump.Invoke();
+            }
         }
     }
 

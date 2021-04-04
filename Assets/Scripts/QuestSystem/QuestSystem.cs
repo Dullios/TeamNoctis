@@ -44,12 +44,11 @@ public class QuestSystem : Singleton<QuestSystem>
         detectingJoystickMoveDirection.Add("Backward");
         detectingJoystickMoveDirection.Add("Right");
         detectingJoystickMoveDirection.Add("Left");
-        QuestInput questInput = new QuestInput("Movement", "Use W, A, S, D to move or Use left joystick to move", detectingKeys, 
+        QuestInput questInput = new QuestInput("Movement", "Use W, A, S, D or Use left joystick to move", detectingKeys, 
             playerController.joystickMove, detectingJoystickMoveDirection);
         listOfQuest.Add(questInput);
 
         //Add look around quest
-
         List<string> detectingJoystickLookDirection = new List<string>();
         detectingJoystickLookDirection.Add("Forward");
         detectingJoystickLookDirection.Add("Backward");
@@ -62,14 +61,14 @@ public class QuestSystem : Singleton<QuestSystem>
         //Added input quest
         List<KeyCode> detectingKeys2 = new List<KeyCode>();
         detectingKeys2.Add(KeyCode.Space);
-        QuestInput questInput2 = new QuestInput("Jump", "Use Space to jump", detectingKeys2);
+        QuestInput questInput2 = new QuestInput("Jump", "Use Space to jump or Press jump button", detectingKeys, null, null, playerController.OnJump);
         listOfQuest.Add(questInput2);
 
         //Added gather quest, (item id, item number), check item table scriptable object to know item id
         Dictionary<int, int> listOfItem = new Dictionary<int, int>();
         listOfItem.Add(0, 3);
         listOfItem.Add(1, 3);
-        QuestGather questGather = new QuestGather("Gather resources", "Hold left mouse button to collect resources.", listOfItem);
+        QuestGather questGather = new QuestGather("Gather resources", "Hold left mouse button or Press extract button to collect resources.", listOfItem);
         listOfQuest.Add(questGather);
 
         // Added open Tower List Quest

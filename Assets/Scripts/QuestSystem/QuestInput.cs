@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [System.Serializable]
 public class QuestInput : QuestBase
@@ -17,14 +18,20 @@ public class QuestInput : QuestBase
     int numOfDetectedJoystickMove = 0; //number of already detected joystick move
     Dictionary<string, bool> detectedJoystirckMove = new Dictionary<string, bool>(); //will be used if this key has already detected
 
+
+    //Button event
+    UnityEvent buttonEvent;
+
     public QuestInput(string _questName, string _questDescription, List<KeyCode> _detectingKeys, 
-        Joystick _joystickMove = null, List<string> _detectingJoystickMoveDirection = null)
+        Joystick _joystickMove = null, List<string> _detectingJoystickMoveDirection = null, UnityEvent _buttonEvent = null)
         :base(_questName, _questDescription)
     {
         detectingKeys = _detectingKeys;
 
         joystickMove = _joystickMove;
         detectingJoystickMoveDirection = _detectingJoystickMoveDirection;
+
+        buttonEvent = _buttonEvent;
     }
 
     public override void Start()
@@ -48,6 +55,12 @@ public class QuestInput : QuestBase
             {
                 detectedJoystirckMove.Add(direction, false);
             }
+        }
+
+        //Subscribe to this event
+        if (buttonEvent != null)
+        {
+            buttonEvent.AddListener(OnButtonClicked);
         }
     }
 
@@ -154,6 +167,21 @@ public class QuestInput : QuestBase
                 questCompleted = true;
             }
         }
+    }
 
+    public override void End()
+    {
+        base.End();
+
+        //Subscribe to this event
+        if (buttonEvent != null)
+        {
+            buttonEvent.RemoveListener(OnButtonClicked);
+        }
+    }
+
+    void OnButtonClicked()
+    {
+        questCompleted = true;
     }
 }
