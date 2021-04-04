@@ -6,6 +6,7 @@ public class WallController : TowerController
 {
     new void Start()
     {
+        base.Start();
         //Override Tower Behaviours... this is a wall
     }
 

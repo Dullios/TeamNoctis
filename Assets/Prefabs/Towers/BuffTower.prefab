@@ -68,10 +68,15 @@ MonoBehaviour:
   bullet: {fileID: 0}
   shotPoint: {fileID: 2555437996649201250}
   isActivated: 1
+  itemRequired:
+  - {fileID: 11400000, guid: 79a1bd1bf40502e49aca87daf029ab22, type: 2}
+  - {fileID: 11400000, guid: 6efb6da23fac8ec469a1a34b5d0bc738, type: 2}
+  itemCount: 0200000002000000
   buffRange: 10
   statBuffed: 2
   buffStrength: 5
   buffDuration: 3
+  targetTag: Player
 --- !u!82 &-9097554828587122191
 AudioSource:
   m_ObjectHideFlags: 0

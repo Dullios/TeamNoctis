@@ -342,6 +342,9 @@ MonoBehaviour:
   bullet: {fileID: 0}
   shotPoint: {fileID: 0}
   isActivated: 1
+  itemRequired:
+  - {fileID: 11400000, guid: 6efb6da23fac8ec469a1a34b5d0bc738, type: 2}
+  itemCount: 01000000
 --- !u!1 &3468207158973392133
 GameObject:
   m_ObjectHideFlags: 0
