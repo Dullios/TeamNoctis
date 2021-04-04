@@ -24,17 +24,40 @@ public class QuestSystem : Singleton<QuestSystem>
     // Canvas
     Canvas questCanvas;
 
+    PlayerController playerController;
+    CameraController cameraController;
+
     // Start is called before the first frame update
     void Start()
     {
+        playerController = FindObjectOfType<PlayerController>();
+        cameraController = FindObjectOfType<CameraController>();
+
         //Added input quest
         List<KeyCode> detectingKeys = new List<KeyCode>();
         detectingKeys.Add(KeyCode.W);
         detectingKeys.Add(KeyCode.A);
         detectingKeys.Add(KeyCode.S);
         detectingKeys.Add(KeyCode.D);
-        QuestInput questInput = new QuestInput("Movement", "Use W, A, S, D to move", detectingKeys);
+        List<string> detectingJoystickMoveDirection = new List<string>();
+        detectingJoystickMoveDirection.Add("Forward");
+        detectingJoystickMoveDirection.Add("Backward");
+        detectingJoystickMoveDirection.Add("Right");
+        detectingJoystickMoveDirection.Add("Left");
+        QuestInput questInput = new QuestInput("Movement", "Use W, A, S, D to move or Use left joystick to move", detectingKeys, 
+            playerController.joystickMove, detectingJoystickMoveDirection);
         listOfQuest.Add(questInput);
+
+        //Add look around quest
+
+        List<string> detectingJoystickLookDirection = new List<string>();
+        detectingJoystickLookDirection.Add("Forward");
+        detectingJoystickLookDirection.Add("Backward");
+        detectingJoystickLookDirection.Add("Right");
+        detectingJoystickLookDirection.Add("Left");
+        QuestInput questInput4 = new QuestInput("Look around", "Use right joystick to look around", null,
+            cameraController.joystickLook, detectingJoystickLookDirection);
+        listOfQuest.Add(questInput4);
 
         //Added input quest
         List<KeyCode> detectingKeys2 = new List<KeyCode>();
