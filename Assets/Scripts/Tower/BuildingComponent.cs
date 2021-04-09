@@ -159,6 +159,7 @@ public class BuildingComponent : MonoBehaviour
             }
             else
             {
+                StopBuilding();
                 StartCoroutine(PopUpMessageDelay());
             }
         }
