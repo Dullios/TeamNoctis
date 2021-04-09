@@ -140,11 +140,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   perlinOffset: {x: 0, y: 0}
+  cubeCount: 0
   surfaceCube: {fileID: 1994553454022704, guid: 34a031333f407ff46aa2be10d4990402, type: 3}
   fillerCube: {fileID: 1927891046657760, guid: 8be7be74c36f36b479880ac595913875, type: 3}
   terrainHeightMultiplier: 5
   chunkPos: {x: 0, y: 0}
   maxResources: 5
+  pieceMesh: {fileID: 4300000, guid: 799d1553e777b064da196b6922de22d7, type: 3}
   blockMat:
   - {fileID: 2100000, guid: 5bc42351477c0344ebf4b99b0f59a39c, type: 2}
   - {fileID: 2100000, guid: 83db9bd7ff0cb794fa1a068e294e60c5, type: 2}

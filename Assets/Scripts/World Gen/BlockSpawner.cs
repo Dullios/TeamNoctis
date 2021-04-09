@@ -25,6 +25,8 @@ public class BlockSpawner : MonoBehaviour
     private int perlinStepSizeY;
 
     [Header("Terrain")]
+    public int cubeCount;
+
     public GameObject surfaceCube;
     public GameObject fillerCube;
 
@@ -39,6 +41,7 @@ public class BlockSpawner : MonoBehaviour
     public int maxResources;
 
     [Header("Materials")]
+    public Mesh pieceMesh;
     public Material[] blockMat;
 
     // Components
@@ -46,22 +49,47 @@ public class BlockSpawner : MonoBehaviour
     private MeshRenderer meshRenderer;
     private ResourceHandler resourceHandler;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         meshFilter = GetComponent<MeshFilter>();
         meshRenderer = GetComponent<MeshRenderer>();
         resourceHandler = GetComponent<ResourceHandler>();
+    }
 
-        // Grab values from ChunkManager Instance
-        width = ChunkManager.instance.width;
-        height = ChunkManager.instance.height;
-        perlinStepSizeX = ChunkManager.instance.perlinStepSizeX;
-        perlinStepSizeY = ChunkManager.instance.perlinStepSizeY;
+    // Start is called before the first frame update
+    void Start()
+    {
+        //meshFilter = GetComponent<MeshFilter>();
+        //meshRenderer = GetComponent<MeshRenderer>();
+        //resourceHandler = GetComponent<ResourceHandler>();
+
+        //// Grab values from ChunkManager Instance
+        //width = ChunkManager.instance.width;
+        //height = ChunkManager.instance.height;
+        //perlinStepSizeX = ChunkManager.instance.perlinStepSizeX;
+        //perlinStepSizeY = ChunkManager.instance.perlinStepSizeY;
+
+        //topLayer = new GameObject[perlinStepSizeX, perlinStepSizeY];
+
+        ////tempSpawner.perlinOffset = new Vector2(perlinOffset.x + (x * perlinStepSizeX), perlinOffset.y + (y * perlinStepSizeY));
+        //Vector2 offset = ChunkManager.instance.perlinOffset;
+        //perlinOffset = new Vector2(offset.x + (chunkPos.x * perlinStepSizeX), offset.y + (chunkPos.y * perlinStepSizeY));
+
+        //GenerateTerrain();
+        //StartCoroutine(CreateCombinedMesh());
+        //SpawnResources();
+        //StartCoroutine(GenerateNavMesh());
+    }
+
+    public void RepositionChunk(int _width, int _height, int perlinStepX, int perlinStepY)
+    {
+        width = _width;
+        height = _height;
+        perlinStepSizeX = perlinStepX;
+        perlinStepSizeY = perlinStepY;
 
         topLayer = new GameObject[perlinStepSizeX, perlinStepSizeY];
 
-        //tempSpawner.perlinOffset = new Vector2(perlinOffset.x + (x * perlinStepSizeX), perlinOffset.y + (y * perlinStepSizeY));
         Vector2 offset = ChunkManager.instance.perlinOffset;
         perlinOffset = new Vector2(offset.x + (chunkPos.x * perlinStepSizeX), offset.y + (chunkPos.y * perlinStepSizeY));
 
@@ -77,6 +105,8 @@ public class BlockSpawner : MonoBehaviour
         {
             for(int y = 0; y < perlinStepSizeY; y++)
             {
+                cubeCount++;
+
                 GameObject cubeTemp = Instantiate(surfaceCube, new Vector3(x, SampleStepped(x, y) * terrainHeightMultiplier, y) + transform.position, Quaternion.identity, transform);
                 topLayer[x, y] = cubeTemp;
 
@@ -85,12 +115,19 @@ public class BlockSpawner : MonoBehaviour
 
                 if (cubePos.y > 0)
                 {
-                    for(int i = (int)cubePos.y - 1; i >= 1; i--)
+                    //for(int i = (int)cubePos.y - 1; i >= 1; i--)
+                    for(int i = 1; i <= 2; i++)
                     {
-                        GameObject filler = Instantiate(fillerCube, new Vector3(cubePos.x, i, cubePos.z), Quaternion.identity, transform);
+                        if (cubePos.y - i < 1)
+                            continue;
 
-                        if (i == 1) // Reduce number of collider checks
-                            Destroy(filler.GetComponent<BoxCollider>());
+                        cubeCount++;
+
+                        //GameObject filler = Instantiate(fillerCube, new Vector3(cubePos.x, i, cubePos.z), Quaternion.identity, transform);
+                        GameObject filler = Instantiate(fillerCube, new Vector3(cubePos.x, cubePos.y - i, cubePos.z), Quaternion.identity, transform);
+
+                        //if (i == 1) // Reduce number of collider checks
+                        //    Destroy(filler.GetComponent<BoxCollider>());
                     }
                 }
             }
@@ -167,7 +204,8 @@ public class BlockSpawner : MonoBehaviour
                         continue;
 
                     CombineInstance ci = new CombineInstance();
-                    ci.mesh = meshFilters[i].sharedMesh;
+                    //ci.mesh = meshFilters[i].sharedMesh;
+                    ci.mesh = pieceMesh;
                     ci.subMeshIndex = matIndex;
                     ci.transform = meshFilters[i].transform.localToWorldMatrix;
                     combiner.Add(ci);

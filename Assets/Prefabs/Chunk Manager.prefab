@@ -133,4 +133,4 @@ MonoBehaviour:
   perlinStepSizeX: 16
   perlinStepSizeY: 16
   chunkPrefab: {fileID: 5158916677482163392, guid: 7dc2c41abaf8edc4aa2c34762e8464a1, type: 3}
-  loadDistance: 1
+  loadDistance: 2

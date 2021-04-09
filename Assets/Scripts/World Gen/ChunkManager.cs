@@ -7,6 +7,7 @@ public class ChunkManager : Singleton<ChunkManager>
 {
     private Renderer m_renderer;
     public Texture2D perlinTexture;
+    private ChunkPool chunkPool;
 
     [Header("Perlin Texture")]
     public int width = 256;
@@ -29,6 +30,8 @@ public class ChunkManager : Singleton<ChunkManager>
     private void Start()
     {
         m_renderer = GetComponent<Renderer>();
+        chunkPool = GetComponent<ChunkPool>();
+        chunkPool.PopulatePool(loadDistance);
 
         if (randomizeOffset)
         {
@@ -38,7 +41,6 @@ public class ChunkManager : Singleton<ChunkManager>
         perlinTexture = GenerateTexture();
         m_renderer.material.mainTexture = perlinTexture;
         chunkDict = new Dictionary<Vector2, BlockSpawner>();
-        
         
         int range = loadDistance * 2 + 1;
 
@@ -85,9 +87,13 @@ public class ChunkManager : Singleton<ChunkManager>
         int xPos = x * perlinStepSizeX;
         int yPos = y * perlinStepSizeY;
 
-        GameObject tempChunk = Instantiate(chunkPrefab, new Vector3(xPos, 0, yPos), Quaternion.identity, transform);
+        GameObject tempChunk = chunkPool.TakeChunk();
+        tempChunk.transform.position = new Vector3(xPos, 0, yPos);
+        
         BlockSpawner tempSpawner = tempChunk.GetComponent<BlockSpawner>();
         tempSpawner.chunkPos = new Vector2(x, y);
+        tempSpawner.RepositionChunk(width, height, perlinStepSizeX, perlinStepSizeY);
+        
         chunkDict.Add(tempSpawner.chunkPos, tempSpawner);
     }
 }
