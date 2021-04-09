@@ -19,6 +19,8 @@ public class SaveLoad : MonoBehaviour
     public List<GameObject> towers;
     [SerializeField] GameObject buffTowerPrefab;
     [SerializeField] GameObject normalTowerPrefab;
+    [SerializeField] GameObject slowTowerPrefab;
+    [SerializeField] GameObject wallTowerPrefab;
     // scene
     public string loadScene;
 
@@ -72,6 +74,18 @@ public class SaveLoad : MonoBehaviour
                 {
                     towers.Add(normalTowerPrefab);
                 }
+                else if (splitData[i] == "Slow")
+                {
+                    towers.Add(slowTowerPrefab);
+                }
+                else if (splitData[i] == "Wall")
+                {
+                    towers.Add(wallTowerPrefab);
+                }
+                else if(splitData[i] == "")
+                {
+                    return;
+                }
 
                 float posX = float.Parse(splitData[i + 1]);
                 float posY = float.Parse(splitData[i + 2]);
@@ -91,6 +105,7 @@ public class SaveLoad : MonoBehaviour
 
     public void GoSave()
     {
+        Debug.Log("Saved");
         string saveTowerList = "";
 
         // save position
@@ -137,61 +152,33 @@ public class SaveLoad : MonoBehaviour
                     go.transform.eulerAngles.x + "," + go.transform.eulerAngles.y + "," + go.transform.eulerAngles.z + ","; ;
                 towers.Add(go);
             }
+            else if (go.name == "SlowTower(Clone)")
+            {
+                saveTowerList +=
+                    "Slow" + "," +
+                    go.transform.position.x + "," + go.transform.position.y + "," + go.transform.position.z + "," +
+                    go.transform.eulerAngles.x + "," + go.transform.eulerAngles.y + "," + go.transform.eulerAngles.z + ","; ;
+                towers.Add(go);
+            }
+            else if (go.name == "WallTower(Clone)")
+            {
+                saveTowerList +=
+                    "Wall" + "," +
+                    go.transform.position.x + "," + go.transform.position.y + "," + go.transform.position.z + "," +
+                    go.transform.eulerAngles.x + "," + go.transform.eulerAngles.y + "," + go.transform.eulerAngles.z + ","; ;
+                towers.Add(go);
+            }
 
             PlayerPrefs.SetString("TowerList", saveTowerList);
-            //Debug.Log("Tower list" + saveTowerList);
-
-            //if (towers != null)
-            //{
-            //    for (int i = 0; i < towers.Count; ++i)
-            //    {
-            //        // position[]
-            //        PlayerPrefs.SetFloat("TowerPositionX", towers[i].transform.position.x);
-            //        PlayerPrefs.SetFloat("TowerPositionY", towers[i].transform.position.y);
-            //        PlayerPrefs.SetFloat("TowerPositionZ", towers[i].transform.position.z);
-
-            //        Debug.Log(towers[i].transform.position.x + "," + towers[i].transform.position.y + "," + towers[i].transform.position.z);
-
-            //        // rotation
-            //        PlayerPrefs.SetFloat("TowerRotationX", towers[i].transform.eulerAngles.x);
-            //        PlayerPrefs.SetFloat("TowerRotationY", towers[i].transform.eulerAngles.y);
-            //        PlayerPrefs.SetFloat("TowerRotationZ", towers[i].transform.eulerAngles.z);
-
-            //        Debug.Log(towers[i].transform.eulerAngles.x + "," + towers[i].transform.eulerAngles.y + "," + towers[i].transform.eulerAngles.z);
-            //    }
-            //}
         }
-
     }
 
     public void GoLoad()
     {
+        Debug.Log("Loaded");
         TitleButton.loadGame = true;
         Time.timeScale = 1.0f;
         SceneManager.LoadScene(loadScene);
-
-
-        //// load position
-        //playerController.transform.position = new Vector3(PlayerPrefs.GetFloat("PositionX"), PlayerPrefs.GetFloat("PositionY"), PlayerPrefs.GetFloat("PositionZ"));
-
-        //// load rotation - player (0,y,0)
-        //playerController.transform.rotation = Quaternion.Euler(0, PlayerPrefs.GetFloat("RotationY"), 0);
-
-        //// load rotation - player (x,0,0)
-        //cameraController.XRotation = PlayerPrefs.GetFloat("RotationX");
-
-        //// load player stats - HP & Stamina
-        //stats.currnetHP = PlayerPrefs.GetFloat("HP");
-        //stats.currentStamina = PlayerPrefs.GetFloat("STAMINA");
-
-        //// load day night cycle
-        //dayCycleManager.cycleCurrent = PlayerPrefs.GetFloat("DayNight");
-
-        //// load inventory
-        //if (Inventory.HasInstance) // check if there is inventory
-        //{
-        //    Inventory.instance.LoadInventory();
-        //}
     }
 
 }
