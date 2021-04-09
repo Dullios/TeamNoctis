@@ -27,10 +27,10 @@ public class BlockSpawner : MonoBehaviour
     [Header("Terrain")]
     public int cubeCount;
 
+    public int terrainHeightMultiplier;
+
     public GameObject surfaceCube;
     public GameObject fillerCube;
-
-    public int terrainHeightMultiplier;
 
     public GameObject[,] topLayer;
 
@@ -48,47 +48,37 @@ public class BlockSpawner : MonoBehaviour
     private MeshFilter meshFilter;
     private MeshRenderer meshRenderer;
     private ResourceHandler resourceHandler;
+    private BlockPool blockPool;
 
     private void Awake()
     {
         meshFilter = GetComponent<MeshFilter>();
         meshRenderer = GetComponent<MeshRenderer>();
         resourceHandler = GetComponent<ResourceHandler>();
-    }
+        blockPool = GetComponent<BlockPool>();
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        //meshFilter = GetComponent<MeshFilter>();
-        //meshRenderer = GetComponent<MeshRenderer>();
-        //resourceHandler = GetComponent<ResourceHandler>();
+        perlinStepSizeX = ChunkManager.instance.perlinStepSizeX;
+        perlinStepSizeY = ChunkManager.instance.perlinStepSizeY;
 
-        //// Grab values from ChunkManager Instance
-        //width = ChunkManager.instance.width;
-        //height = ChunkManager.instance.height;
-        //perlinStepSizeX = ChunkManager.instance.perlinStepSizeX;
-        //perlinStepSizeY = ChunkManager.instance.perlinStepSizeY;
+        topLayer = new GameObject[perlinStepSizeX, perlinStepSizeY];
 
-        //topLayer = new GameObject[perlinStepSizeX, perlinStepSizeY];
-
-        ////tempSpawner.perlinOffset = new Vector2(perlinOffset.x + (x * perlinStepSizeX), perlinOffset.y + (y * perlinStepSizeY));
-        //Vector2 offset = ChunkManager.instance.perlinOffset;
-        //perlinOffset = new Vector2(offset.x + (chunkPos.x * perlinStepSizeX), offset.y + (chunkPos.y * perlinStepSizeY));
-
-        //GenerateTerrain();
-        //StartCoroutine(CreateCombinedMesh());
-        //SpawnResources();
-        //StartCoroutine(GenerateNavMesh());
+        for(int x = 0; x < perlinStepSizeX; x++)
+        {
+            for(int y = 0; y < perlinStepSizeY; y++)
+            {
+                topLayer[x, y] = Instantiate(surfaceCube, new Vector3(x, 0, y), Quaternion.identity, transform);
+            }
+        }    
     }
 
     public void RepositionChunk(int _width, int _height, int perlinStepX, int perlinStepY)
     {
         width = _width;
         height = _height;
-        perlinStepSizeX = perlinStepX;
-        perlinStepSizeY = perlinStepY;
+        //perlinStepSizeX = perlinStepX;
+        //perlinStepSizeY = perlinStepY;
 
-        topLayer = new GameObject[perlinStepSizeX, perlinStepSizeY];
+        //topLayer = new GameObject[perlinStepSizeX, perlinStepSizeY];
 
         Vector2 offset = ChunkManager.instance.perlinOffset;
         perlinOffset = new Vector2(offset.x + (chunkPos.x * perlinStepSizeX), offset.y + (chunkPos.y * perlinStepSizeY));
@@ -107,24 +97,29 @@ public class BlockSpawner : MonoBehaviour
             {
                 cubeCount++;
 
-                GameObject cubeTemp = Instantiate(surfaceCube, new Vector3(x, SampleStepped(x, y) * terrainHeightMultiplier, y) + transform.position, Quaternion.identity, transform);
-                topLayer[x, y] = cubeTemp;
+                //GameObject cubeTemp = Instantiate(surfaceCube, new Vector3(x, SampleStepped(x, y) * terrainHeightMultiplier, y) + transform.position, Quaternion.identity, transform);
+                //topLayer[x, y] = cubeTemp;
+                
+                //cubeTemp.transform.position = new Vector3(cubeTemp.transform.position.x, Mathf.CeilToInt(cubeTemp.transform.position.y), cubeTemp.transform.position.z);
+                //Vector3 cubePos = cubeTemp.transform.position;
 
-                cubeTemp.transform.position = new Vector3(cubeTemp.transform.position.x, Mathf.CeilToInt(cubeTemp.transform.position.y), cubeTemp.transform.position.z);
-                Vector3 cubePos = cubeTemp.transform.position;
+                Vector3 pos = topLayer[x, y].transform.position;
+                pos.y = Mathf.CeilToInt(SampleStepped(x, y) * terrainHeightMultiplier);
+                topLayer[x, y].transform.position = pos;
 
-                if (cubePos.y > 0)
+                if (pos.y > 0)
                 {
                     //for(int i = (int)cubePos.y - 1; i >= 1; i--)
                     for(int i = 1; i <= 2; i++)
                     {
-                        if (cubePos.y - i < 1)
+                        if (pos.y - i < 1)
                             continue;
 
                         cubeCount++;
 
-                        //GameObject filler = Instantiate(fillerCube, new Vector3(cubePos.x, i, cubePos.z), Quaternion.identity, transform);
-                        GameObject filler = Instantiate(fillerCube, new Vector3(cubePos.x, cubePos.y - i, cubePos.z), Quaternion.identity, transform);
+                        //GameObject filler = Instantiate(fillerCube, new Vector3(pos.x, pos.y - i, pos.z), Quaternion.identity, transform);
+                        GameObject filler = blockPool.TakeBlock();
+                        filler.transform.position = new Vector3(pos.x, pos.y - 1, pos.z);
 
                         //if (i == 1) // Reduce number of collider checks
                         //    Destroy(filler.GetComponent<BoxCollider>());

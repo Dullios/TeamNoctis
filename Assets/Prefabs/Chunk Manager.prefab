@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3793855572309414627}
   - component: {fileID: 3793855572309414639}
   - component: {fileID: 3793855572309414628}
+  - component: {fileID: 119942094}
   m_Layer: 0
   m_Name: Chunk Manager
   m_TagString: Untagged
@@ -127,10 +128,24 @@ MonoBehaviour:
   perlinTexture: {fileID: 0}
   width: 256
   height: 256
-  scale: 5
-  randomizeOffset: 0
+  scale: 7
+  randomizeOffset: 1
   perlinOffset: {x: 0, y: 0}
   perlinStepSizeX: 16
   perlinStepSizeY: 16
   chunkPrefab: {fileID: 5158916677482163392, guid: 7dc2c41abaf8edc4aa2c34762e8464a1, type: 3}
   loadDistance: 2
+--- !u!114 &119942094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3793855572309414629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba1afb764b42d60449782aa1a9ceb639, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  chunkPrefab: {fileID: 5158916677482163392, guid: 7dc2c41abaf8edc4aa2c34762e8464a1, type: 3}
+  poolSize: 0

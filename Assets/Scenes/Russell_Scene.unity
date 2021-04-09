@@ -123,25 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &119942088 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3793855572309414629, guid: aeb1666eb23ea024686b7ba472a6266e, type: 3}
-  m_PrefabInstance: {fileID: 1582389548952758200}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &119942094
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 119942088}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba1afb764b42d60449782aa1a9ceb639, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  chunkPrefab: {fileID: 5158916677482163392, guid: 7dc2c41abaf8edc4aa2c34762e8464a1, type: 3}
-  poolSize: 0
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -368,10 +349,6 @@ PrefabInstance:
     - target: {fileID: 3793855572309414625, guid: aeb1666eb23ea024686b7ba472a6266e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3793855572309414628, guid: aeb1666eb23ea024686b7ba472a6266e, type: 3}
-      propertyPath: loadDistance
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3793855572309414629, guid: aeb1666eb23ea024686b7ba472a6266e, type: 3}
       propertyPath: m_Name

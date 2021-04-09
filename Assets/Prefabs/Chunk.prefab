@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 6903219595814421322}
   - component: {fileID: 5158916677482163393}
   - component: {fileID: 8834393215629994689}
+  - component: {fileID: 1093860845812949889}
   m_Layer: 2
   m_Name: Chunk
   m_TagString: Untagged
@@ -141,9 +142,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   perlinOffset: {x: 0, y: 0}
   cubeCount: 0
+  terrainHeightMultiplier: 5
   surfaceCube: {fileID: 1994553454022704, guid: 34a031333f407ff46aa2be10d4990402, type: 3}
   fillerCube: {fileID: 1927891046657760, guid: 8be7be74c36f36b479880ac595913875, type: 3}
-  terrainHeightMultiplier: 5
   chunkPos: {x: 0, y: 0}
   maxResources: 5
   pieceMesh: {fileID: 4300000, guid: 799d1553e777b064da196b6922de22d7, type: 3}
@@ -169,3 +170,17 @@ MonoBehaviour:
   - {fileID: 6750315869980362546, guid: d31adf9a5e441a344a0ab10ccdbe7839, type: 3}
   - {fileID: 7416411285968539643, guid: 6c4cd3882ebb63e4f8c17e86f1e9333d, type: 3}
   - {fileID: 1043343382839995837, guid: d50044152225ec643bf8fbda88a65b27, type: 3}
+--- !u!114 &1093860845812949889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5158916677482163392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80512c8e3679ee94da9b64c2f68ee922, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fillerPrefab: {fileID: 1927891046657760, guid: 8be7be74c36f36b479880ac595913875, type: 3}
+  queueCount: 512
