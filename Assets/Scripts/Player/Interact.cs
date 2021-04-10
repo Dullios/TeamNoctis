@@ -66,7 +66,7 @@ public class Interact : MonoBehaviour
             else
             {
                 if (_tableSummoned) return;
-                Instantiate(AlchemyTable, result.point, Quaternion.identity);
+                Instantiate(AlchemyTable, transform.position, Quaternion.identity);
                 _tableSummoned = true;
             }
         }

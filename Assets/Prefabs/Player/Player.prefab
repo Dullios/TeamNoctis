@@ -75,15 +75,18 @@ MonoBehaviour:
   gravity: -30
   jumpHeight: 2
   joystickMove: {fileID: 0}
-  joystickLook: {fileID: 0}
   groundCheck: {fileID: 3673320208110929718}
   groundRadius: 0.25
   groundMask:
     serializedVersion: 2
     m_Bits: 1
+  isGrounded: 0
   HUD: {fileID: 0}
   walkingSFX: {fileID: 3672661178631387047}
   jumpSFX: {fileID: 1374144201827027657}
+  OnJump:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &8367580216597658765
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,6 +131,10 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 1
+  OnPlaceTower:
+    m_PersistentCalls:
+      m_Calls: []
+  popUpPanel: {fileID: 0}
 --- !u!114 &1280410500665318731
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,6 +149,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rayStart: {fileID: 1280410502759049339}
   raycastDistance: 100
+  AlchemyTable: {fileID: 16953343207722751, guid: 3e950a12f282908468229c130e689e70, type: 3}
 --- !u!114 &6509029597705211507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -335,6 +343,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sensitivity: 100
   playerBody: {fileID: 1280410500665318729}
+  joystickLook: {fileID: 0}
   XRotation: -90
 --- !u!1 &1379286309203006178
 GameObject:

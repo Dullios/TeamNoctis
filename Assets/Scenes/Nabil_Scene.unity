@@ -1116,10 +1116,6 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1280410500665318731, guid: f4c671914c4d42b4c91c936ccbbf4f3a, type: 3}
-      propertyPath: AlchemyTable
-      value: 
-      objectReference: {fileID: 16953343207722751, guid: 3e950a12f282908468229c130e689e70, type: 3}
     - target: {fileID: 1280410500900937853, guid: f4c671914c4d42b4c91c936ccbbf4f3a, type: 3}
       propertyPath: m_Layer
       value: 3
