@@ -291,15 +291,18 @@ public class BlockSpawner : MonoBehaviour
                     {
                         chunk.transform.position = new Vector3((chunkPos.x + (range - 1)) * perlinStepSizeX, 0, chunk.transform.position.y);
                         bs.chunkPos.x = difference.x + range - 1;
+
+                        bs.RecycleDirt();
+                        bs.RepositionChunk();
                     }
                     else if(bs.chunkPos.x == chunkPos.x + range)
                     {
                         chunk.transform.position = new Vector3((chunkPos.x - (range - 1)) * perlinStepSizeX, 0, chunk.transform.position.y);
                         bs.chunkPos.x = difference.x - range - 1;
-                    }
 
-                    bs.RecycleDirt();
-                    bs.RepositionChunk();
+                        bs.RecycleDirt();
+                        bs.RepositionChunk();
+                    }
                 }
                 else if (difference.y != 0)
                 {
@@ -307,15 +310,18 @@ public class BlockSpawner : MonoBehaviour
                     {
                         chunk.transform.position = new Vector3(chunk.transform.position.x, 0, (chunkPos.y + (range - 1)) * perlinStepSizeY);
                         bs.chunkPos.y = difference.y + range - 1;
+
+                        bs.RecycleDirt();
+                        bs.RepositionChunk();
                     }
                     else if (bs.chunkPos.y == chunkPos.y + range)
                     {
                         chunk.transform.position = new Vector3(chunk.transform.position.x, 0, (chunkPos.y - (range - 1)) * perlinStepSizeY);
                         bs.chunkPos.y = difference.y - range - 1;
-                    }
 
-                    bs.RecycleDirt();
-                    bs.RepositionChunk();
+                        bs.RecycleDirt();
+                        bs.RepositionChunk();
+                    }
                 }
             }
 
