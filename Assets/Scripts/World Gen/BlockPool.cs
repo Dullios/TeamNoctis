@@ -19,13 +19,13 @@ public class BlockPool : MonoBehaviour
     public GameObject TakeBlock()
     {
         GameObject block = blockQueue.Dequeue();
-        block.SetActive(true);
+        //block.SetActive(true);
         return block;
     }
     
     public void ReturnBlock(GameObject block)
     {
-        block.SetActive(false);
+        //block.SetActive(false);
         blockQueue.Enqueue(block);
     }
 }

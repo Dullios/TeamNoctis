@@ -123,8 +123,8 @@ public class BlockSpawner : MonoBehaviour
                     //for(int i = (int)cubePos.y - 1; i >= 1; i--)
                     for(int i = 1; i <= 2; i++)
                     {
-                        if (pos.y - i < 1)
-                            continue;
+                        //if (pos.y - i < 1)
+                        //    continue;
 
                         cubeCount++;
 
@@ -290,18 +290,20 @@ public class BlockSpawner : MonoBehaviour
                     if(bs.chunkPos.x == chunkPos.x - range)
                     {
                         chunk.transform.position = new Vector3((chunkPos.x + (range - 1)) * perlinStepSizeX, 0, chunk.transform.position.z);
-                        bs.chunkPos.x = difference.x + range - 1;
+                        bs.chunkPos.x = chunkPos.x + (range - 1);
 
                         bs.RecycleDirt();
                         bs.RepositionChunk();
+                        other.GetComponent<PlayerController>().gridLocation = chunkPos;
                     }
                     else if(bs.chunkPos.x == chunkPos.x + range)
                     {
                         chunk.transform.position = new Vector3((chunkPos.x - (range - 1)) * perlinStepSizeX, 0, chunk.transform.position.z);
-                        bs.chunkPos.x = difference.x - range - 1;
+                        bs.chunkPos.x = chunkPos.x - (range - 1);
 
                         bs.RecycleDirt();
                         bs.RepositionChunk();
+                        other.GetComponent<PlayerController>().gridLocation = chunkPos;
                     }
                 }
                 else if (difference.y != 0)
@@ -309,18 +311,20 @@ public class BlockSpawner : MonoBehaviour
                     if (bs.chunkPos.y == chunkPos.y - range)
                     {
                         chunk.transform.position = new Vector3(chunk.transform.position.x, 0, (chunkPos.y + (range - 1)) * perlinStepSizeY);
-                        bs.chunkPos.y = difference.y + range - 1;
+                        bs.chunkPos.y = chunkPos.y + (range - 1);
 
                         bs.RecycleDirt();
                         bs.RepositionChunk();
+                        other.GetComponent<PlayerController>().gridLocation = chunkPos;
                     }
                     else if (bs.chunkPos.y == chunkPos.y + range)
                     {
                         chunk.transform.position = new Vector3(chunk.transform.position.x, 0, (chunkPos.y - (range - 1)) * perlinStepSizeY);
-                        bs.chunkPos.y = difference.y - range - 1;
+                        bs.chunkPos.y = chunkPos.y - (range - 1);
 
                         bs.RecycleDirt();
                         bs.RepositionChunk();
+                        other.GetComponent<PlayerController>().gridLocation = chunkPos;
                     }
                 }
             }
