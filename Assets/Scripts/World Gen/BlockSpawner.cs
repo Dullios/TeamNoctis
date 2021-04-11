@@ -16,9 +16,6 @@ using UnityEngine.AI;
 public class BlockSpawner : MonoBehaviour
 {
     // Values from Chunk Manager
-    private int width;
-    private int height;
-
     public Vector2 perlinOffset;
 
     private int perlinStepSizeX;
@@ -71,10 +68,8 @@ public class BlockSpawner : MonoBehaviour
         }    
     }
 
-    public void RepositionChunk(int _width, int _height, int perlinStepX, int perlinStepY)
+    public void RepositionChunk()
     {
-        width = _width;
-        height = _height;
         //perlinStepSizeX = perlinStepX;
         //perlinStepSizeY = perlinStepY;
 
@@ -84,9 +79,25 @@ public class BlockSpawner : MonoBehaviour
         perlinOffset = new Vector2(offset.x + (chunkPos.x * perlinStepSizeX), offset.y + (chunkPos.y * perlinStepSizeY));
 
         GenerateTerrain();
-        StartCoroutine(CreateCombinedMesh());
-        SpawnResources();
+        if (ChunkManager.instance.chunkDict.ContainsKey(chunkPos))
+            meshFilter.sharedMesh = ChunkManager.instance.chunkDict[chunkPos];
+        else
+        {
+            SpawnResources();
+            StartCoroutine(CreateCombinedMesh());
+        }
         StartCoroutine(GenerateNavMesh());
+    }
+
+    public void RecycleDirt()
+    {
+        for(int i = 0; i < transform.childCount; i++)
+        {
+            if (!transform.GetChild(i).CompareTag("Block"))
+                continue;
+
+            blockPool.ReturnBlock(transform.GetChild(i).gameObject);
+        }
     }
 
     private void GenerateTerrain()
@@ -119,10 +130,7 @@ public class BlockSpawner : MonoBehaviour
 
                         //GameObject filler = Instantiate(fillerCube, new Vector3(pos.x, pos.y - i, pos.z), Quaternion.identity, transform);
                         GameObject filler = blockPool.TakeBlock();
-                        filler.transform.position = new Vector3(pos.x, pos.y - 1, pos.z);
-
-                        //if (i == 1) // Reduce number of collider checks
-                        //    Destroy(filler.GetComponent<BoxCollider>());
+                        filler.transform.position = new Vector3(pos.x, pos.y - i, pos.z);
                     }
                 }
             }
@@ -131,8 +139,8 @@ public class BlockSpawner : MonoBehaviour
 
     public float SampleStepped(int x, int y)
     {
-        int gridStepSizeX = width / perlinStepSizeX;
-        int gridStepSizeY = height / perlinStepSizeY;
+        int gridStepSizeX = ChunkManager.instance.width / perlinStepSizeX;
+        int gridStepSizeY = ChunkManager.instance.height / perlinStepSizeY;
 
         //float sampledFloat = ChunkManager.Instance.perlinTexture.GetPixel((Mathf.FloorToInt((x * gridStepSizeX) + offset.x)),
         //    (Mathf.FloorToInt((y * gridStepSizeY) + offset.y))).grayscale;
@@ -155,7 +163,8 @@ public class BlockSpawner : MonoBehaviour
             Vector3 pos = topLayer[randX, randY].transform.position;
             pos.y += 1;
 
-            Instantiate(resourceHandler.ReturnResource(), pos, Quaternion.identity, gameObject.transform);
+            GameObject resource = Instantiate(resourceHandler.ReturnResource(), pos, Quaternion.identity, transform);
+            resource.transform.SetParent(ChunkManager.instance.transform);
         }
     }
 
@@ -206,9 +215,9 @@ public class BlockSpawner : MonoBehaviour
                     combiner.Add(ci);
                 }
 
-                if (meshRenderers[i] == meshRenderer)
-                    continue;
-                meshRenderers[i].enabled = false;
+                //if (meshRenderers[i] == meshRenderer)
+                //    continue;
+                //meshRenderers[i].enabled = false;
             }
 
             Mesh mesh = new Mesh();
@@ -230,6 +239,8 @@ public class BlockSpawner : MonoBehaviour
         finalMesh.CombineMeshes(finalCombiners.ToArray(), false);
         meshFilter.sharedMesh = finalMesh;
 
+        ChunkManager.instance.chunkDict.Add(chunkPos, finalMesh);
+
         transform.position = oldPos;
     }
 
@@ -242,32 +253,72 @@ public class BlockSpawner : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
             int range = ChunkManager.instance.loadDistance + 1;
 
-            for(int x = (int)chunkPos.x - range; x <= chunkPos.x + range; x++)
-            {
-                for(int y = (int)chunkPos.y -range; y <= chunkPos.y + range; y++)
-                {
-                    Vector2 index = new Vector2(x, y);
+            //for(int x = (int)chunkPos.x - range; x <= chunkPos.x + range; x++)
+            //{
+            //    for(int y = (int)chunkPos.y -range; y <= chunkPos.y + range; y++)
+            //    {
+            //        Vector2 index = new Vector2(x, y);
 
-                    if (Vector2.Distance(chunkPos, index) >= range)
+            //        if (Vector2.Distance(chunkPos, index) >= range)
+            //        {
+            //            if (ChunkManager.instance.chunkDict.ContainsKey(index))
+            //                ChunkManager.instance.chunkDict[index].gameObject.SetActive(false);
+            //        }
+            //        else
+            //        {
+            //            if (ChunkManager.instance.chunkDict.ContainsKey(index))
+            //                ChunkManager.instance.chunkDict[index].gameObject.SetActive(true);
+            //            else
+            //                ChunkManager.instance.InstantiateChunk((int)index.x, (int)index.y);
+            //        }
+            //    }
+            //}
+
+            Vector2 difference = new Vector2(Mathf.Abs(chunkPos.x - other.GetComponent<PlayerController>().gridLocation.x),
+                Mathf.Abs(chunkPos.y - other.GetComponent<PlayerController>().gridLocation.y));
+
+            foreach (GameObject chunk in ChunkManager.instance.chunkList)
+            {
+                BlockSpawner bs = chunk.GetComponent<BlockSpawner>();
+
+                if (difference.x != 0)
+                {
+                    if(bs.chunkPos.x == chunkPos.x - range)
                     {
-                        if (ChunkManager.instance.chunkDict.ContainsKey(index))
-                            ChunkManager.instance.chunkDict[index].gameObject.SetActive(false);
+                        chunk.transform.position = new Vector3((chunkPos.x + (range - 1)) * perlinStepSizeX, 0, chunk.transform.position.y);
+                        bs.chunkPos.x = difference.x + range - 1;
                     }
-                    else
+                    else if(bs.chunkPos.x == chunkPos.x + range)
                     {
-                        if (ChunkManager.instance.chunkDict.ContainsKey(index))
-                            ChunkManager.instance.chunkDict[index].gameObject.SetActive(true);
-                        else
-                            ChunkManager.instance.InstantiateChunk((int)index.x, (int)index.y);
+                        chunk.transform.position = new Vector3((chunkPos.x - (range - 1)) * perlinStepSizeX, 0, chunk.transform.position.y);
+                        bs.chunkPos.x = difference.x - range - 1;
                     }
+
+                    bs.RecycleDirt();
+                    bs.RepositionChunk();
+                }
+                else if (difference.y != 0)
+                {
+                    if (bs.chunkPos.y == chunkPos.y - range)
+                    {
+                        chunk.transform.position = new Vector3(chunk.transform.position.x, 0, (chunkPos.y + (range - 1)) * perlinStepSizeY);
+                        bs.chunkPos.y = difference.y + range - 1;
+                    }
+                    else if (bs.chunkPos.y == chunkPos.y + range)
+                    {
+                        chunk.transform.position = new Vector3(chunk.transform.position.x, 0, (chunkPos.y - (range - 1)) * perlinStepSizeY);
+                        bs.chunkPos.y = difference.y - range - 1;
+                    }
+
+                    bs.RecycleDirt();
+                    bs.RepositionChunk();
                 }
             }
 
-            //ChunkManager.Instance.GetComponent<NavMeshSurface>().BuildNavMesh();
             StartCoroutine(BuildSkyNavMesh());
         }
     }

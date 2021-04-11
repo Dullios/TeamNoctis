@@ -7,7 +7,6 @@ public class ChunkManager : Singleton<ChunkManager>
 {
     private Renderer m_renderer;
     public Texture2D perlinTexture;
-    private ChunkPool chunkPool;
 
     [Header("Perlin Texture")]
     public int width = 256;
@@ -19,19 +18,20 @@ public class ChunkManager : Singleton<ChunkManager>
     public Vector2 perlinOffset;
     
     [Header("Chunk Properties")]
+    public GameObject chunkPrefab;
+    
     public int perlinStepSizeX;
     public int perlinStepSizeY;
 
-    [Header("Chunk Loading Properties")]
-    public GameObject chunkPrefab;
-    public Dictionary<Vector2, BlockSpawner> chunkDict;
+    public List<GameObject> chunkList = new List<GameObject>();
+    public Dictionary<Vector2, Mesh> chunkDict = new Dictionary<Vector2, Mesh>();
     public int loadDistance = 1;
 
     private void Start()
     {
         m_renderer = GetComponent<Renderer>();
-        chunkPool = GetComponent<ChunkPool>();
-        chunkPool.PopulatePool(loadDistance);
+
+        ChunkPool.instance.PopulatePool(loadDistance);
 
         if (randomizeOffset)
         {
@@ -40,7 +40,6 @@ public class ChunkManager : Singleton<ChunkManager>
 
         perlinTexture = GenerateTexture();
         m_renderer.material.mainTexture = perlinTexture;
-        chunkDict = new Dictionary<Vector2, BlockSpawner>();
         
         int range = loadDistance * 2 + 1;
 
@@ -87,13 +86,12 @@ public class ChunkManager : Singleton<ChunkManager>
         int xPos = x * perlinStepSizeX;
         int yPos = y * perlinStepSizeY;
 
-        GameObject tempChunk = chunkPool.TakeChunk();
+        GameObject tempChunk = ChunkPool.instance.TakeChunk();
+        chunkList.Add(tempChunk);
         tempChunk.transform.position = new Vector3(xPos, 0, yPos);
         
         BlockSpawner tempSpawner = tempChunk.GetComponent<BlockSpawner>();
         tempSpawner.chunkPos = new Vector2(x, y);
-        tempSpawner.RepositionChunk(width, height, perlinStepSizeX, perlinStepSizeY);
-        
-        chunkDict.Add(tempSpawner.chunkPos, tempSpawner);
+        tempSpawner.RepositionChunk();
     }
 }

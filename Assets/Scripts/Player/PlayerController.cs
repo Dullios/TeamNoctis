@@ -27,6 +27,9 @@ public class PlayerController : MonoBehaviour
     public AudioSource walkingSFX;
     public AudioSource jumpSFX;
 
+    [Header("Chunk Location")]
+    public Vector2 gridLocation;
+
     InventorySlot inventorySlot;
 
     //Event

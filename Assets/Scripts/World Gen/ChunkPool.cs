@@ -31,7 +31,7 @@ public class ChunkPool : Singleton<ChunkPool>
 
     public void ReturnChunk(GameObject chunk)
     {
-        // TODO: tell chunk to return all their blocks to blockPool
+        chunk.GetComponent<BlockSpawner>().RecycleDirt();
 
         chunk.SetActive(false);
         chunkPool.Enqueue(chunk);

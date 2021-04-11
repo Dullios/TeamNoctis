@@ -129,11 +129,12 @@ MonoBehaviour:
   width: 256
   height: 256
   scale: 7
-  randomizeOffset: 1
+  randomizeOffset: 0
   perlinOffset: {x: 0, y: 0}
+  chunkPrefab: {fileID: 5158916677482163392, guid: 7dc2c41abaf8edc4aa2c34762e8464a1, type: 3}
   perlinStepSizeX: 16
   perlinStepSizeY: 16
-  chunkPrefab: {fileID: 5158916677482163392, guid: 7dc2c41abaf8edc4aa2c34762e8464a1, type: 3}
+  chunkList: []
   loadDistance: 2
 --- !u!114 &119942094
 MonoBehaviour:

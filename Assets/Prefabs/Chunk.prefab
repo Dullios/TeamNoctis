@@ -143,8 +143,8 @@ MonoBehaviour:
   perlinOffset: {x: 0, y: 0}
   cubeCount: 0
   terrainHeightMultiplier: 5
-  surfaceCube: {fileID: 1994553454022704, guid: 34a031333f407ff46aa2be10d4990402, type: 3}
-  fillerCube: {fileID: 1927891046657760, guid: 8be7be74c36f36b479880ac595913875, type: 3}
+  surfaceCube: {fileID: 2539838221242637274, guid: 1926ab6973172ae4f85a59f059cbb982, type: 3}
+  fillerCube: {fileID: 5570259990210442336, guid: ccf434d42cfa7144dba3791a5b80f451, type: 3}
   chunkPos: {x: 0, y: 0}
   maxResources: 5
   pieceMesh: {fileID: 4300000, guid: 799d1553e777b064da196b6922de22d7, type: 3}
@@ -182,5 +182,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80512c8e3679ee94da9b64c2f68ee922, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fillerPrefab: {fileID: 1927891046657760, guid: 8be7be74c36f36b479880ac595913875, type: 3}
+  fillerPrefab: {fileID: 5570259990210442336, guid: ccf434d42cfa7144dba3791a5b80f451, type: 3}
   queueCount: 512
