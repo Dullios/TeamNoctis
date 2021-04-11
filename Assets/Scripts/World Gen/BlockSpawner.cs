@@ -289,7 +289,7 @@ public class BlockSpawner : MonoBehaviour
                 {
                     if(bs.chunkPos.x == chunkPos.x - range)
                     {
-                        chunk.transform.position = new Vector3((chunkPos.x + (range - 1)) * perlinStepSizeX, 0, chunk.transform.position.y);
+                        chunk.transform.position = new Vector3((chunkPos.x + (range - 1)) * perlinStepSizeX, 0, chunk.transform.position.z);
                         bs.chunkPos.x = difference.x + range - 1;
 
                         bs.RecycleDirt();
@@ -297,7 +297,7 @@ public class BlockSpawner : MonoBehaviour
                     }
                     else if(bs.chunkPos.x == chunkPos.x + range)
                     {
-                        chunk.transform.position = new Vector3((chunkPos.x - (range - 1)) * perlinStepSizeX, 0, chunk.transform.position.y);
+                        chunk.transform.position = new Vector3((chunkPos.x - (range - 1)) * perlinStepSizeX, 0, chunk.transform.position.z);
                         bs.chunkPos.x = difference.x - range - 1;
 
                         bs.RecycleDirt();
