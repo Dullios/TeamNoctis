@@ -272,7 +272,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1602201399552858073, guid: a533d6623c64ddb4ca31e8824daba7a3, type: 3}
       propertyPath: cycleCurrent
-      value: 400
+      value: 2000
       objectReference: {fileID: 0}
     - target: {fileID: 1602201400600476019, guid: a533d6623c64ddb4ca31e8824daba7a3, type: 3}
       propertyPath: m_Color.b
@@ -479,7 +479,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2948969472345877069, guid: 69c2b33ce80ebda42b33c86595a89a2b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2973492411866270266, guid: 69c2b33ce80ebda42b33c86595a89a2b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
