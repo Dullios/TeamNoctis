@@ -56,11 +56,20 @@ public class TowerController : MonoBehaviour
     protected void OnFire()
     {
         //look at first enemy in list
-        shotPoint.LookAt(enemies[0].transform);
-        //instantiate bullet with direction of enemy
-        Instantiate(bullet, shotPoint);
-        //reset cooldown
-        shotCooldown = shotSpeed;
+        if (enemies[0] != null)
+        {
+            //look at first enemy in list
+            shotPoint.LookAt(enemies[0].transform);
+            //instantiate bullet with direction of enemy
+            Instantiate(bullet, shotPoint);
+            //reset cooldown
+            shotCooldown = shotSpeed;
+        }
+        else
+        {
+            enemies.RemoveAt(0);
+        }
+        
     }
 
     //Add enemies in range to shot list

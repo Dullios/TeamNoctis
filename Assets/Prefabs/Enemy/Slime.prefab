@@ -270,6 +270,7 @@ MonoBehaviour:
   staminaImg: {fileID: 0}
   hpText: {fileID: 0}
   staminaText: {fileID: 0}
+  isEnemy: 1
   debugSphereYOffset: 0
   hitSFX: {fileID: 7696931884459252624}
 --- !u!1 &3379608486835147742

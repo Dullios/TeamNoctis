@@ -21,6 +21,8 @@ public class Stats : MonoBehaviour
     public Text hpText = null;
     public Text staminaText = null;
 
+    public bool isEnemy = false;
+    
     [Header("Debug")]
     [SerializeField] float debugSphereYOffset = 0f; //Gizmo spherer drawing y offset
 
@@ -50,7 +52,15 @@ public class Stats : MonoBehaviour
         hitSFX.Play();
         if(currnetHP <= 0)
         {
-            hUDButton.GoGameOver();
+            if (isEnemy)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                hUDButton.GoGameOver();
+            }
+            
         }
     }
 
