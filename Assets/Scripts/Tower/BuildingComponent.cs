@@ -30,7 +30,7 @@ public class BuildingComponent : MonoBehaviour
         tower = Instantiate(towerChoice, transform);
         tower.GetComponent<TowerController>().isActivated = false;
         _Selected(tower);
-        tower.SetActive(false);
+        //tower.SetActive(false);
         Debug.Log("Building Beginning");
     }
 
