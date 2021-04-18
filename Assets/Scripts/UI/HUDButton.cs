@@ -158,7 +158,9 @@ public class HUDButton : MonoBehaviour
 
     public void SwitchToMenu(bool menues)
     {
-        Cursor.lockState = menues ? CursorLockMode.None: CursorLockMode.Locked;
+        if (Application.platform != RuntimePlatform.Android)//Don't lock cursor on phone
+            Cursor.lockState = menues ? CursorLockMode.None : CursorLockMode.Locked;
+
         gameCanvas.SetActive(!menues);
         overCanvas.SetActive(menues);
     }
